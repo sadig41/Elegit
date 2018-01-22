@@ -6,7 +6,7 @@
 
 <AnchorPane fx:controller="elegit.controllers.BranchCheckoutController"
                   xmlns:fx="http://javafx.com/fxml"
-                  fx:id="anchorRoot">
+                  fx:id="anchorRoot" nodeOrientation="RIGHT_TO_LEFT">
 
     <GridPane hgap="10"
               vgap="10"
@@ -37,7 +37,7 @@
                       onMouseClicked="#handleRemoteListViewMouseClick"/>
             <Button fx:id="trackRemoteBranchButton"
                     onAction="#trackSelectedBranchLocally"
-                    text="Track remote branch locally"/>
+                    text="تتبع التفريعة البعيدة محليا"/>
 
         </VBox>
 
@@ -51,7 +51,7 @@
                       onMouseClicked="#handleLocalListViewMouseClick"/>
             <Button fx:id="checkoutLocalBranchButton"
                     onAction="#handleCheckoutButton"
-                    text="Checkout local branch" />
+                    text="تفحص التفريعة المحلية" />
 
         </VBox>
 
@@ -59,7 +59,7 @@
                 GridPane.columnIndex="1"
                 GridPane.halignment="RIGHT"
                 prefWidth="80"
-                text="Cancel"
+                text="الغاء"
                 onAction="#closeWindow"/>
 
     </GridPane>

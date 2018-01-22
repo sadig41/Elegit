@@ -8,7 +8,7 @@
 <AnchorPane fx:controller="elegit.controllers.CheckoutFilesController"
             xmlns:fx="http://javafx.com/fxml"
             fx:id="anchorRoot"
-            prefWidth="350" prefHeight="200">
+            prefWidth="350" prefHeight="200" nodeOrientation="RIGHT_TO_LEFT">
     <GridPane   AnchorPane.bottomAnchor="20"
                 AnchorPane.topAnchor="5"
                 AnchorPane.leftAnchor="5"
@@ -26,10 +26,10 @@
                 alignment="TOP_RIGHT"
                 spacing="5">
             <Label  fx:id="header"
-                    text="Checkout files from "/>
-            <TextField  promptText="Enter filename"
+                    text="تفحص ملفات من "/>
+            <TextField  promptText="ادخل اسم الملف"
                         fx:id="fileField"/>
-            <Button text="Add"
+            <Button text="اضافة"
                     alignment="CENTER_RIGHT"
                     onAction="#handleAddButton"/>
         </VBox>
@@ -37,7 +37,7 @@
         <Button fx:id="cancelButton"
                 GridPane.rowIndex="1"
                 GridPane.halignment="LEFT"
-                text="Cancel"
+                text="الغاء"
                 onAction="#closeWindow"/>
 
         <ScrollPane GridPane.columnIndex="1">
@@ -51,7 +51,7 @@
                 GridPane.rowIndex="1"
                 GridPane.columnIndex="1"
                 GridPane.halignment="RIGHT"
-                text="Checkout"
+                text="تفحص Checkout"
                 onAction="#handleCheckoutButton"/>
     </GridPane>
 

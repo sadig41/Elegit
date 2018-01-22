@@ -9,7 +9,7 @@
           vgap="30"
           alignment="TOP_CENTER"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="elegit.controllers.LegendController">
+          fx:controller="elegit.controllers.LegendController" nodeOrientation="RIGHT_TO_LEFT">
 
     <padding>
         <Insets top="10" bottom="10" right="10" left="10"/>
@@ -93,7 +93,7 @@
                 </StackPane.margin>
             </Polygon>
         </StackPane>
-        <Text text="A commit tracked locally and remotely"/>
+        <Text text="يتتبع الايداع محليا وبعيدا"/>
     </HBox>
 
     <!-- Fill Legend and Shape Legend Separator -->
@@ -136,7 +136,7 @@
           spacing="10">
         <Polygon points="0,0,30,0,15,30"
                  style="-fx-fill: lightslategrey"/>
-        <Text text="Either a local branch head that has an associated&#10;remote-tracking branch, or vice versa."/>
+        <Text text="اما ان لترويسة التفريعة المحلية تفريعة &#10;متتبعة بعيدا مرتبطة، او بالعكس."/>
     </HBox>
 
     <!-- Circle -->
@@ -147,7 +147,7 @@
           spacing="10">
         <Circle radius="15.0"
                 style="-fx-fill: lightslategrey"/>
-        <Text text="Either a local branch head that does not have&#10;an associated remote-tracking branch, or vice versa."/>
+        <Text text="اما انه ليس لترويسة التفريعة المحلية تفريعة &#10;متتبعة بعيدا مرتبطة، او بالعكس."/>
     </HBox>
 
 <stylesheets>

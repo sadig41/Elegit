@@ -9,7 +9,7 @@
 <AnchorPane fx:controller="elegit.controllers.MergeWindowController"
                   xmlns:fx="http://javafx.com/fxml"
                   fx:id="anchorRoot"
-                  prefHeight="200">
+                  prefHeight="200" nodeOrientation="RIGHT_TO_LEFT">
     <VBox   spacing="10"
             AnchorPane.rightAnchor="5"
             AnchorPane.leftAnchor="5"
@@ -22,7 +22,7 @@
         <TabPane tabClosingPolicy="UNAVAILABLE" fx:id="mergeTypePane"
                     VBox.vgrow="ALWAYS">
             <tabs>
-                <Tab text="From Fetch">
+                <Tab text="من مجلوب">
                     <content>
                         <HBox alignment="CENTER">
                         <GridPane hgap="3" vgap="3" alignment="CENTER">
@@ -34,12 +34,12 @@
                             <Text   id="merge-text"
                                     fx:id="mergeRemoteTrackingText"
                                     GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.halignment="LEFT"
-                                    text="Merge remote-tracking branch head"/>
+                                    text="دمج ترويسة تفريعة بعيدة متابعة"/>
                             <HBox id="branch-merge-box-tracked" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.halignment="RIGHT"
                                     alignment="CENTER" fx:id="remoteBranchBox">
                                 <Label  id="branch-merge" fx:id="remoteTrackingBranchName"/>
                             </HBox>
-                            <Text   id="merge-text" strokeType="OUTSIDE" strokeWidth="0.0" text="into current branch"
+                            <Text   id="merge-text" strokeType="OUTSIDE" strokeWidth="0.0" text="الي التفريعة الحالية"
                                     GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="2" fx:id="intoText1"/>
                             <AnchorPane  GridPane.rowIndex="1" GridPane.columnIndex="0"
                                     GridPane.rowSpan="2" GridPane.halignment="RIGHT" fx:id="arrowPane">
@@ -67,7 +67,7 @@
                         </ImageView>
                     </graphic>
                 </Tab>
-                <Tab text="Local Branches"
+                <Tab text="تفريعات محلية"
                      fx:id="localBranchTab">
                     <content>
                         <HBox alignment="CENTER">
@@ -79,8 +79,8 @@
                             </columnConstraints>
                             <Text   id="merge-text"
                                     GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.halignment="CENTER"
-                                    text="Merge local branch head"/>
-                            <Text   id="merge-text" strokeType="OUTSIDE" text="into current branch"
+                                    text="دمج ترويسة تفريعة محلية"/>
+                            <Text   id="merge-text" strokeType="OUTSIDE" text="الي التفريعة الحالية"
                                     GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
                             <AnchorPane  GridPane.rowIndex="1" GridPane.columnIndex="0"
                                          GridPane.rowSpan="2" GridPane.halignment="RIGHT">
@@ -125,7 +125,7 @@
                     fx:id="mergeButton"
                     GridPane.columnIndex="0"
                     GridPane.rowIndex="5"/>
-            <Button text="Cancel"
+            <Button text="الغاء"
                     onAction="#closeWindow"
                     GridPane.halignment="RIGHT"
                     GridPane.rowIndex="5"

@@ -7,7 +7,7 @@
     <AnchorPane fx:controller="elegit.controllers.StashListController"
             xmlns:fx="http://javafx.com/fxml"
             fx:id="anchorRoot"
-            prefWidth="350" prefHeight="200">
+            prefWidth="350" prefHeight="200" nodeOrientation="RIGHT_TO_LEFT">
     <GridPane   AnchorPane.bottomAnchor="20"
                 AnchorPane.topAnchor="5"
                 AnchorPane.leftAnchor="5"
@@ -32,35 +32,35 @@
                 GridPane.rowIndex="1"
                 GridPane.columnIndex="0"
                 GridPane.halignment="LEFT"
-                text="Cancel"
+                text="الغاء"
                 onAction="#closeWindow"/>
 
         <Button fx:id="applyButton"
                 GridPane.rowIndex="1"
                 GridPane.columnIndex="1"
                 GridPane.halignment="CENTER"
-                text="Apply"
+                text="تطبيق"
                 onAction="#handleApply"/>
 
         <Button fx:id="dropButton"
                 GridPane.rowIndex="1"
                 GridPane.columnIndex="2"
                 GridPane.halignment="CENTER"
-                text="Drop"
+                text="قطرة"
                 onAction="#handleDrop"/>
 
         <Button fx:id="clearButton"
                 GridPane.rowIndex="1"
                 GridPane.columnIndex="3"
                 GridPane.halignment="CENTER"
-                text="Clear"
+                text="اخلاء"
                 onAction="#handleClearStash"/>
 
         <Button fx:id="popButton"
                 GridPane.rowIndex="1"
                 GridPane.columnIndex="4"
                 GridPane.halignment="RIGHT"
-                text="Pop"
+                text="خروج Pop"
                 onAction="#handlePop"/>
     </GridPane>
 

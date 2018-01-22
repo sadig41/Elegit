@@ -8,93 +8,93 @@
 <MenuBar    xmlns:fx="http://javafx.com/fxml"
             GridPane.rowIndex="0"
             useSystemMenuBar="true"
-            fx:controller="elegit.controllers.MenuController">
+            fx:controller="elegit.controllers.MenuController" nodeOrientation="RIGHT_TO_LEFT">
     <menus>
-        <Menu   text="Preferences">
+        <Menu   text="تفضيلات">
             <items>
-                <CheckMenuItem   text="Enable Logging"
+                <CheckMenuItem   text="تمكين الولوج"
                             fx:id="loggingToggle"
                             onAction="#handleLoggingToggle"/>
-                <CheckMenuItem   text="Sort Commits Topologically"
+                <CheckMenuItem   text="ترتيب الايداعات طبولوجيا"
                             fx:id="commitSortToggle"
                             onAction="#handleCommitSortToggle"/>
-                <MenuItem   text="About"
+                <MenuItem   text="حول"
                             fx:id="about"
                             onAction="#handleAbout"/>
             </items>
         </Menu>
-        <Menu   text="Edit">
+        <Menu   text="تعديل">
             <items>
                 <MenuItem   text=".gitignore"
                             fx:id="gitIgnoreMenuItem"
                             onAction="#handleGitIgnoreMenuItem"/>
             </items>
         </Menu>
-        <Menu   text="Repository"
+        <Menu   text="مستودع"
                 fx:id="repoMenu">
             <items>
-                <Menu   text="Branch">
-                    <MenuItem   text="Create Branch"
+                <Menu   text="تفريع">
+                    <MenuItem   text="انشاء مستودع"
                                 fx:id="createBranchMenuItem"
                                 onAction="#handleNewBranchButton"/>
-                    <MenuItem   text="Delete Local Branch"
+                    <MenuItem   text="حذف تفريعة محلية"
                                 onAction="#handleDeleteLocalBranchButton"/>
-                    <MenuItem   text="Delete Remote Branch"
+                    <MenuItem   text="حذف تفريعة بعيدة"
                                 onAction="#handleDeleteRemoteBranchButton"/>
                 </Menu>
-               <Menu   text="Checkout">
-                    <MenuItem   text="Checkout Branch"
+               <Menu   text="تفحص Checkout">
+                    <MenuItem   text="تفحص تفريعة"
                                 onAction="#showBranchCheckout"/>
                 </Menu>
-                <Menu   text="Clone">
-                    <MenuItem   text="Clone"
+                <Menu   text="استنساخ">
+                    <MenuItem   text="استنساخ"
                                 fx:id="cloneMenuItem"
                                 onAction="#handleCloneNewRepoOption"/>
                 </Menu>
-                <Menu   text="Commit">
-                    <MenuItem   text="Commit"
+                <Menu   text="ايداع">
+                    <MenuItem   text="ايداع"
                                 fx:id="commitNormalMenuItem"
                                 onAction="#handleCommitNormal"/>
-                    <MenuItem   text="Commit -a"
+                    <MenuItem   text="ايداع برسالة Commit -a"
                                 onAction="#handleCommitAll"/>
                 </Menu>
-                <Menu   text="Fetch">
-                    <MenuItem   text="Fetch"
+                <Menu   text="جلب">
+                    <MenuItem   text="جلب"
                                 fx:id="normalFetchMenuItem"
                                 onAction="#handleNormalFetchButton"/>
                     <MenuItem   text="Fetch -p"
                                 onAction="#handlePruneFetchButton"/>
                 </Menu>
-                <Menu   text="Merge">
-                    <MenuItem   text="Merge From Fetch"
+                <Menu   text="دمج">
+                    <MenuItem   text="دمج من مجلوب"
                                 onAction="#mergeFromFetch"/>
-                    <MenuItem   text="Merge Local Branches"
+                    <MenuItem   text="دمج تفريعات محلية"
                                 onAction="#handleBranchMergeButton"/>
                 </Menu>
-                <Menu   text="Pull">
-                    <MenuItem   text="Pull"
+                <Menu   text="سحب">
+                    <MenuItem   text="سحب"
                                 fx:id="pullMenuItem"
                                 onAction="#handlePullButton"/>
                 </Menu>
-                <Menu   text="Push">
-                    <MenuItem   text="Push Current Branch"
+                <Menu   text="دفع">
+                    <MenuItem   text="دفع التفريعة المحلية"
                                 fx:id="pushMenuItem"
                                 onAction="#handlePushButton"/>
-                    <MenuItem   text="Push All Branches"
+                    <MenuItem   text="دفع كل التفريعات"
                                 onAction="#handlePushAllButton"/>
-                    <MenuItem   text="Push Tags"
+                    <MenuItem   text="تزييلات الدفع"
                                 onAction="#handlePushTagsButton"/>
                 </Menu>
-                <Menu   text="Stash">
-                    <MenuItem   text="Stash Changes"
+                <Menu   text="أخفاء Stash">
+                    <MenuItem   text="اخفاء تعديلات"
                                 fx:id="stashMenuItem1"
                                 onAction="#handleStashSaveButton"/>
-                    <MenuItem   text="Stash Apply"
+                    <MenuItem   text="تطبيق اخفاء"
                                 onAction="#handleStashApplyButton"/>
-                    <MenuItem   text="Stash List"
+                    <MenuItem   text="لائحة اخفاء"
                                 fx:id="stashMenuItem2"
                                 onAction="#handleStashListButton"/>
-                    <MenuItem   text="Stash Drop"
+                    <MenuItem   text="اخفاء قطرة"
                                 onAction="#handleStashDropButton"/>
                 </Menu>
             </items>

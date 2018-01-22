@@ -8,7 +8,7 @@
     <HBox spacing="5"
           xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="elegit.controllers.DropdownController">
+          fx:controller="elegit.controllers.DropdownController" nodeOrientation="RIGHT_TO_LEFT">
         <ComboBox id="repoDropdown"
                   fx:id="repoDropdownSelector"
                   onAction="#loadSelectedRepo"/>
@@ -26,7 +26,7 @@
                                   text="Clone repository"/>
                         <MenuItem fx:id="existingOption"
                                   onAction="#handleLoadExistingRepoOption"
-                                  text="Load existing repository"/>
+                                  text="تحميل المستودع الموجود"/>
                     </items>
                 </ContextMenu>
             </contextMenu>

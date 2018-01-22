@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="elegit.controllers.SessionController">
+            fx:controller="elegit.controllers.SessionController" nodeOrientation="RIGHT_TO_LEFT">
 
     <!-- the top section of the border pane -->
     <top>
@@ -74,7 +74,7 @@
                         GridPane.columnIndex="1"
                         GridPane.columnSpan="4"
                         alignment="CENTER_LEFT">
-                    <Text   text="Local branch: "
+                    <Text   text="تفريعة محلية: "
                             textAlignment="CENTER"/>
                     <HBox   fx:id="currentLocalBranchHbox"
                             alignment="CENTER"
@@ -88,7 +88,7 @@
                             <Insets right="10"/>
                         </padding>
                     </HBox>
-                    <Text   text="Remote-tracking branch: "/>
+                    <Text   text="تفريعة متتبعة بعيدا: "/>
                     <HBox   GridPane.halignment="CENTER"
                             fx:id="currentRemoteTrackingBranchHbox"
                             alignment="CENTER"
@@ -110,7 +110,7 @@
                         <Image url="@../images/folder.png"/>
                     </ImageView>
                     <VBox   alignment="CENTER">
-                        <Text   text="Working Tree">
+                        <Text   text="شجرة العمل">
                             <font>
                                 <Font   size="25"/>
                             </font>
@@ -121,12 +121,12 @@
                 <!-- File tree panel view -->
                 <TabPane GridPane.rowIndex="4"
                          fx:id="filesTabPane">
-                    <Tab text="Changed Files"
+                    <Tab text="ملفات متغيرة"
                          closable="false"
                          fx:id="workingTreePanelTab">
                         <WorkingTreePanelView fx:id="workingTreePanelView"/>
                     </Tab>
-                    <Tab text="All Files"
+                    <Tab text="كل الملفات"
                          closable="false"
                          fx:id="allFilesPanelTab">
                         <AllFilesPanelView fx:id="allFilesPanelView"/>
@@ -140,19 +140,19 @@
                         alignment="CENTER_LEFT">
                     <Button id="codeButton"
                             fx:id="removeButton"
-                            text="Remove"
+                            text="حذف"
                             onAction="#handleRemoveButton"/>
                 </HBox>
 
                 <!-- Checkout branch button and create/delete branch button -->
-                <Button text="Checkout different branch"
+                <Button text="تفحص تفريعة اخري"
                         fx:id="checkoutButton"
                         id = "codeButton"
                         onAction="#showBranchCheckout"
                         GridPane.rowIndex="6"
                         GridPane.halignment="CENTER"
                         GridPane.valignment="BOTTOM"/>
-                <Button text="Create/delete a branch"
+                <Button text="انشاء/حذف تفريعة"
                         id = "codeButton"
                         fx:id="addDeleteBranchButton"
                         onAction="#handleCreateOrDeleteBranchButton"
@@ -194,7 +194,7 @@
                 <TabPane GridPane.rowIndex="4"
                          GridPane.columnIndex="2"
                          fx:id="indexTabPane">
-                    <Tab text="Staged Files"
+                    <Tab text="ملفات مدرجة"
                          closable="false"
                          fx:id="indexPanelTab">
                         <StagedTreePanelView fx:id="indexPanelView"/>
@@ -228,7 +228,7 @@
                             alignment="CENTER"
                             GridPane.rowIndex="1"
                             GridPane.columnIndex="2">
-                        <Text   text="Local Repository">
+                        <Text   text="مستودع محلي">
                             <font>
                                 <Font   size="25"/>
                             </font>
@@ -248,7 +248,7 @@
                 <!-- Checkout Files button -->
                 <ArrowButton id="codeButton"
                              fx:id="checkoutFileButton"
-                             text="Checkout Files"
+                             text="تفحص ملفات"
                              arrowLeft="true"
                              onAction="#handleCheckoutButton"
                              GridPane.rowIndex="5"
@@ -261,7 +261,7 @@
                 </ArrowButton>
 
                 <!-- Merge and Add buttons -->
-                <Button text="Merge"
+                <Button text="دمج"
                         fx:id="mergeButton"
                         id = "codeButton"
                         onAction="#handleMergeFromFetchButton"
@@ -275,7 +275,7 @@
                 </Button>
                 <ArrowButton id="codeButton"
                              fx:id="addButton"
-                             text="Add"
+                             text="اضافة"
                              arrowRight="true"
                              onAction="#handleAddButton"
                              GridPane.rowIndex="2"
@@ -290,7 +290,7 @@
                 <!-- Commit button -->
                 <ArrowButton id="codeButton"
                              fx:id="commitButton"
-                             text="Commit"
+                             text="ايداع"
                              arrowRight="true"
                              onAction="#handleCommitNormal"
                              GridPane.rowIndex="2"
@@ -300,7 +300,7 @@
                     <contextMenu>
                         <ContextMenu    fx:id="commitContextMenu">
                             <items>
-                                <MenuItem   text="Commit -a"
+                                <MenuItem   text="ايداع برسالة Commit -a"
                                             onAction="#handleCommitAll"/>
                             </items>
                         </ContextMenu>
@@ -321,7 +321,7 @@
                     </GridPane.margin>
                 </CommitTreePanelView>
                 <Hyperlink  fx:id="legendLink"
-                            text="What do all these symbols mean?"
+                            text="ما الذي تعنيه كل هذه العلامات؟?"
                             onAction="#showLegend"
                             GridPane.rowIndex="8"
                             GridPane.columnIndex="4"
@@ -353,7 +353,7 @@
                 <!-- Fetch and push buttons -->
                 <ArrowButton id="codeButton"
                              fx:id="fetchButton"
-                             text="Fetch"
+                             text="جلب"
                              arrowLeft="true"
                              onAction="#handleNormalFetchButton"
                              GridPane.rowIndex="2"
@@ -374,7 +374,7 @@
                 </ArrowButton>
                 <ArrowButton id="codeButton"
                              fx:id="pushButton"
-                             text="Push"
+                             text="دفع"
                              arrowRight="true"
                              onAction="#handlePushButton"
                              GridPane.columnIndex="5"
@@ -387,9 +387,9 @@
                     <contextMenu>
                         <ContextMenu    fx:id="pushContextMenu">
                             <items>
-                                <MenuItem   text="Push all branches"
+                                <MenuItem   text="سحب كل التفريعات"
                                             onAction="#handlePushAllButton"/>
-                                <MenuItem   text="push --tags"
+                                <MenuItem   text="دفع مزيل push --tags"
                                             onAction="#handlePushTagsButton"/>
                             </items>
                         </ContextMenu>
@@ -410,7 +410,7 @@
                         <Image url="@../images/graycloud.png"/>
                     </ImageView>
                     <VBox   alignment="CENTER">
-                        <Text text="Remote Repository">
+                        <Text text="مستودع بعيد">
                             <font>
                                 <Font size="25"/>
                             </font>
@@ -421,7 +421,7 @@
                         <HBox   alignment="CENTER"
                                 style="-fx-cursor: hand"
                                 onMouseClicked="#handleRemoteMouseClick">
-                            <Text   text="remote: "/>
+                            <Text   text="بعيد: "/>
                             <Text fx:id="browserText"/>
                         </HBox>
                     </VBox>
@@ -439,18 +439,18 @@
                     <HBox>
                         <ArrowButton id="codeButton"
                                      fx:id="tagButton"
-                                     text="Tag"
+                                     text="تزييل"
                                      arrowLeft="true"
                                      onAction="#handleTagButton"/>
                         <TextField   prefHeight="30"
                                     prefWidth="170"
                                     fx:id="tagNameField"
-                                    promptText="tag..." />
+                                    promptText="تزييل..." />
 
                     </HBox>
                     <ArrowButton id="codeButton"
                                  fx:id="pushTagsButton"
-                                 text="Push Tags"
+                                 text="تزييلات الدفع"
                                  arrowRight="true"
                                  onAction="#handlePushTagsButton">
                     </ArrowButton>

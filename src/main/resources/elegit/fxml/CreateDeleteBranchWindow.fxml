@@ -7,7 +7,7 @@
 
 <AnchorPane fx:controller="elegit.controllers.CreateDeleteBranchWindowController"
             fx:id="anchorRoot"
-            xmlns:fx="http://javafx.com/fxml">
+            xmlns:fx="http://javafx.com/fxml" nodeOrientation="RIGHT_TO_LEFT">
     <StackPane AnchorPane.rightAnchor="5"
                AnchorPane.leftAnchor="5"
                AnchorPane.topAnchor="5"
@@ -22,7 +22,7 @@
                 <padding>
                     <Insets bottom="5"/>
                 </padding>
-                <Tab    text="Create"
+                <Tab    text="انشاء"
                         closable="false"
                         fx:id="createTab">
                     <VBox   spacing="10"
@@ -30,24 +30,24 @@
                         <TextField  VBox.vgrow="NEVER"
                                     prefHeight="30"
                                     fx:id="newBranchTextField"
-                                    promptText="new branch name..."/>
+                                    promptText="اسم تفريعة جديدة..."/>
                         <HBox   spacing="5"
                                 alignment="CENTER">
                             <CheckBox   fx:id="checkoutCheckBox"/>
-                            <Text   text="checkout new branch once created"/>
+                            <Text   text="تفحص التفريعة الجديدة بمجرد انشاءها"/>
                         </HBox>
                         <AnchorPane>
-                            <Button text="Cancel"
+                            <Button text="الغاء"
                                     onAction="#closeWindow"
                                     AnchorPane.leftAnchor="10"/>
-                            <Button text="Create branch"
+                            <Button text="انشاء تفريعة"
                                     fx:id="createButton"
                                     onAction="#handleCreateBranch"
                                     AnchorPane.rightAnchor="10"/>
                         </AnchorPane>
                     </VBox>
                 </Tab>
-                <Tab    text="Delete Local"
+                <Tab    text="حذف محلي"
                         closable="false"
                         fx:id="deleteLocalTab">
                     <VBox   alignment="CENTER">
@@ -62,17 +62,17 @@
                             <ComboBox   fx:id="localBranchesDropdown"/>
                         </StackPane>
                         <AnchorPane>
-                            <Button text="Delete branch"
+                            <Button text="حذف تفريعة"
                                     fx:id="deleteButton"
                                     AnchorPane.rightAnchor="10"
                                     onAction="#handleDeleteLocalBranch"/>
-                            <Button text="Cancel"
+                            <Button text="الغاء"
                                     onAction="#closeWindow"
                                     AnchorPane.leftAnchor="10"/>
                         </AnchorPane>
                     </VBox>
                 </Tab>
-                <Tab    text="Delete Remote"
+                <Tab    text="حذف بعيد"
                         closable="false"
                         fx:id="deleteRemoteTab">
                     <VBox   alignment="CENTER">
@@ -87,11 +87,11 @@
                             <ComboBox   fx:id="remoteBranchesDropdown"/>
                         </StackPane>
                         <AnchorPane>
-                            <Button text="Delete branch"
+                            <Button text="حذف تفريعة"
                                     fx:id="deleteButton2"
                                     onAction="#handleDeleteRemoteBranch"
                                     AnchorPane.rightAnchor="10"/>
-                            <Button text="Cancel"
+                            <Button text="الغاء"
                                     onAction="#closeWindow"
                                     AnchorPane.leftAnchor="10"/>
                         </AnchorPane>

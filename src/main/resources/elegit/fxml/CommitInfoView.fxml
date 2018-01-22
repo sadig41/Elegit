@@ -10,7 +10,7 @@
 <VBox xmlns:fx="http://javafx.com/fxml"
       alignment="TOP_CENTER"
       spacing="5"
-      fx:controller="elegit.controllers.CommitInfoController">
+      fx:controller="elegit.controllers.CommitInfoController" nodeOrientation="RIGHT_TO_LEFT">
     <GridPane.margin>
         <Insets bottom="5"/>
     </GridPane.margin>

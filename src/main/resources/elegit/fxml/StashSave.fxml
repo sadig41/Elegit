@@ -7,7 +7,7 @@
     <AnchorPane fx:controller="elegit.controllers.StashSaveController"
             xmlns:fx="http://javafx.com/fxml"
             fx:id="anchorRoot"
-            prefWidth="350">
+            prefWidth="350" nodeOrientation="RIGHT_TO_LEFT">
     <GridPane   AnchorPane.bottomAnchor="20"
                 AnchorPane.topAnchor="5"
                 AnchorPane.leftAnchor="5"
@@ -28,26 +28,26 @@
         </rowConstraints>
 
         <Label  GridPane.valignment="BOTTOM"
-                text="Message"/>
+                text="رسالة"/>
 
         <TextField  GridPane.rowIndex="1"
                     GridPane.columnSpan="2"
                     GridPane.valignment="TOP"
                     prefHeight="30"
                     fx:id="stashMessage"
-                    promptText="message..."/>
+                    promptText="رسالة..."/>
 
         <CheckBox   GridPane.rowIndex="2"
                     GridPane.halignment="LEFT"
                     GridPane.valignment="TOP"
                     fx:id="includeUntracked"
-                    text="Include Untracked Files"/>
+                    text="تضمين ملفات غير متابعة"/>
 
         <Button fx:id="cancelButton"
                 GridPane.rowIndex="3"
                 GridPane.columnIndex="0"
                 GridPane.halignment="LEFT"
-                text="Cancel"
+                text="الغاء"
                 onAction="#closeWindow"/>
 
         <Button fx:id="stashButton"
@@ -55,7 +55,7 @@
                 GridPane.rowIndex="3"
                 GridPane.columnIndex="1"
                 GridPane.halignment="RIGHT"
-                text="Save"
+                text="حفظ"
                 onAction="#handleSave"/>
     </GridPane>
 
