@@ -37,18 +37,18 @@ public class ElegitUserInfoGUI implements UserInfo {
 
     @Override
     public boolean promptPassword(String s) {
-        password = prompt(s,"SSH password authentication",
-                                             "SSH password authentication",
-                                             "Enter your password:");
+        password = prompt(s,"التحقق من كلمة مرور SSH",
+                                             "التحقق من كلمة مرور SSH",
+                                             "ادخل كلمة المرور:");
         return password.isPresent();
     }
 
     @Override
     public boolean promptPassphrase(String s) {
 
-        passphrase = prompt(s,"SSH public key authentication",
-                                           "SSH public key authentication",
-                                           "Enter your passphrase:");
+        passphrase = prompt(s,"التحقق من مفتاح SSH العام",
+                                           "التحقق من مفتاح SSH العام",
+                                           "ادخل جملة المرور:");
         //return false;
         return passphrase.isPresent();
     }
@@ -121,8 +121,8 @@ public class ElegitUserInfoGUI implements UserInfo {
     public void showMessage(String s) {
         System.out.println(s);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("SSH message");
-        alert.setHeaderText("SSH message");
+        alert.setTitle("رسالة SSH");
+        alert.setHeaderText("رسالة SSH");
         alert.setContentText(s);
 
         alert.getButtonTypes().setAll(ButtonType.OK);

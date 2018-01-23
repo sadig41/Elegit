@@ -87,7 +87,7 @@ public class BusyWindow{
         if(numProcessesActive == 0) {
             Platform.runLater(() -> {
                 window.hide();
-                loadingMessage.setText("Loading...");
+                loadingMessage.setText("تحميل...");
             });
         }
     }

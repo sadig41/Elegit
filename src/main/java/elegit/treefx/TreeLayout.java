@@ -132,7 +132,7 @@ public class TreeLayout{
                     SimpleDoubleProperty viewportX = new SimpleDoubleProperty(0);
                     ProgressBar progressBar = new ProgressBar();
 
-                    Text loadingCommits = new Text("Loading commits ");
+                    Text loadingCommits = new Text("تحميل ايداعات ");
                     loadingCommits.setFont(new Font(14));
                     VBox loading = new VBox(loadingCommits, progressBar);
                     loading.setPickOnBounds(false);

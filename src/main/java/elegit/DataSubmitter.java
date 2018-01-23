@@ -31,7 +31,7 @@ public class DataSubmitter {
     }
 
     public String submitData(String uuid) {
-        logger.info("Submit data called");
+        logger.info("استدعي مريل البيانات");
         String logPath = Paths.get("logs").toString();
 
         File logDirectory = new File(logPath);
@@ -40,7 +40,7 @@ public class DataSubmitter {
         String lastUUID="";
         if (uuid==null || uuid.equals("")) {
             uuid=UUID.randomUUID().toString();
-            logger.info("Making a new uuid.");
+            logger.info("انشاء uuid جديد.");
         }
 
         if (logsToUpload==null)
@@ -48,7 +48,7 @@ public class DataSubmitter {
         for (File logFile: logsToUpload) {
             if (!logFile.isFile() || logFile.getName().equals(LOG_FILE_NAME)) {
                 if (logsToUpload.length == 1) {
-                    logger.info("No new logs to upload today");
+                    logger.info("لايوجد سجل جديد لتحميله اليوم");
                     break;
                 }
             }
@@ -60,7 +60,7 @@ public class DataSubmitter {
                 e.printStackTrace();
             }
 
-            logger.info("Attempting to upload log: {}",logFile.getName());
+            logger.info("محاولة تحميل سجل: {}",logFile.getName());
             CloseableHttpClient httpclient = HttpClients.createDefault();
             try {
                 HttpPost httppost = new HttpPost(submitUrl);
@@ -77,27 +77,27 @@ public class DataSubmitter {
                 logger.info(httppost.getRequestLine());
                 CloseableHttpResponse response = httpclient.execute(httppost);
                 try {
-                    logger.info("Executing request: " + response.getStatusLine());
+                    logger.info("يتطلب التنفيذ: " + response.getStatusLine());
                     logger.info(EntityUtils.toString(response.getEntity()));
                     lastUUID=uuid;
                 } catch (Exception e) {
-                    logger.error("Response status check failed.");
+                    logger.error("فشل فحص حالة الاستجابة.");
                     response.close();
                     return null;
                 }
             } catch (Exception e) {
-                logger.error("Failed to execute request. Attempting to close client.");
+                logger.error("فشل تنفيذ طلب. محاولة لاغلاق البرنامج.");
                 try {
                     httpclient.close();
                 } catch (Exception f) {
-                    logger.error("Failed to close client.");
+                    logger.error("فشل اغلاق البرنامج.");
                     return null;
                 }
                 return null;
             }
             // Delete the log file as we might be uploading more!
             if (!logFile.delete()) {
-                logger.error("Failed to delete log file.");
+                logger.error("فشل حذف ملف السجل.");
             }
 
         }
@@ -108,7 +108,7 @@ public class DataSubmitter {
         for (File file: logsToDelete) {
             if (!file.getName().equals(LOG_FILE_NAME))
                 if (!file.delete()) {
-                    logger.error("Failed to delete a file in the log directory.");
+                    logger.error("فشل حذف ملف في حاوية السجل.");
                 }
         }
 

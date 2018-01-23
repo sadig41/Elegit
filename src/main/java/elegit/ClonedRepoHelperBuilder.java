@@ -76,7 +76,7 @@ public class ClonedRepoHelperBuilder extends RepoHelperBuilder {
             return cloneRepositoryWithChecks(remoteURL, destinationPath, response,
                                                               new ElegitUserInfoGUI());
         } else {
-            logger.info("Cloned repo helper dialog canceled");
+            logger.info("الغي صندوق حوار مساعد استنساخ مستودع");
             // This happens when the user pressed cancel.
             throw new NoRepoSelectedException();
         }
@@ -84,21 +84,21 @@ public class ClonedRepoHelperBuilder extends RepoHelperBuilder {
 
 
     private Dialog<Pair<String, String>> createCloneDialog() {
-        logger.info("Load remote repo dialog started");
+        logger.info("بدء صندوق حوار تحميل مستودع بعيد");
         Dialog<Pair<String, String>> dialog = new Dialog<>();
-        dialog.setTitle("Clone");
-        dialog.setHeaderText("Clone a remote repository");
+        dialog.setTitle("استنساخ");
+        dialog.setHeaderText("استنساخ مستودع بعيد");
 
         return dialog;
     }
 
     private void setUpDialogButtons(Dialog<Pair<String, String>> dialog) {
         // Set the button types.
-        cloneButtonType = new ButtonType("Clone", ButtonBar.ButtonData.OK_DONE);
+        cloneButtonType = new ButtonType("استنساخ", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(cloneButtonType, ButtonType.CANCEL);
         Node cloneButton = dialog.getDialogPane().lookupButton(cloneButtonType);
         cloneButton.setDisable(true);   // starts off as disabled
-        dialog.setOnCloseRequest(event -> logger.info("Closed clone from remote dialog"));
+        dialog.setOnCloseRequest(event -> logger.info("اغلق صندوق حوار استنساخ من مستودع بعيد"));
     }
 
     private void arrangeDialogFields(Dialog<Pair<String, String>> dialog) {
@@ -108,11 +108,11 @@ public class ClonedRepoHelperBuilder extends RepoHelperBuilder {
         grid.setVgap(10);
         grid.setPadding(new Insets(10, 10, 10, 10));
 
-        Text instructionsText = new Text("Select an enclosing folder for the repository folder\n" +
-                "to be created in.");
+        Text instructionsText = new Text("حدد المجلد الحاوي لحاوية المستودع\n" +
+                "التي سينشأ بداخلها.");
 
         remoteURLField = new TextField();
-        remoteURLField.setPromptText("Remote URL");
+        remoteURLField.setPromptText("رابط المستودع البعيد");
         if(prevRemoteURL != null) remoteURLField.setText(prevRemoteURL);
 
         enclosingFolderField = new TextField();
@@ -125,7 +125,7 @@ public class ClonedRepoHelperBuilder extends RepoHelperBuilder {
         Text folderIcon = GlyphsDude.createIcon(FontAwesomeIcon.FOLDER_OPEN);
         chooseDirectoryButton.setGraphic(folderIcon);
         chooseDirectoryButton.setOnAction(t -> {
-            File cloneRepoDirectory = this.getDirectoryPathFromChooser("Choose clone destination folder");
+            File cloneRepoDirectory = this.getDirectoryPathFromChooser("اختر حاوية الاستنساخ المستهدفة");
             if (cloneRepoDirectory != null) {
                 enclosingFolderField.setText(cloneRepoDirectory.toString());
                 enclosingDirectoryPathText.setText(cloneRepoDirectory.toString() + File.separator);
@@ -133,7 +133,7 @@ public class ClonedRepoHelperBuilder extends RepoHelperBuilder {
         });
 
         repoNameField = new TextField();
-        repoNameField.setPromptText("Repository name...");
+        repoNameField.setPromptText("اسم المستودع...");
         remoteURLField.textProperty().addListener((obs, oldText, newText) -> {
             repoNameField.setText(guessRepoName(newText));
         });
@@ -146,14 +146,14 @@ public class ClonedRepoHelperBuilder extends RepoHelperBuilder {
 
         grid.add(instructionsText, 0, instructionsRow, 2, 1);
 
-        grid.add(new Label("Remote URL:"), 0, remoteURLRow);
+        grid.add(new Label("رابط المستودع البعيد:"), 0, remoteURLRow);
         grid.add(remoteURLField, 1, remoteURLRow);
 
-        grid.add(new Label("Enclosing folder:"), 0, enclosingFolderRow);
+        grid.add(new Label("المجلد الحاوي:"), 0, enclosingFolderRow);
         grid.add(enclosingFolderField, 1, enclosingFolderRow);
         grid.add(chooseDirectoryButton, 2, enclosingFolderRow);
 
-        grid.add(new Label("Repository name:"), 0, repositoryNameRow);
+        grid.add(new Label("اسم المستودع:"), 0, repositoryNameRow);
         grid.add(repoNameField, 1, repositoryNameRow);
 
         dialog.getDialogPane().setContent(grid);
@@ -245,10 +245,10 @@ public class ClonedRepoHelperBuilder extends RepoHelperBuilder {
                 exception = exception.getCause();
             }*/
             if (e.getMessage().endsWith("not found") || e.getMessage().endsWith("not found.")) {
-                logger.error("Invalid remote exception thrown");
-                throw new InvalidRemoteException("Caught invalid repository when building a ClonedRepoHelper.");
+                logger.error("اطلاق استثناء مستودع بعيد غير صالح");
+                throw new InvalidRemoteException("التقاط مستودع غير صالح عند بناء ClonedRepoHelper.");
             } else if (e.getMessage().endsWith("not authorized") || e.getMessage().endsWith("not authorized.")) {
-                logger.error("Authentication error");
+                logger.error("خطأ تحقق");
             }
         }
 

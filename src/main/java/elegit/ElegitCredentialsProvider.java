@@ -31,7 +31,7 @@ public class ElegitCredentialsProvider extends CredentialsProvider {
     @Override
     public boolean supports(CredentialItem... credentialItems) {
         for(CredentialItem item : credentialItems) {
-            System.out.println("Supports: " + item);
+            System.out.println("يدعم: " + item);
         }
         return true;
     }

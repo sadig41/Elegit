@@ -37,8 +37,8 @@ public class ConflictingRepoFile extends RepoFile {
         super(filePath, repo);
         diffButton.setText("CONFLICTING");
         diffButton.setId("conflictingDiffButton");
-        diffButton.setTooltip(getToolTip("This file caused a merge conflict.\nEdit the file to fix the conflict."));
-        MenuItem resolveMerge = new MenuItem("Resolve conflict...");
+        diffButton.setTooltip(getToolTip("يسبب هذا الملف تعارض دمج.\n عدل الملف لحل التضارب."));
+        MenuItem resolveMerge = new MenuItem("حل التعارض...");
         contextMenu.getItems().add(resolveMerge);
     }
 
@@ -51,7 +51,7 @@ public class ConflictingRepoFile extends RepoFile {
         Condition finishedAlert = lock.newCondition();
 
         Platform.runLater(() -> {
-            logger.warn("Notification about conflicting file");
+            logger.warn("تنبيه عن ملف متعارض");
             lock.lock();
             try{
                 resultType = PopUpWindows.showCommittingConflictingFileAlert();

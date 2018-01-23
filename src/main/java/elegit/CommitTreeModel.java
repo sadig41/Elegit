@@ -350,9 +350,9 @@ public class CommitTreeModel{
     public ContextMenu getTagLabelMenu(TagHelper tagHelper) {
         ContextMenu contextMenu = new ContextMenu();
 
-        MenuItem deleteitem = new MenuItem("Delete");
+        MenuItem deleteitem = new MenuItem("حذف");
         deleteitem.setOnAction(event -> {
-            logger.info("Delete tag dialog started.");
+            logger.info("بدء صندوق حوار حذف تزييل.");
             if (tagHelper.presentDeleteDialog()) {
                 try {
                     sessionModel.getCurrentRepoHelper().getTagModel().deleteTag(tagHelper.getRefName());
@@ -376,10 +376,10 @@ public class CommitTreeModel{
     private ContextMenu getBranchLabelMenu(BranchHelper branch) {
         ContextMenu contextMenu = new ContextMenu();
 
-        MenuItem checkoutItem = new MenuItem("Checkout");
+        MenuItem checkoutItem = new MenuItem("تفحص");
         checkoutItem.setOnAction(event -> CommitTreeController.sessionController.checkoutBranch(branch) );
 
-        MenuItem deleteitem = new MenuItem("Delete");
+        MenuItem deleteitem = new MenuItem("حذف");
         deleteitem.setOnAction(event -> CommitTreeController.sessionController.deleteBranch(branch) );
 
         contextMenu.getItems().addAll(checkoutItem, deleteitem);

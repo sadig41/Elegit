@@ -21,7 +21,7 @@ public class ConflictingThenModifiedRepoFile extends RepoFile {
         super(filePath, repo);
         diffButton.setText("CONFLICTING\nMODIFIED");
         diffButton.setId("conflictingThenModifiedDiffButton");
-        diffButton.setTooltip(getToolTip("This file was conflicting, but was recently modified.\nCommit if the changes are finalized."));
+        diffButton.setTooltip(getToolTip("هذا الملف متضارب، لكنه عدل الان.\n أودعه اذا  اكملت التعديل."));
     }
 
     ConflictingThenModifiedRepoFile(String filePathString, RepoHelper repo) {
@@ -33,7 +33,7 @@ public class ConflictingThenModifiedRepoFile extends RepoFile {
         Condition finishedAlert = lock.newCondition();
 
         Platform.runLater(() -> {
-            logger.warn("Notification about conflicting the modified file");
+            logger.warn("تنبيه عن تعارض الملف المعدل");
             lock.lock();
             try{
                 resultType = PopUpWindows.showAddingingConflictingThenModifiedFileAlert();
