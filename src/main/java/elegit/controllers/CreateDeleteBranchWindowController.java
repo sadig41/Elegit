@@ -61,8 +61,8 @@ public class CreateDeleteBranchWindowController {
         repoHelper = sessionModel.getCurrentRepoHelper();
         branchModel = repoHelper.getBranchModel();
         refreshBranchesDropDown();
-        localBranchesDropdown.setPromptText("Select a local branch...");
-        remoteBranchesDropdown.setPromptText("Select a remote branch...");
+        localBranchesDropdown.setPromptText("أختيار تفريعة محلية...");
+        remoteBranchesDropdown.setPromptText("اختيار تفريعة بعيدة...");
         newBranchTextField.setMinSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
         createButton.setDisable(true);
         deleteButton.setDisable(true);
@@ -167,14 +167,14 @@ public class CreateDeleteBranchWindowController {
     void showStage(AnchorPane pane, String tab) {
         anchorRoot = pane;
         stage = new Stage();
-        stage.setTitle("Create or delete branch");
+        stage.setTitle("انشاء أو حذف تفريعة");
         stage.setScene(new Scene(anchorRoot));
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setOnCloseRequest(event -> logger.info("Closed create/delete branch window"));
+        stage.setOnCloseRequest(event -> logger.info("أغلقت نافذت انشاء/حذف تفريعة"));
         stage.show();
-        if(tab.equals("create")) tabPane.getSelectionModel().select(createTab);
-        if(tab.equals("local")) tabPane.getSelectionModel().select(deleteLocalTab);
-        if(tab.equals("remote")) tabPane.getSelectionModel().select(deleteRemoteTab);
+        if(tab.equals("انشاء")) tabPane.getSelectionModel().select(createTab);
+        if(tab.equals("محلي")) tabPane.getSelectionModel().select(deleteLocalTab);
+        if(tab.equals("بعيد")) tabPane.getSelectionModel().select(deleteRemoteTab);
         this.notificationPaneController.setAnchor(stage);
     }
 
@@ -201,7 +201,7 @@ public class CreateDeleteBranchWindowController {
             protected Void call() {
                 LocalBranchHelper newBranch = null;
                 try {
-                    logger.info("New branch button clicked");
+                    logger.info("نقر زر تفريعة جديدة");
                     newBranch = branchModel.createNewLocalBranch(branchName);
                     if(checkout) {
                         if(newBranch != null) {
@@ -211,24 +211,24 @@ public class CreateDeleteBranchWindowController {
                     sessionController.gitStatus();
 
                 } catch (RefAlreadyExistsException e){
-                    logger.warn("Branch already exists warning");
+                    logger.warn("تحذير: تفريعة موجودة بالفعل");
                     showRefAlreadyExistsNotification(branchName);
                 } catch (InvalidRefNameException e1) {
-                    logger.warn("Invalid branch name warning");
+                    logger.warn("تحذير: اسم تفريعة فاسد");
                     showInvalidBranchNameNotification();
                 } catch (RefNotFoundException e1) {
                     // When a repo has no commits, you can't create branches because there
                     //  are no commits to point to. This error gets raised when git can't find
                     //  HEAD.
-                    logger.warn("Can't create branch without a commit in the repo warning");
+                    logger.warn("لايمكن انشاء تفريعة بدون الايداع في المستودع");
                     showNoCommitsYetNotification();
                 } catch (GitAPIException e1) {
-                    logger.warn("Git error");
+                    logger.warn("خطأ جيت");
                     logger.debug(e1.getStackTrace());
                     showGenericGitErrorNotification();
                     e1.printStackTrace();
                 } catch (IOException e1) {
-                    logger.warn("Unspecified IOException");
+                    logger.warn("خطأ دخل/خرج غير محدد");
                     logger.debug(e1.getStackTrace());
                     showGenericErrorNotification();
                     e1.printStackTrace();
@@ -270,7 +270,7 @@ public class CreateDeleteBranchWindowController {
      * Deletes the selected remote branch
      */
     public void handleDeleteRemoteBranch() {
-        logger.info("Delete remote branches button clicked");
+        logger.info("نقر زر حذف تفريعات بعيدة");
         BranchHelper selectedBranch = remoteBranchesDropdown.getSelectionModel().getSelectedItem();
 
         deleteBranch(selectedBranch);
@@ -281,7 +281,7 @@ public class CreateDeleteBranchWindowController {
      * Deletes the selected local branch
      */
     public void handleDeleteLocalBranch() {
-        logger.info("Delete remote branches button clicked");
+        logger.info("نقر زر حذف تفريعات بعيدة");
         BranchHelper selectedBranch = localBranchesDropdown.getSelectionModel().getSelectedItem();
 
         deleteBranch(selectedBranch);
@@ -329,7 +329,7 @@ public class CreateDeleteBranchWindowController {
                 }
             }
         } catch (NotMergedException e) {
-            logger.warn("Can't delete branch because not merged warning");
+            logger.warn("تحذير: لايمكن حذف التفريعة لانها لم تدمج");
             Platform.runLater(() -> {
                 if(PopUpWindows.showForceDeleteBranchAlert() && selectedBranch instanceof LocalBranchHelper) {
                     // If we need to force delete, then it must be a local branch
@@ -338,13 +338,13 @@ public class CreateDeleteBranchWindowController {
             });
             this.showNotMergedNotification(selectedBranch);
         } catch (CannotDeleteCurrentBranchException e) {
-            logger.warn("Can't delete current branch warning");
+            logger.warn("تحذير: لايمكن حذف التفريعة الحالية");
             this.showCannotDeleteBranchNotification(selectedBranch);
         } catch (TransportException e) {
             this.showNotAuthorizedNotification();
             authorizationSucceeded = false;
         } catch (GitAPIException e) {
-            logger.warn("Git error");
+            logger.warn("خطأ جيت");
             this.showGenericGitErrorNotificationWithBranch(selectedBranch);
 //        } catch (IOException e) {
 //            logger.warn("IO error");
@@ -372,7 +372,7 @@ public class CreateDeleteBranchWindowController {
      * @param branchToDelete LocalBranchHelper
      */
     private void forceDeleteBranch(LocalBranchHelper branchToDelete) {
-        logger.info("Deleting local branch");
+        logger.info("حذف تفريعة حالية");
 
         try {
             if (branchToDelete != null) {
@@ -385,10 +385,10 @@ public class CreateDeleteBranchWindowController {
                 updateUser(" deleted ");
             }
         } catch (CannotDeleteCurrentBranchException e) {
-            logger.warn("Can't delete current branch warning");
+            logger.warn("تحذير: لايمكن حذف التفريعة الحالية");
             this.showCannotDeleteBranchNotification(branchToDelete);
         } catch (GitAPIException e) {
-            logger.warn("Git error");
+            logger.warn("خطأ جيت");
             this.showGenericGitErrorNotificationWithBranch(branchToDelete);
             e.printStackTrace();
         }finally {
@@ -402,7 +402,7 @@ public class CreateDeleteBranchWindowController {
      */
     private void updateUser(String type) {
         Platform.runLater(() -> {
-            Text txt = new Text(" Branch" + type);
+            Text txt = new Text(" تفريعة" + type);
             PopOver popOver = new PopOver(txt);
             popOver.setTitle("");
             popOver.show(createButton);
@@ -431,9 +431,9 @@ public class CreateDeleteBranchWindowController {
             buttonToShowOver = deleteButton2;
             dropdownToReset = remoteBranchesDropdown;
         }
-        System.out.println("here i am " + message);
+        System.out.println("ها انا ذا " + message);
         popOver.show(buttonToShowOver);
-        System.out.println("showed");
+        System.out.println("عرضت");
         popOver.detach();
         popOver.setAutoHide(true);
         dropdownToReset.getSelectionModel().clearSelection();
@@ -446,64 +446,64 @@ public class CreateDeleteBranchWindowController {
 
     @FXML
     public void onEnter(ActionEvent ae) {
-        System.out.println("Enter key pressed!");
+        System.out.println("ضغط زر الادخال!");
     }
 
     //**************** BEGIN ERROR NOTIFICATIONS***************************
 
     private void showInvalidBranchNameNotification() {
         Platform.runLater(() -> {
-            logger.warn("Invalid branch name notification");
-            notificationPaneController.addNotification("That branch name is invalid.");
+            logger.warn("تنبيه: اسم تفريعة غير صالح");
+            notificationPaneController.addNotification("اسم تفريعة غير صالح.");
         });
     }
 
     private void showNoCommitsYetNotification() {
         Platform.runLater(() -> {
-            logger.warn("No commits yet notification");
-            notificationPaneController.addNotification("You cannot make a branch since your repo has no commits yet. Make a commit first!");
+            logger.warn("تنبيه: لايوجد ايداعات بعد");
+            notificationPaneController.addNotification("لايمكنك انشاء تفريعة لانه ليس بمستودعك ايداعات بعد. قم بالايداع أولا!");
         });
     }
 
     private void showGenericGitErrorNotification() {
         Platform.runLater(() -> {
-            logger.warn("Git error notification");
-            notificationPaneController.addNotification("Sorry, there was a git error.");
+            logger.warn("تنبيه: خطأ جيت");
+            notificationPaneController.addNotification("نأسف يوجد خطأ جيت.");
         });
     }
 
     private void showGenericErrorNotification() {
         Platform.runLater(()-> {
-            logger.warn("Generic error warning.");
-            notificationPaneController.addNotification("Sorry, there was an error.");
+            logger.warn("تحذير: خطأ عام.");
+            notificationPaneController.addNotification("نأسف يوجد خطأ ما");
         });
     }
 
     private void showCannotDeleteBranchNotification(BranchHelper branch) {
         Platform.runLater(() -> {
-            logger.warn("Cannot delete current branch notification");
-            notificationPaneController.addNotification(String.format("Sorry, %s can't be deleted right now. " +
-                    "Try checking out a different branch first.", branch.getRefName()));
+            logger.warn("تنبيه: لايمكن حذف التفريعة الحالية");
+            notificationPaneController.addNotification(String.format("نأسف لايمكن حذف %s الان.  " +
+                    "حاول الانتقال لتفريعة أخري أولا", branch.getRefName()));
         });
     }
 
     private void showGenericGitErrorNotificationWithBranch(BranchHelper branch) {
         Platform.runLater(() -> {
-            logger.warn("Git error on branch notification");
-            notificationPaneController.addNotification(String.format("Sorry, there was a git error on branch %s.", branch.getRefName()));
+            logger.warn("تنبيه: خطأ جيت علي التفريعة");
+            notificationPaneController.addNotification(String.format("نأسف يوجد خطأ جيت on branch %s.", branch.getRefName()));
         });
     }
 
     private void showCommandCancelledNotification() {
         Platform.runLater(() -> {
-            logger.warn("Command cancelled notification");
-            notificationPaneController.addNotification("Command cancelled.");
+            logger.warn("تنبيه: الغي الأمر");
+            notificationPaneController.addNotification("الغي الأمر.");
         });
     }
 
     private void showNotMergedNotification(BranchHelper nonmergedBranch) {
-        logger.warn("Not merged notification");
-        notificationPaneController.addNotification("That branch has to be merged before you can do that.");
+        logger.warn("تنبيه: لم يدمج");
+        notificationPaneController.addNotification("يجب دمج هذه التفريعة قبل القيام بذلك.");
 
         /*
         Action forceDeleteAction = new Action("Force delete", e -> {
@@ -515,37 +515,37 @@ public class CreateDeleteBranchWindowController {
     private void showJGitInternalError(JGitInternalException e) {
         Platform.runLater(()-> {
             if (e.getCause().toString().contains("LockFailedException")) {
-                logger.warn("Lock failed warning.");
-                notificationPaneController.addNotification("Cannot lock .git/index. If no other git processes are running, manually remove all .lock files.");
+                logger.warn("تحذير: فشل الاغلاق");
+                notificationPaneController.addNotification("لايمكن إغلاق .git/index. اذا لاتوجد عملية جيت اخري تعمل، قم بالحذف يدويا ثم اغلق الملفات.");
             } else {
-                logger.warn("Generic jgit internal warning.");
-                notificationPaneController.addNotification("Sorry, there was a Git error.");
+                logger.warn("تحذير: جي جيت عام داخلي");
+                notificationPaneController.addNotification("نأسف يوجد خطأ جيت.");
             }
         });
     }
 
     private void showCheckoutConflictsNotification(List<String> conflictingPaths) {
         Platform.runLater(() -> {
-            logger.warn("Checkout conflicts warning");
+            logger.warn("تحذير: تضارب تفحص");
 
             EventHandler handler = event -> sessionController.quickStashSave();
-            this.notificationPaneController.addNotification("You can't switch to that branch because there would be a merge conflict. " +
-                    "Stash your changes or resolve conflicts first.", "stash", handler);
+            this.notificationPaneController.addNotification("لايمكنك الانتقال لتلك التفريعة لانه سيوجد تضارب دمج. " +
+                    "اخف تعديلاتك. او حل التضاربات أولا.", "stash", handler);
         });
     }
 
     private void showNotAuthorizedNotification() {
         Platform.runLater(() -> {
-            logger.warn("Invalid authorization warning");
-            this.notificationPaneController.addNotification("The authorization information you gave does not allow you to modify this repository. " +
-                    "Try reentering your password.");
+            logger.warn("تحذير: تفويض فاسد ");
+            this.notificationPaneController.addNotification("معلومات التفويض التي أدحلتها لاتسمح لك بتعديل هذا المستودع . " +
+                    "جرب اعادة ادخال كلمة المرور.");
         });
     }
 
     private void showRefAlreadyExistsNotification(String ref) {
         Platform.runLater(()-> {
-            logger.warn("Ref already exists warning");
-            this.notificationPaneController.addNotification(ref + " already exists. Choose a different name.");
+            logger.warn("تحير: مرجع موجود مسبقا");
+            this.notificationPaneController.addNotification(ref + " موجود بالفعل. اختر اسما مختلفا.");
         });
     }
 

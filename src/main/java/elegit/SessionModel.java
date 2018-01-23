@@ -84,11 +84,11 @@ public class SessionModel {
                     this.openRepoFromHelper(existingRepoHelper);
                     return;
                 } catch (IllegalArgumentException e) {
-                    logger.warn("Recent repo not found in directory it used to be in");
+                    logger.warn("المستودع الاخير غير موجود بالحاوية التي كان بها سابقا");
                     // The most recent repo is no longer in the directory it used to be in,
                     // so just don't load it.
                 }catch(GitAPIException | MissingRepoException e) {
-                    logger.error("Git error or missing repo exception");
+                    logger.error("خطأ جيت أو استثناء مستودع مفقود");
                     logger.debug(e.getStackTrace());
                     e.printStackTrace();
                 } catch (CancelledAuthorizationException e) {
@@ -100,12 +100,12 @@ public class SessionModel {
                 try {
                     this.openRepoFromHelper(helper);
                 } catch (MissingRepoException e) {
-                    logger.error("Missing repo exception");
+                    logger.error("استثناء مستودع مفقود");
                     e.printStackTrace();
                 }
             }
         }catch(IOException | BackingStoreException | ClassNotFoundException e){
-            logger.error("Some sort of error loading most recent repo helper");
+            logger.error("نوع من الخطأ يحمل مساعد أحدث مستودع");
             logger.debug(e.getStackTrace());
             e.printStackTrace();
         }
@@ -125,11 +125,11 @@ public class SessionModel {
                         ExistingRepoHelper existingRepoHelper = new ExistingRepoHelper(path, new ElegitUserInfoGUI());
                         this.allRepoHelpers.add(existingRepoHelper);
                     } catch (IllegalArgumentException e) {
-                        logger.warn("Repository has been moved, we move along");
+                        logger.warn("حرك المستودع، سننتقل معه");
                         // This happens when this repository has been moved.
                         // We'll just move along.
                     } catch(GitAPIException e){
-                        logger.error("Git error loading recent repo helpers");
+                        logger.error("خطأ جيت يحمل مساعدات احدث مستودع");
                         logger.debug(e.getStackTrace());
                         e.printStackTrace();
                     } catch (CancelledAuthorizationException e) {
@@ -138,7 +138,7 @@ public class SessionModel {
                 }
             }
         } catch(IOException | ClassNotFoundException | BackingStoreException e){
-            logger.error("Some sort of exception loading recent repo helpers");
+            logger.error("استثناء من نوع ما يحمل مساعدات احدث مستودع ");
             logger.debug(e.getStackTrace());
             e.printStackTrace();
         }
@@ -259,7 +259,7 @@ public class SessionModel {
     }
 
     /**
-     * Calls `git status` and returns the set of conflicting files that Git reports.
+     * Calls `git status` and returns the set of ملفات متضاربة that Git reports.
      *
      * @return a set of conflicting filenames in the working directory.
      * @throws GitAPIException
@@ -398,7 +398,7 @@ public class SessionModel {
                 }
             }
         } catch (Exception e) {
-            logger.error("Exception trying to populate directory repo file");
+            logger.error("استثناء محاولة تأهيل دليل ملف مستودع ");
             logger.debug(e.getStackTrace());
             e.printStackTrace();
         }

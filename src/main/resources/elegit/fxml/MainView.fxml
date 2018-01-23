@@ -245,7 +245,7 @@
                     </StackPane>
                 </HBox>
 
-                <!-- Checkout Files button -->
+                <!-- تفحص ملفات button -->
                 <ArrowButton id="codeButton"
                              fx:id="checkoutFileButton"
                              text="تفحص ملفات"

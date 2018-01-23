@@ -110,8 +110,8 @@ public class PopUpWindows {
             Alert window = new Alert(Alert.AlertType.INFORMATION);
             window.setResizable(true);
             window.getDialogPane().setPrefSize(550, 350);
-            window.setTitle("How to fix conflicting files");
-            window.setHeaderText("How to fix conflicting files");
+            window.setTitle("How to fix ملفات متضاربة");
+            window.setHeaderText("How to fix ملفات متضاربة");
             window.setContentText("1. First, open up the file that is marked as conflicting.\n" +
                                   "2. In the file, you should see something like this:\n\n" +
                                   "\t<<<<<< <branch_name>\n" +
@@ -243,20 +243,20 @@ public class PopUpWindows {
     }
 
     /**
-     * Informs the user that there are conflicting files so they can't checkout a different branch
+     * Informs the user that there are ملفات متضاربة so they can't checkout a different branch
      *
-     * @param conflictingPaths conflicting files
+     * @param conflictingPaths ملفات متضاربة
      */
     public static void showCheckoutConflictsAlert(List<String> conflictingPaths) {
-        logger.warn("Checkout conflicts warning");
+        logger.warn("تحذير: تضارب تفحص");
         String conflictList = "";
         for (String pathName : conflictingPaths) {
             conflictList += "\n" + pathName;
         }
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Conflicting files");
-        alert.setHeaderText("Can't checkout that branch");
-        alert.setContentText("You can't switch to that branch because of the following conflicting files between that branch and your current branch: "
+        alert.setTitle("ملفات متضاربة");
+        alert.setHeaderText("لا يمكن تفحص تلك التفريعة");
+        alert.setContentText("لا يمكن تفحص تلك التفريعة بسبب الملفات المتعارضة التالية بين تفريعتك والتفريعة الحالية: "
                              + conflictList);
 
         alert.showAndWait();
@@ -265,18 +265,18 @@ public class PopUpWindows {
     /**
      * Informs the user that there were conflicts
      *
-     * @param conflictingPaths conflicting files
+     * @param conflictingPaths ملفات متضاربة
      */
     public static void showMergeConflictsAlert(List<String> conflictingPaths) {
-        logger.warn("Merge conflicts warning");
+        logger.warn("تحذير: تضاربات دمج");
         String conflictList = "";
         for (String pathName : conflictingPaths) {
             conflictList += "\n" + pathName;
         }
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Conflicting files");
-        alert.setHeaderText("Can't complete merge");
-        alert.setContentText("There were conflicts in the following files: "
+        alert.setTitle("ملفات متضاربة");
+        alert.setHeaderText("لا يمكن اكمال الدمج");
+        alert.setContentText("توجد تضاربات بالملفات التالية: "
                              + conflictList);
 
         alert.showAndWait();
@@ -285,13 +285,13 @@ public class PopUpWindows {
     public static RemoteBranchHelper showTrackDifRemoteBranchDialog(ObservableList<RemoteBranchHelper> remoteBranches) {
         Dialog dialog = new Dialog();
         dialog.getDialogPane().setPrefSize(320, 100);
-        dialog.setTitle("Track a remote branch locally");
+        dialog.setTitle("تتبع التفريعة البعيدة محليا");
 
-        Text trackText = new Text("Track ");
-        Text localText = new Text(" locally.");
+        Text trackText = new Text("تتبع ");
+        Text localText = new Text(" محليا.");
 
         ComboBox<RemoteBranchHelper> dropdown = new ComboBox<>(remoteBranches);
-        dropdown.setPromptText("select a remote branch...");
+        dropdown.setPromptText("اختيار تفريعة بعيدة...");
 
         HBox hBox = new HBox(trackText, dropdown, localText);
         hBox.setSpacing(10);
@@ -299,8 +299,8 @@ public class PopUpWindows {
 
         dialog.getDialogPane().setContent(hBox);
 
-        ButtonType trackButton = new ButtonType("Track");
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType trackButton = new ButtonType("تتبع");
+        ButtonType cancelButton = new ButtonType("الغاء", ButtonBar.ButtonData.CANCEL_CLOSE);
 
         dialog.getDialogPane().getButtonTypes().addAll(trackButton, cancelButton);
 
@@ -316,14 +316,14 @@ public class PopUpWindows {
 
     public static boolean showForceDeleteBranchAlert() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Deleting unmerged branch");
-        alert.setHeaderText("The branch you are trying to delete is unmerged");
-        alert.setContentText("The work done on this branch is not represented in any other local branch. " +
-                             "If you delete it, you will lose any local work done on this branch. " +
-                             "What would you like to do?");
+        alert.setTitle("حذف تفريعة غير مدموجة");
+        alert.setHeaderText("التفريعة التي تحاول حذفها غير مدموجة");
+        alert.setContentText("العمل الذي تم علي هذه التفريعة لم يمثل باي تفريعة محلية أخري. " +
+                             "اذ حذفته، ستفقد اي عمل قمت به محليا علي هذه التفريعة. " +
+                             "هل تود القيام بذلك?");
 
-        ButtonType deleteButton = new ButtonType("Force delete branch");
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType deleteButton = new ButtonType("اجبار خذف تفريعة");
+        ButtonType cancelButton = new ButtonType("الغاء", ButtonBar.ButtonData.CANCEL_CLOSE);
 
         alert.getButtonTypes().clear();
         alert.getButtonTypes().addAll(deleteButton, cancelButton);
@@ -344,15 +344,15 @@ public class PopUpWindows {
                 lock.lock();
 
                 Alert alert = new Alert(Alert.AlertType.NONE);
-                alert.setTitle("Multiple remotes found");
-                alert.setHeaderText("There are multiple remote repositories associated with this repository.\nPick one to push to.");
+                alert.setTitle("وجود اكثر من مستودع بعيد");
+                alert.setHeaderText("يوجد عدة مستودعات بعيدة بهذا المستودع.\n اختر واحدة للدفع اليها.");
 
                 ComboBox<String> remoteRepos = new ComboBox<>();
-                remoteRepos.setPromptText("Choose a remote...");
+                remoteRepos.setPromptText("اختيار مستودع بعيد...");
                 remoteRepos.setItems(FXCollections.observableArrayList(remotes));
 
-                ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-                ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+                ButtonType okButton = new ButtonType("موافق", ButtonBar.ButtonData.OK_DONE);
+                ButtonType cancelButton = new ButtonType("الغاء", ButtonBar.ButtonData.CANCEL_CLOSE);
 
                 alert.getDialogPane().setContent(remoteRepos);
                 alert.getButtonTypes().addAll(cancelButton, okButton);
@@ -391,11 +391,11 @@ public class PopUpWindows {
 
     public static String getCommitMessage() {
         Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("Commit message");
+        alert.setTitle("رسالة ايداع");
         alert.setResizable(true);
 
         TextArea textArea = new TextArea();
-        textArea.setPromptText("Commit Message...");
+        textArea.setPromptText("رسالة ايداع...");
         textArea.setWrapText(true);
         textArea.setPrefSize(250, 150);
         textArea.setMinSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
@@ -403,8 +403,8 @@ public class PopUpWindows {
         HBox hBox = new HBox(textArea);
         hBox.setAlignment(Pos.CENTER);
 
-        ButtonType okButton = new ButtonType("Commit", ButtonBar.ButtonData.OK_DONE);
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType okButton = new ButtonType("ايداع", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButton = new ButtonType("الغاء", ButtonBar.ButtonData.CANCEL_CLOSE);
 
         alert.getDialogPane().setContent(hBox);
         alert.getButtonTypes().addAll(cancelButton, okButton);
@@ -424,14 +424,14 @@ public class PopUpWindows {
         final ArrayList<LocalBranchHelper> result = new ArrayList<>(branches.size());
 
         Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("Untracked local branches");
-        alert.setHeaderText("The branches below are not tracked remotely.\n" +
-                            "Select the branches you want to create an upstream remote branch for.");
+        alert.setTitle("تفريعات محلية غير متابعة");
+        alert.setHeaderText("الفريعات ادناه ليسات متابعة بمستودع بعيد.\n" +
+                            "حدد التفريعات التي تريدها لانشاء تدفق مع المستودع البعيد .");
 
         CheckListView<LocalBranchHelper> untrackedBranches = new CheckListView<>(FXCollections.observableArrayList(branches));
 
-        ButtonType okButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        ButtonType trackButton = new ButtonType("Track Branches", ButtonBar.ButtonData.APPLY);
+        ButtonType okButton = new ButtonType("الغاء", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType trackButton = new ButtonType("تفريعات متابعة", ButtonBar.ButtonData.APPLY);
         alert.getDialogPane().setContent(untrackedBranches);
         alert.getButtonTypes().addAll(trackButton, okButton);
 
@@ -455,7 +455,7 @@ public class PopUpWindows {
         result[0] = false;
 
         Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("push -u");
+        alert.setTitle("دفع برسالة push -u");
 
         Label branchLabel = new Label(branchName);
         HBox branchBox = new HBox(branchLabel);
@@ -468,8 +468,8 @@ public class PopUpWindows {
                              "    -fx-font-weight: bold;\n" +
                              "    -fx-text-align: center;");
 
-        Text txt1 = new Text(" is not currently tracked remotely.");
-        Text txt2 = new Text("Would you like to create an upstream remote branch?");
+        Text txt1 = new Text(" غير متابعة بالمستودع البعيد حاليا.");
+        Text txt2 = new Text("هل تريد انشاء تدفق بتفريعة بعيدة؟");
         txt1.setFont(new Font(14));
         txt2.setFont(new Font(14));
 
@@ -479,8 +479,8 @@ public class PopUpWindows {
         vBox.setSpacing(10);
         vBox.setAlignment(Pos.CENTER);
 
-        ButtonType okButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        ButtonType trackButton = new ButtonType("Yes", ButtonBar.ButtonData.APPLY);
+        ButtonType okButton = new ButtonType("الغاء", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType trackButton = new ButtonType("نعم", ButtonBar.ButtonData.APPLY);
 
         alert.getDialogPane().setContent(vBox);
         alert.getButtonTypes().addAll(trackButton, okButton);

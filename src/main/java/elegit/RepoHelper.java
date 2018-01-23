@@ -455,7 +455,7 @@ public class RepoHelper {
     }
 
     /**
-     * @return the number of commits that all branches are ahead of remote cumulatively
+     * @return the number of commits that all branches are متقدم علي remote cumulatively
      * @throws IOException
      */
     public int getAheadCountAll() throws IOException {

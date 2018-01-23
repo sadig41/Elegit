@@ -90,7 +90,7 @@ public class NotificationController {
         hBox.setOnMouseClicked(event -> showNotificationList());
 
         PopOver popOver = new PopOver(hBox);
-        popOver.setTitle("New Notification");
+        popOver.setTitle("تنبيه جديد");
         popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_RIGHT);
         popOver.setAnchorLocation(PopupWindow.AnchorLocation.CONTENT_BOTTOM_RIGHT);
 

@@ -47,7 +47,7 @@ public class CommitController {
      * Sets up views and buttons
      */
     public void initialize(){
-        logger.info("Started up branch manager");
+        logger.info("بدء مدير التفريعات");
 
         isClosed = new SimpleBooleanProperty(false);
 
@@ -85,11 +85,11 @@ public class CommitController {
      */
     public void showStage(GridPane pane) {
         stage = new Stage();
-        stage.setTitle("Commit");
+        stage.setTitle("ايداع");
         stage.setScene(new Scene(pane, 550, 450));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setOnCloseRequest(event -> {
-            logger.info("Closed commit window");
+            logger.info("اغلقت نافذة الايداع");
             refresher.interrupt();
         });
         stage.show();
@@ -130,7 +130,7 @@ public class CommitController {
             String messageText = commitMessageField.getText();
             closeWindow();
             BusyWindow.show();
-            BusyWindow.setLoadingText("Committing...");
+            BusyWindow.setLoadingText("يودع...");
             this.repoHelper.commit(messageText);
         } catch (GitAPIException e) {
             e.printStackTrace();

@@ -123,9 +123,9 @@ public class MergeWindowController {
         BranchTrackingStatus b = BranchTrackingStatus.of(repoHelper.getRepo(), curBranch);
         if(b == null) {
             disable = true;
-            mergeRemoteTrackingText.setText("This branch does not have an\n" +
-                    "upstream remote branch.\n\n" +
-                    "Push to create a remote branch.");
+            mergeRemoteTrackingText.setText("لاتحوي هذه التفريعة\n" +
+                    "تدفقا من تفريعة بعيدة.\n\n" +
+                    "ادفع لانشاء تفريعة بعيدة.");
             hideRemoteMerge();
 
         } else {
@@ -166,10 +166,10 @@ public class MergeWindowController {
     void showStage(AnchorPane pane, boolean localTabOpen) {
         anchorRoot = pane;
         stage = new Stage();
-        stage.setTitle("Merge");
+        stage.setTitle("دمج");
         stage.setScene(new Scene(anchorRoot));
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setOnCloseRequest(event -> logger.info("Closed merge window"));
+        stage.setOnCloseRequest(event -> logger.info("اغلقت نافذة الدمج"));
         stage.show();
         if(localTabOpen) mergeTypePane.getSelectionModel().select(localBranchTab);
         this.notificationPaneController.setAnchor(stage);
@@ -218,7 +218,7 @@ public class MergeWindowController {
      * @throws IOException if there is an error with the file access of merge
      */
     private void localBranchMerge() throws GitAPIException, IOException {
-        logger.info("Merging selected branch with current");
+        logger.info("ادمج التفريعة المحددة مع الحالية");
         // Get the branch to merge with
         LocalBranchHelper selectedBranch = this.branchDropdownSelector.getSelectionModel().getSelectedItem();
 
@@ -253,7 +253,7 @@ public class MergeWindowController {
 
     public void handleTrackDifBranch() {
         RemoteBranchHelper toTrack = PopUpWindows.showTrackDifRemoteBranchDialog(FXCollections.observableArrayList(branchModel.getRemoteBranchesTyped()));
-        logger.info("Track remote branch locally (in merge window) button clicked");
+        logger.info("نقر زر تتبع تفريعة بعيدة محليا (في نافذة دمج)");
         try {
             if (toTrack != null) {
                 LocalBranchHelper tracker = this.branchModel.trackRemoteBranch(toTrack);
@@ -261,7 +261,7 @@ public class MergeWindowController {
                 CommitTreeController.setBranchHeads(localCommitTreeModel, repoHelper);
             }
         } catch (RefAlreadyExistsException e) {
-            logger.warn("Branch already exists locally warning");
+            logger.warn("تحذير: التفريعية موجودة محليا بالفعل");
             this.showRefAlreadyExistsNotification();
         } catch (GitAPIException | IOException e) {
             showGenericErrorNotification();
@@ -280,57 +280,57 @@ public class MergeWindowController {
     ///******* START ERROR NOTIFICATIONS *******/
 
     private void showFastForwardMergeNotification() {
-        logger.info("Fast forward merge complete notification");
-        notificationPaneController.addNotification("Fast-forward merge completed.");
+        logger.info("تنبيه: اكتمال دمج سريع للامام");
+        notificationPaneController.addNotification("اكتمل دمج سريع للأمام.");
     }
 
     private void showMergeSuccessNotification() {
-        logger.info("Merge completed notification");
-        notificationPaneController.addNotification("Merge completed.");
+        logger.info("تنبيه: اكتمال دمج");
+        notificationPaneController.addNotification("اكتمال دمج.");
     }
 
     private void showFailedMergeNotification() {
-        logger.warn("Merge failed notification");
-        notificationPaneController.addNotification("The merge failed.");
+        logger.warn("تنبيه: فشل دمج");
+        notificationPaneController.addNotification("فشل الدمج.");
     }
 
     private void showUpToDateNotification() {
-        logger.warn("No merge necessary notification");
-        notificationPaneController.addNotification("No merge necessary. Those two branches are already up-to-date.");
+        logger.warn("تنبيه: لاحوجة للدمج");
+        notificationPaneController.addNotification("لاحوجة للدمج. التفريعتان محدثتان بالفعل.");
     }
 
     private void showConflictsNotification() {
-        logger.info("Merge conflicts notification");
-        notificationPaneController.addNotification("That merge resulted in conflicts. Check the working tree to resolve them.");
+        logger.info("تنبيه: تعارض دمج");
+        notificationPaneController.addNotification("يتسبب هذا الدمج بتعارض. افحص شجرة العمل لحلها.");
     }
 
     private void showGenericErrorNotification() {
         Platform.runLater(()-> {
-            logger.warn("Generic error.");
-            notificationPaneController.addNotification("Sorry, there was an error.");
+            logger.warn("خطأ عام.");
+            notificationPaneController.addNotification("نأسف يوجد خطأ ما");
         });
     }
 
     private void showJGitInternalError(JGitInternalException e) {
         Platform.runLater(()-> {
             if (e.getCause().toString().contains("LockFailedException")) {
-                logger.warn("Lock failed warning.");
-                notificationPaneController.addNotification("Cannot lock .git/index. If no other git processes are running, manually remove all .lock files.");
+                logger.warn("تحذير: فشل الاغلاق");
+                notificationPaneController.addNotification("لايمكن إغلاق .git/index. اذا لاتوجد عملية جيت اخري تعمل، قم بالحذف يدويا ثم اغلق الملفات.");
             } else {
-                logger.warn("Generic jgit internal warning.");
-                notificationPaneController.addNotification("Sorry, there was a Git error.");
+                logger.warn("تحذير: جي جيت عام داخلي");
+                notificationPaneController.addNotification("نأسف يوجد خطأ جيت.");
             }
         });
     }
 
     private void showRefAlreadyExistsNotification() {
-        logger.info("Branch already exists notification");
-        notificationPaneController.addNotification("That branch already exists locally.");
+        logger.info("تنبيه: التفريعة موجودة بالفعل");
+        notificationPaneController.addNotification("هذه التفريعة موجودة بالفعل.");
     }
 
     private void showSelectBranchNotification() {
-        logger.info("Select a branch first notification");
-        notificationPaneController.addNotification("You need to select a branch first");
+        logger.info("تنبيه: حدد نفريعة أولاً");
+        notificationPaneController.addNotification("عليك اختيار تفريعة أولاً");
     }
 
     ///******* END ERROR NOTIFICATIONS *******/

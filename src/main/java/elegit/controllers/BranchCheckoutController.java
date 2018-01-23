@@ -53,7 +53,7 @@ public class BranchCheckoutController {
 
     public void initialize() throws Exception {
 
-        logger.info("Started up branch manager");
+        logger.info("بدء مدير التفريعات");
 
         this.sessionModel = SessionModel.getSessionModel();
         this.repoHelper = this.sessionModel.getCurrentRepoHelper();
@@ -89,10 +89,10 @@ public class BranchCheckoutController {
     void showStage(AnchorPane pane) {
         anchorRoot = pane;
         stage = new Stage();
-        stage.setTitle("Branch Checkout");
+        stage.setTitle("تفحص تفريعة");
         stage.setScene(new Scene(anchorRoot, 550, 450));
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setOnCloseRequest(event -> logger.info("Closed branch manager window"));
+        stage.setOnCloseRequest(event -> logger.info("اغلقت نافذت مدير التفريعات"));
         stage.show();
         this.notificationPaneController.setAnchor(stage);
     }
@@ -152,7 +152,7 @@ public class BranchCheckoutController {
      * @throws IOException if writing to local directory fails
      */
     public void trackSelectedBranchLocally() throws GitAPIException, IOException {
-        logger.info("Track remote branch locally button clicked");
+        logger.info("ضغط زر تتبع تفريعة بعيدة محليا");
         RemoteBranchHelper selectedRemoteBranch = this.remoteListView.getSelectionModel().getSelectedItem();
         try {
             if (selectedRemoteBranch != null) {
@@ -161,7 +161,7 @@ public class BranchCheckoutController {
                 CommitTreeController.setBranchHeads(this.localCommitTreeModel, this.repoHelper);
             }
         } catch (RefAlreadyExistsException e) {
-            logger.warn("Branch already exists locally warning");
+            logger.warn("تحذير بوجود التفريعة محليا بالفعل");
             this.showRefAlreadyExistsNotification();
         }
     }
@@ -170,7 +170,7 @@ public class BranchCheckoutController {
      * Deletes a given local branch through git, forcefully.
      */
     private void forceDeleteLocalBranch(LocalBranchHelper branchToDelete) {
-        logger.info("Deleting local branch");
+        logger.info("حذف تفريعة محلية");
 
         try {
             if (branchToDelete != null) {
@@ -183,10 +183,10 @@ public class BranchCheckoutController {
                 CommitTreeController.setBranchHeads(this.localCommitTreeModel, this.repoHelper);
             }
         } catch (CannotDeleteCurrentBranchException e) {
-            logger.warn("Can't delete current branch warning");
+            logger.warn("تحذير: لايمكن حذف التفريعة الحالية");
             this.showCannotDeleteBranchNotification(branchToDelete);
         } catch (GitAPIException e) {
-            logger.warn("Git error");
+            logger.warn("خطأ جيت");
             this.showGenericGitErrorNotificationWithBranch(branchToDelete);
             e.printStackTrace();
         }
@@ -223,42 +223,42 @@ public class BranchCheckoutController {
     /// BEGIN: ERROR NOTIFICATIONS:
 
     private void showGenericGitErrorNotificationWithBranch(LocalBranchHelper branch) {
-        logger.warn("Git error on branch notification");
-        notificationPaneController.addNotification(String.format("Sorry, there was a git error on branch %s.", branch.getRefName()));
+        logger.warn("تنبيه: خطأ جيت علي التفريعة");
+        notificationPaneController.addNotification(String.format("نأسف يوجد خطأ جيت on branch %s.", branch.getRefName()));
     }
 
     private void showGenericErrorNotification() {
-        logger.warn("Generic error notification");
-        notificationPaneController.addNotification("Sorry, there was an error.");
+        logger.warn("تنبيه: خطأ عام");
+        notificationPaneController.addNotification("نأسف يوجد خطأ ما");
     }
 
     private void showCannotDeleteBranchNotification(LocalBranchHelper branch) {
-        logger.warn("Cannot delete current branch notification");
-        notificationPaneController.addNotification(String.format("Sorry, %s can't be deleted right now. " +
-                "Try checking out a different branch first.", branch.getRefName()));
+        logger.warn("تنبيه: لايمكن حذف التفريعة الحالية");
+        notificationPaneController.addNotification(String.format("نأسف لايمكن حذف %s الان.  " +
+                "حاول الانتقال لتفريعة أخري أولا", branch.getRefName()));
     }
 
     private void showJGitInternalError(JGitInternalException e) {
         Platform.runLater(()-> {
             if (e.getCause().toString().contains("LockFailedException")) {
-                logger.warn("Lock failed warning.");
-                notificationPaneController.addNotification("Cannot lock .git/index. If no other git processes are running, manually remove all .lock files.");
+                logger.warn(".تحذير: فشل الاغلاق");
+                notificationPaneController.addNotification("لا يمكن غلق  .git/index. اذا لاتوجد عملية جيت اخري تعمل، احذفها يدويا ثم اغلق الملفات.");
             } else {
-                logger.warn("Generic jgit internal warning.");
-                notificationPaneController.addNotification("Sorry, there was a Git error.");
+                logger.warn("تحذير: جي جيت عام داخلي");
+                notificationPaneController.addNotification("نأسف يوجد خطأ جيت.");
             }
         });
     }
 
     private void showRefAlreadyExistsNotification() {
-        logger.info("Branch already exists notification");
-        notificationPaneController.addNotification("Looks like that branch already exists locally!");
+        logger.info("تنبيه: التفريعة موجودة بالفعل");
+        notificationPaneController.addNotification("يبدو ان هذه التفريعة موجودة محليا");
     }
 
     private void showCheckoutConflictsNotification(List<String> conflictingPaths) {
         Platform.runLater(() -> {
-            logger.warn("Checkout conflicts warning");
-            notificationPaneController.addNotification("You can't switch to that branch because there would be a merge conflict. Stash your changes or resolve conflicts first.");
+            logger.warn("تحذير: تضارب تفحص");
+            notificationPaneController.addNotification("لايمكنك الانتقال لتلك التفريعة لوجود تعارض دمج. اخف تعديلاتك أو حل التعارضات اولا. ");
 
             /*
             Action seeConflictsAction = new Action("See conflicts", e -> {

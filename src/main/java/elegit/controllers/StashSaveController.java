@@ -33,7 +33,7 @@ public class StashSaveController {
      * Sets up views and buttons
      */
     public void initialize() {
-        logger.info("Started up stash save window");
+        logger.info("بدءت نافذت حفظ اخفاء");
 
         SessionModel sessionModel = SessionModel.getSessionModel();
         this.repoHelper = sessionModel.getCurrentRepoHelper();
@@ -51,10 +51,10 @@ public class StashSaveController {
      */
     public void showStage(AnchorPane pane) {
         stage = new Stage();
-        stage.setTitle("Stash Save");
+        stage.setTitle("حفظ اخفاء");
         stage.setScene(new Scene(pane));
         stage.setOnCloseRequest(event -> {
-            logger.info("Closed stash save window");
+            logger.info("أغلقت نافذت حفظ اخفاء");
         });
         stage.show();
         this.notificationPaneController.setAnchor(stage);
@@ -76,9 +76,9 @@ public class StashSaveController {
             sessionController.gitStatus();
             closeWindow();
         } catch (GitAPIException e) {
-            notificationPaneController.addNotification("Something went wrong with the save.");
+            notificationPaneController.addNotification("شيء ما خطأ اثناء الحفظ.");
         } catch (NoFilesToStashException e) {
-            notificationPaneController.addNotification("No files to stash.");
+            notificationPaneController.addNotification("لم تخف ملفات.");
         }
     }
 
@@ -88,9 +88,9 @@ public class StashSaveController {
             sessionController.gitStatus();
             closeWindow();
         } catch (GitAPIException e) {
-            notificationPaneController.addNotification("Something went wrong with the save.");
+            notificationPaneController.addNotification("شيء ما خطأ اثناء الحفظ.");
         } catch (NoFilesToStashException e) {
-            notificationPaneController.addNotification("No files to stash");
+            notificationPaneController.addNotification("لم تخف ملفات");
         }
     }
 

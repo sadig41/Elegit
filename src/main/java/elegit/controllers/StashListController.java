@@ -44,7 +44,7 @@ public class StashListController {
      * Sets up views and buttons
      */
     public void initialize() {
-        logger.info("Started up stash list window");
+        logger.info("بدءت نافذت لائحة الاخفاء");
 
         SessionModel sessionModel = SessionModel.getSessionModel();
         this.repoHelper = sessionModel.getCurrentRepoHelper();
@@ -80,10 +80,10 @@ public class StashListController {
      */
     public void showStage(AnchorPane pane) {
         stage = new Stage();
-        stage.setTitle("Stash List");
+        stage.setTitle("لائحة الاخفاء");
         stage.setScene(new Scene(pane));
         stage.setOnCloseRequest(event -> {
-            logger.info("Closed stash list window");
+            logger.info("أغلقت نافذة لائحة الاخفاء");
         });
         stage.show();
         this.notificationPaneController.setAnchor(stage);
@@ -105,9 +105,9 @@ public class StashListController {
         try {
             this.stashList.setItems(FXCollections.observableArrayList(repoHelper.stashList()));
         } catch (GitAPIException e) {
-            this.notificationPaneController.addNotification("Something went wrong retrieving the stash(es)");
+            this.notificationPaneController.addNotification("شيء ما خطأ عكس الاخفاء");
         } catch (IOException e) {
-            this.notificationPaneController.addNotification("Something went wrong.");
+            this.notificationPaneController.addNotification("شيء ما خطأ.");
         }
     }
 
@@ -123,11 +123,11 @@ public class StashListController {
             repoHelper.stashApply(stashRef, false);
             sessionController.gitStatus();
         } catch (WrongRepositoryStateException e) {
-            notificationPaneController.addNotification("Conflicts occured while trying to apply stash. Commit/stash changes or force apply (right click).");
+            notificationPaneController.addNotification("حدث تضضارب اثناء تطبيق الاخفاء. أودع/أخف التعديلات أو أجبرها علي التطبيق (أنقر بالزر الايمن).");
         } catch (StashApplyFailureException e) {
             showStashConflictsNotification();
         } catch (GitAPIException e) {
-            notificationPaneController.addNotification("Something went wrong with the apply. Try committing any uncommitted changes.");
+            notificationPaneController.addNotification("شيء ما خطأ مع التطبيق. جرب الايداع لكل التعديلات غير المودعة.");
         }
     }
 
@@ -140,7 +140,7 @@ public class StashListController {
             repoHelper.stashDrop(index);
             refreshList();
         } catch (GitAPIException e) {
-            notificationPaneController.addNotification("Something went wrong with the drop. Try committing any uncommitted changes.");
+            notificationPaneController.addNotification("شيء ما خطأ with the drop. Try committing any uncommitted changes.");
         }
     }
 
@@ -154,7 +154,7 @@ public class StashListController {
             repoHelper.stashClear();
             refreshList();
         } catch (GitAPIException e) {
-            notificationPaneController.addNotification("Something went wrong with the clear. Try committing any uncommitted changes.");
+            notificationPaneController.addNotification("شيء ما خطأ with the clear. Try committing any uncommitted changes.");
         }
     }
 
@@ -172,7 +172,7 @@ public class StashListController {
         }  catch (StashApplyFailureException e) {
             showStashConflictsNotification();
         } catch (GitAPIException e) {
-            notificationPaneController.addNotification("Something went wrong with the pop. Try committing any uncommitted changes.");
+            notificationPaneController.addNotification("شيء ما خطأ بالمستودع. حاول ايداع التعديلا غير المودعة كلها اولا.");
         }
     }
 
@@ -181,11 +181,11 @@ public class StashListController {
 
     private void showStashConflictsNotification() {
         Platform.runLater(() -> {
-            logger.warn("Stash apply conflicts warning");
+            logger.warn("تحذير: تضارب تطبيق اخفاء");
 
             EventHandler handler = event -> sessionController.quickStashSave();
-            this.notificationPaneController.addNotification("You can't apply that stash because there would be conflicts. " +
-                    "Stash your changes or resolve conflicts first.", "stash", handler);
+            this.notificationPaneController.addNotification("لايمكنك تطبيق الاخفاء لوجود تضارب. " +
+                    "اخف تعديلاتك. او حل التضاربات أولا.", "stash", handler);
         });
     }
 

@@ -42,7 +42,7 @@ public class ConflictingFileWatcher {
     }
 
     /**
-     * Spins off a new thread to watch the directories that contain conflicting files
+     * Spins off a new thread to watch the directories that contain ملفات متضاربة
      *
      * @param currentRepo RepoHelper
      * @throws GitAPIException
@@ -56,7 +56,7 @@ public class ConflictingFileWatcher {
 
             @Override
             protected Void call() throws IOException, GitAPIException {
-                // gets the conflicting files
+                // gets the ملفات متضاربة
                 Set<String> newConflictingFiles = (new Git(currentRepo.getRepo()).status().call()).getConflicting();
                 for(String newFile : newConflictingFiles) {
                     if(!conflictingFiles.contains(newFile)) {

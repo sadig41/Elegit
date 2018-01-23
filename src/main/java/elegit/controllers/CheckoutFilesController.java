@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Controller class for the checkout files window
+ * Controller class for the تفحص ملفات window
  */
 public class CheckoutFilesController {
 
@@ -43,7 +43,7 @@ public class CheckoutFilesController {
      * Sets up views and buttons
      */
     public void initialize(){
-        logger.info("Started up checkout files from commit window");
+        logger.info("بدأت نافذة تفحص ملفات من ايداع");
 
         SessionModel sessionModel = SessionModel.getSessionModel();
         this.repoHelper = sessionModel.getCurrentRepoHelper();
@@ -58,10 +58,10 @@ public class CheckoutFilesController {
      */
     public void showStage(AnchorPane pane) {
         stage = new Stage();
-        stage.setTitle("Checkout files");
+        stage.setTitle("تفحص ملفات");
         stage.setScene(new Scene(pane));
         stage.setOnCloseRequest(event -> {
-            logger.info("Closed checkout files from commit window");
+            logger.info("اغلقت نافذة تفحص ملفات من ايداع");
         });
         stage.show();
         this.notificationPaneController.setAnchor(stage);
@@ -74,22 +74,22 @@ public class CheckoutFilesController {
     public void handleCheckoutButton() {
         try {
             if(fileNames.size() == 0) {
-                notificationPaneController.addNotification("You need to add some files first");
+                notificationPaneController.addNotification("عليك اضافة بعض الملفات اولا");
                 return;
             }
             CheckoutResult result = this.repoHelper.checkoutFiles(fileNames, commitHelper.getId());
             switch (result.getStatus()) {
                 case CONFLICTS:
-                    notificationPaneController.addNotification("Checkout has not completed because of checkout conflicts");
+                    notificationPaneController.addNotification("لم يكتمل التفحص بسبب تعارضات التفحص");
                     break;
                 case ERROR:
-                    notificationPaneController.addNotification("An error occurred during checkout");
+                    notificationPaneController.addNotification("حدث خطلأ أثناء التفحص");
                     break;
                 case NONDELETED:
-                    notificationPaneController.addNotification("Checkout has completed, but some files could not be deleted.");
+                    notificationPaneController.addNotification("أكتمل التفحص، لكن لايمكن حذف بعض الملفات.");
                     break;
                 case NOT_TRIED:
-                    notificationPaneController.addNotification("Something went wrong... try checking out again.");
+                    notificationPaneController.addNotification("شيء ما خطأ ... جرب التفحص مجددا.");
                     break;
                 // The OK case happens when a file is changed in the index or an invalid file
                 // was entered, for now just call git status and close
@@ -100,7 +100,7 @@ public class CheckoutFilesController {
                     break;
             }
         } catch (Exception e) {
-            notificationPaneController.addNotification("Something went wrong.");
+            notificationPaneController.addNotification("شيء ما خطأ.");
         }
     }
 
@@ -109,7 +109,7 @@ public class CheckoutFilesController {
 
         // Don't allow adding the same file more than once
         if (fileNames.contains(fileName)) {
-            notificationPaneController.addNotification(fileName+" has already been added.");
+            notificationPaneController.addNotification("تمت اضافة "+fileName+" بالفعل.");
             return;
         }
 
@@ -126,7 +126,7 @@ public class CheckoutFilesController {
             fileNames.add(fileName);
             filesToCheckout.getChildren().add(0,line);
         }else {
-            notificationPaneController.addNotification("You need to type a file name first");
+            notificationPaneController.addNotification("عليك كتابة اسم الملف اولا");
             return;
         }
     }

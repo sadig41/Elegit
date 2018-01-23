@@ -12,7 +12,7 @@ For Windows and for Mac:
 
 For Linux:
 
-1. Open IntelliJ and make sure master is checked out and up to date (change the release version in pom.xml if needed).
+1. Open IntelliJ and make sure master is checked out and محدثة (change the release version in pom.xml if needed).
 2. Create a new Run Configuration by going to the Run menu and selecting "Edit Configurations..."
 3. Click the + sign on the upper-left for a new configuration, and select Maven.
 4. Give the config a name.

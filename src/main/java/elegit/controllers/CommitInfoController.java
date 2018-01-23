@@ -30,11 +30,11 @@ public class CommitInfoController {
         this.commitInfoGoToButton.setGraphic(goToIcon);
 
         this.commitInfoGoToButton.setTooltip(new Tooltip(
-                "Go to selected commit"
+                "اذهب للايداع المحدد"
         ));
 
         this.commitInfoNameCopyButton.setTooltip(new Tooltip(
-                "Copy commit ID"
+                "انسخ معرف الايداع"
         ));
     }
 

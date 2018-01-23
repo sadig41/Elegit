@@ -397,9 +397,9 @@ public class CommitTreeModel{
     private ContextMenu getContextMenu(CommitHelper commit){
         ContextMenu contextMenu = new ContextMenu();
 
-        MenuItem checkoutItem = new MenuItem("Checkout files...");
+        MenuItem checkoutItem = new MenuItem("تفحص ملفات...");
         checkoutItem.setOnAction(event -> {
-            logger.info("Checkout files from commit button clicked");
+            logger.info("نقر زر تفحص ملفات من ايداع");
             CommitTreeController.sessionController.handleCheckoutFilesButton(commit);
         });
         Menu relativesMenu = getRelativesMenu(commit);
@@ -417,23 +417,23 @@ public class CommitTreeModel{
      * @return relativesMenu
      */
     private Menu getRelativesMenu(CommitHelper commit) {
-        Menu relativesMenu = new Menu("Show Relatives");
+        Menu relativesMenu = new Menu("عرض ذوي الصلة Relatives");
 
-        MenuItem parentsItem = new MenuItem("Parents");
+        MenuItem parentsItem = new MenuItem("اباء");
         parentsItem.setOnAction(event -> {
-            logger.info("Selected see parents");
+            logger.info("رؤية الاباء الحددين");
             CommitTreeController.selectCommit(commit.getId(), true, false, false);
         });
 
-        MenuItem childrenItem = new MenuItem("Children");
+        MenuItem childrenItem = new MenuItem("ابناء");
         childrenItem.setOnAction(event -> {
-            logger.info("Selected see children");
+            logger.info("رؤية الابناء المحددين");
             CommitTreeController.selectCommit(commit.getId(), false, true, false);
         });
 
-        MenuItem parentsAndChildrenItem = new MenuItem("Both");
+        MenuItem parentsAndChildrenItem = new MenuItem("كلاهما");
         parentsAndChildrenItem.setOnAction(event -> {
-            logger.info("Selected see children and parents");
+            logger.info("عرض الاباء والابناء المحددين");
             CommitTreeController.selectCommit(commit.getId(), true, true, false);
         });
 
@@ -448,11 +448,11 @@ public class CommitTreeModel{
      * @return revertMenu
      */
     private Menu getRevertMenu(CommitHelper commit) {
-        Menu revertMenu = new Menu("Revert...");
-        MenuItem revertItem = new MenuItem("Revert this commit");
-        MenuItem revertMultipleItem = new MenuItem("Revert multiple commits...");
+        Menu revertMenu = new Menu("عكس...");
+        MenuItem revertItem = new MenuItem("عكس هذا الايداع");
+        MenuItem revertMultipleItem = new MenuItem("عكس عدة ايداعات...");
         revertMultipleItem.disableProperty().bind(CommitTreeController.multipleNotSelectedProperty);
-        MenuItem helpItem = new MenuItem("Help");
+        MenuItem helpItem = new MenuItem("مساعدة");
 
         revertItem.setOnAction(event -> CommitTreeController.sessionController.handleRevertButton(commit));
 
@@ -471,9 +471,9 @@ public class CommitTreeModel{
     }
 
     private Menu getResetMenu(CommitHelper commit) {
-        Menu resetMenu = new Menu("Reset...");
-        MenuItem resetItem = new MenuItem("Reset to this commit");
-        MenuItem helpItem = new MenuItem("Help");
+        Menu resetMenu = new Menu("اعادة ضبط Reset...");
+        MenuItem resetItem = new MenuItem("اعادة ضبط هذا الايداع");
+        MenuItem helpItem = new MenuItem("مساعدة");
         Menu advancedMenu = getAdvancedResetMenu(commit);
 
         resetItem.setOnAction(event -> CommitTreeController.sessionController.handleResetButton(commit));
@@ -486,7 +486,7 @@ public class CommitTreeModel{
     }
 
     private Menu getAdvancedResetMenu(CommitHelper commit) {
-        Menu resetMenu = new Menu("Advanced");
+        Menu resetMenu = new Menu("متقدم");
         MenuItem hardItem = new MenuItem("reset --hard");
         MenuItem mixedItem = new MenuItem("reset --mixed");
         MenuItem softItem = new MenuItem("reset --soft");

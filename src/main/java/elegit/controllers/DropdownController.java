@@ -31,7 +31,7 @@ public class DropdownController {
         openRepoDirButton.setMinSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
         Text openExternallyIcon = GlyphsDude.createIcon(FontAwesomeIcon.EXTERNAL_LINK);
         this.openRepoDirButton.setGraphic(openExternallyIcon);
-        this.openRepoDirButton.setTooltip(new Tooltip("Open repository directory"));
+        this.openRepoDirButton.setTooltip(new Tooltip("فتح حاوية مستودع"));
 
         final int REPO_DROPDOWN_MAX_WIDTH = 147;
         repoDropdownSelector.setMaxWidth(REPO_DROPDOWN_MAX_WIDTH);
@@ -42,7 +42,7 @@ public class DropdownController {
         Text minusIcon = GlyphsDude.createIcon(FontAwesomeIcon.MINUS);
         this.removeRecentReposButton.setGraphic(minusIcon);
 
-        this.removeRecentReposButton.setTooltip(new Tooltip("Clear shortcuts to recently opened repos"));
+        this.removeRecentReposButton.setTooltip(new Tooltip("تفريغ الاختصارات لاخر المستودعات فتحا"));
         Text downloadIcon = GlyphsDude.createIcon(FontAwesomeIcon.CLOUD_DOWNLOAD);
         cloneOption.setGraphic(downloadIcon);
 

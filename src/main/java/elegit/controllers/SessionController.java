@@ -223,7 +223,7 @@ public class SessionController {
 
         VBox.setVgrow(filesTabPane, Priority.ALWAYS);
 
-        // if there are conflicting files on startup, watches them for changes
+        // if there are ملفات متضاربة on startup, watches them for changes
         try {
             ConflictingFileWatcher.watchConflictingFiles(theModel.getCurrentRepoHelper());
         } catch (GitAPIException | IOException e) {
@@ -295,7 +295,7 @@ public class SessionController {
         boolean update;
 
         update = RepositoryMonitor.hasFoundNewRemoteChanges.get();
-        String fetchText = update ? "New changes to fetch" : "Up to date";
+        String fetchText = update ? "تعديلات جديدة لجلبها" : "محدثة";
         Color fetchColor = update ? Color.FIREBRICK : Color.FORESTGREEN;
         needToFetch.setText(fetchText);
         needToFetch.setFont(new Font(15));
@@ -347,25 +347,25 @@ public class SessionController {
         } catch (IOException e) {
             this.showGenericErrorNotification();
         }
-        String statusText="Up to date.";
+        String statusText="محدثة.";
         if (ahead >0) {
-            statusText= currentLocalBranchLabel.getText() + " ahead of " + currentRemoteTrackingLabel.getText() + " by " + ahead + " commit";
-            if (ahead > 1)
-                statusText+="s";
+            statusText= currentLocalBranchLabel.getText() + " متقدم علي " + currentRemoteTrackingLabel.getText() + " بعدد " + ahead + " ايداع";
+            if (ahead > 2 && ahead < 10)
+                statusText+="ات";
             if (behind > 0) {
-                statusText += "\nand behind by " + behind + " commit";
-                if (behind > 1)
-                    statusText+="s";
+                statusText += "\nومتأخر بعدد " + behind + " ايداع";
+                if (behind > 2 && behind < 10)
+                    statusText+="ات";
             }
             statusText+=".";
         } else if (behind > 0) {
-            statusText = currentLocalBranchLabel.getText() + " behind " + currentRemoteTrackingLabel.getText() + " by " + behind + " commit";
-            if (behind > 1)
-                statusText+="s";
+            statusText = currentLocalBranchLabel.getText() + " متأخر بعدد " + currentRemoteTrackingLabel.getText() + behind + " ايداع";
+            if (behind > 2 && behind < 10)
+                statusText+="ات";
             statusText+=".";
         }
         update = !statusText.equals(branchStatusText.getText());
-        Color statusColor = statusText.equals("Up to date.") ? Color.FORESTGREEN : Color.FIREBRICK;
+        Color statusColor = statusText.equals("محدثة.") ? Color.FORESTGREEN : Color.FIREBRICK;
         if (update) {
             branchStatusText.setText(statusText);
             branchStatusText.setFill(statusColor);
@@ -463,29 +463,29 @@ public class SessionController {
      */
     private void setButtonIconsAndTooltips() {
         this.commitButton.setTooltip(new Tooltip(
-                "Check in selected files to local repository"
+                "ضع الملفات المحددة بالمستودع المحل"
         ));
         this.addButton.setTooltip(new Tooltip(
-                "Stage changes for selected files"
+                "ادرج التعديلات الي الملفات المحددة"
         ));
         this.checkoutFileButton.setTooltip(new Tooltip(
-                "Checkout files from the index (discard all unstaged changes)"
+                "تفحص ملفات من الفهرس (تجاهل كل التعديلات غير المدرجة)"
         ));
         this.removeButton.setTooltip(new Tooltip(
-                "Delete selected files and remove them from Git"
+                "امسح الملفات المحددة وأزلها من جيت"
         ));
         this.fetchButton.setTooltip(new Tooltip(
-                "Download files from another repository to remote repository"
+                "نزل ملفات من مستودع أخر للمستودع البعيد"
         ));
         this.pushButton.setTooltip(new Tooltip(
-                "Update remote repository with local changes,\nright click for advanced options"
+                "تحديث مستودع بعيد بتعديلات محلية،\n انقر بالزر الأيمن للخيارات المتقدمة"
         ));
 
         dropdownController.loadNewRepoButton.setTooltip(new Tooltip(
-                "Load a new repository"
+                "تحميل مستودع جديد"
         ));
         this.mergeButton.setTooltip(new Tooltip(
-                "Merge two commits together"
+                "دمج ايداعين سويا"
         ));
     }
 
@@ -738,10 +738,10 @@ public class SessionController {
         if(isRecentRepoEventListenerBlocked || repoHelper == null) return;
 
         this.notificationPaneController.clearAllNotifications();
-        logger.info("Switching repos");
+        logger.info("تبديل مستودعات");
         RepositoryMonitor.pause();
         BusyWindow.show();
-        BusyWindow.setLoadingText("Opening the repository...");
+        BusyWindow.setLoadingText("فتح المستودع...");
         Thread th = new Thread(new Task<Void>(){
             @Override
             protected Void call() throws Exception{
@@ -793,7 +793,7 @@ public class SessionController {
      */
     public void handleAddButton() {
         try {
-            logger.info("Add button clicked");
+            logger.info("نقر زر اضافة");
             if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
             if(!this.theModel.getCurrentRepoHelper().exists()) throw new MissingRepoException();
 
@@ -801,7 +801,7 @@ public class SessionController {
             if(workingTreePanelView.isAnyFileStagedSelected()) throw new StagedFileCheckedException();
 
             BusyWindow.show();
-            BusyWindow.setLoadingText("Adding...");
+            BusyWindow.setLoadingText("اضافة...");
             Thread th = new Thread(new Task<Void>(){
                 @Override
                 protected Void call() {
@@ -864,14 +864,14 @@ public class SessionController {
      */
     public void handleRemoveButton() {
         try {
-            logger.info("Remove button clicked");
+            logger.info("نقر زر ازالة");
             if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
             if(!this.theModel.getCurrentRepoHelper().exists()) throw new MissingRepoException();
 
             if(!workingTreePanelView.isAnyFileSelected()) throw new NoFilesSelectedToRemoveException();
 
             BusyWindow.show();
-            BusyWindow.setLoadingText("Removing...");
+            BusyWindow.setLoadingText("ازالة...");
             Thread th = new Thread(new Task<Void>(){
                 @Override
                 protected Void call() {
@@ -920,7 +920,7 @@ public class SessionController {
      */
     public void handleCheckoutButton(Path filePath) {
         try {
-            logger.info("Checkout file button clicked");
+            logger.info("نقر زر تفحص ملف");
             if (! PopUpWindows.showCheckoutAlert()) throw new CancelledDialogueException();
             if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
             if(!this.theModel.getCurrentRepoHelper().exists()) throw new MissingRepoException();
@@ -941,7 +941,7 @@ public class SessionController {
      */
     public void handleCheckoutButton() {
         try {
-            logger.info("Checkout button clicked");
+            logger.info("نقر زر تفحص");
             if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
             if(!this.theModel.getCurrentRepoHelper().exists()) throw new MissingRepoException();
 
@@ -969,16 +969,16 @@ public class SessionController {
 
 
     /**
-     * Shows the checkout files dialogue for a given commit
+     * Shows the تفحص ملفات dialogue for a given commit
      *
-     * @param commitHelper the commit to checkout files from
+     * @param commitHelper the commit to تفحص ملفات from
      */
     public void handleCheckoutFilesButton(CommitHelper commitHelper) {
         try{
-            logger.info("Checkout files from commit button clicked");
+            logger.info("نقر زر تفحص ملفات من ايداع");
             if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
 
-            logger.info("Opened checkout files window");
+            logger.info("فتحت نافذة تفحص ملفات");
             // Create and display the Stage:
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/elegit/fxml/CheckoutFiles.fxml"));
             fxmlLoader.load();
@@ -1011,7 +1011,7 @@ public class SessionController {
      */
     public void handleCommitButton(CommitType type) {
         try {
-            logger.info("Commit button clicked");
+            logger.info("نقر زر ايداع");
             if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
             if(!this.theModel.getCurrentRepoHelper().exists()) throw new MissingRepoException();
 
@@ -1044,7 +1044,7 @@ public class SessionController {
         if(message.equals("cancel")) return;
 
         BusyWindow.show();
-        BusyWindow.setLoadingText("Committing all...");
+        BusyWindow.setLoadingText("ايداع الكل...");
 
         Thread th = new Thread(new Task<Void>() {
             @Override
@@ -1066,7 +1066,7 @@ public class SessionController {
     }
 
     private void commitNormal() throws IOException {
-        logger.info("Opened commit manager window");
+        logger.info("فتحت نافذة مدير الايداع");
         // Create and display the Stage:
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/elegit/fxml/CommitView.fxml"));
         fxmlLoader.load();
@@ -1085,7 +1085,7 @@ public class SessionController {
      *
      */
     public void handleTagButton() {
-        logger.info("Clicked tag button");
+        logger.info("نقر زر تزييل");
         try {
             if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
             if(!this.theModel.getCurrentRepoHelper().exists()) throw new MissingRepoException();
@@ -1117,7 +1117,7 @@ public class SessionController {
                     }catch (TransportException e) {
                         showTransportExceptionNotification(e);
                     } catch(GitAPIException e){
-                        // Git error
+                        // خطأ جيت
                         showGenericErrorNotification();
                         e.printStackTrace();
                     } catch(TagNameExistsException e){
@@ -1167,7 +1167,7 @@ public class SessionController {
 
         try {
 
-            logger.info("Push button clicked");
+            logger.info("نقر زر دفع");
 
             if (this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
             if (pushType == PushType.BRANCH &&
@@ -1215,7 +1215,7 @@ public class SessionController {
             final RepoHelperBuilder.AuthDialogResponse credentialResponse = askUserForCredentials();
 
             BusyWindow.show();
-            BusyWindow.setLoadingText("Pushing...");
+            BusyWindow.setLoadingText("يدفع...");
             Thread th = new Thread(new Task<Void>(){
                 @Override
                 protected Void call() {
@@ -1299,14 +1299,14 @@ public class SessionController {
      */
     public void handlePushTagsButton() {
         try {
-            logger.info("Push tags button clicked");
+            logger.info("نقر زر تزييلات دفع");
 
             if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
 
             final RepoHelperBuilder.AuthDialogResponse credentialResponse = askUserForCredentials();
 
             BusyWindow.show();
-            BusyWindow.setLoadingText("Pushing tags...");
+            BusyWindow.setLoadingText("دفع تزييلات...");
             Thread th = new Thread(new Task<Void>(){
                 @Override
                 protected Void call() {
@@ -1441,7 +1441,7 @@ public class SessionController {
                 }
             }
         } catch (NotMergedException e) {
-            logger.warn("Can't delete branch because not merged warning");
+            logger.warn("تحذير: لايمكن حذف التفريعة لانها لم تدمج");
             /*Platform.runLater(() -> {
                 if(PopUpWindows.showForceDeleteBranchAlert() && selectedBranch instanceof LocalBranchHelper) {
                     // If we need to force delete, then it must be a local branch
@@ -1450,7 +1450,7 @@ public class SessionController {
             });*/
             this.showNotMergedNotification(selectedBranch);
         } catch (CannotDeleteCurrentBranchException e) {
-            logger.warn("Can't delete current branch warning");
+            logger.warn("تحذير: لايمكن حذف التفريعة الحالية");
             this.showCannotDeleteBranchNotification(selectedBranch);
         } catch (TransportException e) {
             this.showTransportExceptionNotification(e);
@@ -1474,7 +1474,7 @@ public class SessionController {
             final RepoHelperBuilder.AuthDialogResponse credentialResponse = askUserForCredentials();
 
             BusyWindow.show();
-            BusyWindow.setLoadingText("Deleting remote branch...");
+            BusyWindow.setLoadingText("حذف تفريعة محلية...");
 
             Thread th = new Thread(new Task<Void>() {
                 @Override
@@ -1531,7 +1531,7 @@ public class SessionController {
         } catch (TransportException e) {
             throw e;
         } catch (GitAPIException | IOException e) {
-            logger.warn("IO error");
+            logger.warn("خطأ دخل خرج");
             this.showGenericErrorNotification();
         }
     }
@@ -1542,7 +1542,7 @@ public class SessionController {
      */
     private void forceDeleteBranch(LocalBranchHelper branchToDelete) {
         BranchModel branchModel = theModel.getCurrentRepoHelper().getBranchModel();
-        logger.info("Deleting local branch");
+        logger.info("حذف تفريعة حالية");
 
         try {
             if (branchToDelete != null) {
@@ -1569,12 +1569,12 @@ public class SessionController {
      */
     public void handleRevertMultipleButton(List<CommitHelper> commits) {
         try {
-            logger.info("Revert button clicked");
+            logger.info("نقر زر عكس");
 
             if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
 
             BusyWindow.show();
-            BusyWindow.setLoadingText("Reverting...");
+            BusyWindow.setLoadingText("يعكس...");
             Thread th = new Thread(new Task<Void>(){
                 @Override
                 protected Void call() {
@@ -1622,12 +1622,12 @@ public class SessionController {
      */
     public void handleRevertButton(CommitHelper commit) {
         try {
-            logger.info("Revert button clicked");
+            logger.info("نقر زر عكس");
 
             if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
 
             BusyWindow.show();
-            BusyWindow.setLoadingText("Reverting...");
+            BusyWindow.setLoadingText("يعكس...");
             Thread th = new Thread(new Task<Void>(){
                 @Override
                 protected Void call() {
@@ -1683,12 +1683,12 @@ public class SessionController {
      */
     public void handleAdvancedResetButton(CommitHelper commit, ResetCommand.ResetType type) {
         try {
-            logger.info("Reset button clicked");
+            logger.info("نقر زر اعادة ضبط");
 
             if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
 
             BusyWindow.show();
-            BusyWindow.setLoadingText("Resetting...");
+            BusyWindow.setLoadingText("اعادة ضبط...");
             Thread th = new Thread(new Task<Void>(){
                 @Override
                 protected Void call() {
@@ -1726,7 +1726,7 @@ public class SessionController {
      */
     public void handleStashSaveButton() {
         try {
-            logger.info("Stash save button clicked");
+            logger.info("نقر زر حفظ اخفاء");
 
             if (this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
 
@@ -1747,7 +1747,7 @@ public class SessionController {
 
     public void quickStashSave() {
         try {
-            logger.info("Quick stash save button clicked");
+            logger.info("نقر زر حفظ اخفاء سريع");
 
             if (this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
 
@@ -1768,7 +1768,7 @@ public class SessionController {
      */
     public void handleStashApplyButton() {
         // TODO: make it clearer which stash this applies
-        logger.info("Stash apply button clicked");
+        logger.info("نقر زر تطبيق اخفاء");
         try {
             CommitHelper topStash = theModel.getCurrentRepoHelper().stashList().get(0);
             this.theModel.getCurrentRepoHelper().stashApply(topStash.getId(), false);
@@ -1787,7 +1787,7 @@ public class SessionController {
      */
     public void handleStashListButton() {
         try {
-            logger.info("Stash list button clicked");
+            logger.info("نقر زر لائحة اخفاء");
 
             if (this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
 
@@ -1810,7 +1810,7 @@ public class SessionController {
      * Drops the most recent stash
      */
     public void handleStashDropButton() {
-        logger.info("Stash drop button clicked");
+        logger.info("نقر زر اخفاء قطرةStash drop button clicked");
         try {
             // TODO: implement droping something besides 0
             this.theModel.getCurrentRepoHelper().stashDrop(0);
@@ -1824,7 +1824,7 @@ public class SessionController {
      * @param prune boolean should prune
      */
     public void handleFetchButton(boolean prune, boolean pull) {
-        logger.info("Fetch button clicked");
+        logger.info("نقر زر جلب");
         RepositoryMonitor.pause();
         gitFetch(prune, pull);
         RepositoryMonitor.unpause();
@@ -1865,7 +1865,7 @@ public class SessionController {
             final RepoHelperBuilder.AuthDialogResponse response = askUserForCredentials();
 
             BusyWindow.show();
-            BusyWindow.setLoadingText("Fetching...");
+            BusyWindow.setLoadingText("يجلب...");
             Thread th = new Thread(new Task<Void>(){
                 @Override
                 protected Void call() {
@@ -1928,12 +1928,12 @@ public class SessionController {
      */
     public void mergeFromFetch(NotificationController notificationController, Stage stageToClose) {
         try{
-            logger.info("Merge from fetch button clicked");
+            logger.info("نقر زر دمج من مجلوب");
             if(theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
             if(theModel.getCurrentRepoHelper().getBehindCount()<1) throw new NoCommitsToMergeException();
 
             BusyWindow.show();
-            BusyWindow.setLoadingText("Merging...");
+            BusyWindow.setLoadingText("يدمج...");
             Thread th = new Thread(new Task<Void>(){
                 @Override
                 protected Void call() throws GitAPIException, IOException {
@@ -1997,7 +1997,7 @@ public class SessionController {
 
     public void handleLoggingOn() {
         changeLogging(Level.INFO);
-        logger.log(Level.INFO, "Toggled logging on");
+        logger.log(Level.INFO, "تغيير الولوج");
     }
 
     // why are the commitSort methods so slow?
@@ -2023,7 +2023,7 @@ public class SessionController {
 
     public void handleAbout() {
         try{
-            logger.info("About clicked");
+            logger.info("نقر حول");
             // Create and display the Stage:
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/elegit/fxml/About.fxml"));
             GridPane fxmlRoot = fxmlLoader.load();
@@ -2033,10 +2033,10 @@ public class SessionController {
             Stage stage = new Stage();
             javafx.scene.image.Image img = new javafx.scene.image.Image(getClass().getResourceAsStream("/elegit/images/elegit_icon.png"));
             stage.getIcons().add(img);
-            stage.setTitle("About");
+            stage.setTitle("حول");
             stage.setScene(new Scene(fxmlRoot));
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setOnCloseRequest(event -> logger.info("Closed about"));
+            stage.setOnCloseRequest(event -> logger.info("اغلق حول"));
             stage.show();
         }catch(IOException e) {
             this.showGenericErrorNotification();
@@ -2091,10 +2091,10 @@ public class SessionController {
      */
     public void handleCreateOrDeleteBranchButton(String tab) {
         try{
-            logger.info("Create/delete branch button clicked");
+            logger.info("نقر زر انشاء/حذف تفريعة");
             if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
 
-            logger.info("Opened create/delete branch window");
+            logger.info("فتحت نافذت انشاء/حذف تفريعة");
             // Create and display the Stage:
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/elegit/fxml/CreateDeleteBranchWindow.fxml"));
             fxmlLoader.load();
@@ -2115,7 +2115,7 @@ public class SessionController {
      * Copies the commit hash onto the clipboard
      */
     public void handleCommitNameCopyButton(){
-        logger.info("Commit name copied");
+        logger.info("نسخ اسم ايداع");
         Clipboard clipboard = Clipboard.getSystemClipboard();
         ClipboardContent content = new ClipboardContent();
         content.putString(commitInfoNameText);
@@ -2126,7 +2126,7 @@ public class SessionController {
      * Jumps to the selected commit in the tree display
      */
     public void handleGoToCommitButton(){
-        logger.info("Go to commit button clicked");
+        logger.info("نقر زر اذهب لتفريعة");
         String id = commitInfoNameText;
         CommitTreeController.focusCommitInGraph(id);
     }
@@ -2144,10 +2144,10 @@ public class SessionController {
      */
     public void handleGeneralMergeButton(boolean localTabOpen) {
         try{
-            logger.info("Merge button clicked");
+            logger.info("نقر زر دمج");
             if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
 
-            logger.info("Opened merge window");
+            logger.info("فتحت نافذة دمج");
             // Create and display the Stage:
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/elegit/fxml/MergeWindow.fxml"));
             fxmlLoader.load();
@@ -2283,7 +2283,7 @@ public class SessionController {
      */
     private void updateUser(String type) {
         Platform.runLater(() -> {
-            Text txt = new Text(" Branch " + type);
+            Text txt = new Text(" تفريعة " + type);
             PopOver popOver = new PopOver(txt);
             popOver.setTitle("");
             popOver.show(commitTreePanelView);
@@ -2299,7 +2299,7 @@ public class SessionController {
     public void openRepoDirectory(){
         if (Desktop.isDesktopSupported()) {
             try{
-                logger.info("Opening Repo Directory");
+                logger.info("يفتح حاوية مستودع");
                 if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
                 // Use Desktop to open the current directory unless it's Linux
                 if (!SystemUtils.IS_OS_LINUX) {
@@ -2324,16 +2324,16 @@ public class SessionController {
      * Shows a popover with all repos in a checklist
      */
     public void chooseRecentReposToDelete() {
-        logger.info("Remove repos button clicked");
+        logger.info("نقر زر حذف مستودعات");
 
         // creates a CheckListView with all the repos in it
         List<RepoHelper> repoHelpers = this.theModel.getAllRepoHelpers();
         CheckListView<RepoHelper> repoCheckListView = new CheckListView<>(FXCollections.observableArrayList(repoHelpers));
 
         // creates a popover with the list and a button used to remove repo shortcuts
-        Button removeSelectedButton = new Button("Remove repository shortcuts from Elegit");
+        Button removeSelectedButton = new Button("حذف اختصارات مستودع من مصادري");
         PopOver popover = new PopOver(new VBox(repoCheckListView, removeSelectedButton));
-        popover.setTitle("Manage Recent Repositories");
+        popover.setTitle("ادارة اخر مستتودعات");
 
         // shows the popover
         popover.show(dropdownController.removeRecentReposButton);
@@ -2349,7 +2349,7 @@ public class SessionController {
      * @param checkedItems list of selected repos
      */
     private void handleRemoveReposButton(List<RepoHelper> checkedItems) {
-        logger.info("Removed repos");
+        logger.info("حذف مستودعات");
         this.theModel.removeRepoHelpers(checkedItems);
 
         // If there are repos that aren't the current one, and the current repo is being removed, load a different repo
@@ -2390,10 +2390,10 @@ public class SessionController {
      */
     public void showBranchCheckout() {
         try{
-            logger.info("Branch checkout clicked");
+            logger.info("نقر زر تفحص تفريعة");
             if(this.theModel.getCurrentRepoHelper() == null) throw new NoRepoLoadedException();
 
-            logger.info("Opened branch checkout window");
+            logger.info("فتحت نافذة تفحص تفريعة");
             // Create and display the Stage:
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/elegit/fxml/BranchCheckout.fxml"));
             fxmlLoader.load();
@@ -2414,7 +2414,7 @@ public class SessionController {
      */
     public void showLegend() {
         try{
-            logger.info("Legend clicked");
+            logger.info("نقر Legend");
             // Create and display the Stage:
             GridPane fxmlRoot = FXMLLoader.load(getClass().getResource("/elegit/fxml/Legend.fxml"));
 
@@ -2469,110 +2469,110 @@ public class SessionController {
 
     private void showGenericErrorNotification(NotificationController nc) {
         Platform.runLater(()-> {
-            logger.warn("Generic error warning.");
-            nc.addNotification("Sorry, there was an error.");
+            logger.warn("تحذير: خطأ عام.");
+            nc.addNotification("نأسف يوجد خطأ ما");
         });
     }
 
     void showGenericErrorNotification() {
         Platform.runLater(()-> {
-            logger.warn("Generic error warning.");
-            notificationPaneController.addNotification("Sorry, there was an error.");
+            logger.warn("تحذير: خطأ عام.");
+            notificationPaneController.addNotification("نأسف يوجد خطأ ما");
         });
     }
 
     private void showJGitInternalError(JGitInternalException e) {
         Platform.runLater(()-> {
             if (e.getCause().toString().contains("LockFailedException")) {
-                logger.warn("Lock failed warning.");
+                logger.warn("تحذير: فشل الاغلاق");
                 this.notificationPaneController.addNotification(e.getCause().getMessage()+". If no other git processes are running, manually remove all .lock files.");
             } else {
-                logger.warn("Generic jgit internal warning.");
-                this.notificationPaneController.addNotification("Sorry, there was a Git error.");
+                logger.warn("تحذير: جي جيت عام داخلي");
+                this.notificationPaneController.addNotification("نأسف يوجد خطأ جيت.");
             }
         });
     }
 
     private void showNoRepoLoadedNotification(NotificationController nc) {
         Platform.runLater(() -> {
-            logger.warn("No repo loaded warning.");
-            nc.addNotification("You need to load a repository before you can perform operations on it. Click on the plus sign in the upper left corner!");
+            logger.warn("تحذير لم يحمل مستودع.");
+            nc.addNotification("عليك تحميل مستودع قبل قيامك بهذه العملية عليه. انقر علي علامة زائد في اعلي اليمين!");
         });
     }
 
     private void showNoRepoLoadedNotification() {
         Platform.runLater(() -> {
-            logger.warn("No repo loaded warning.");
-            notificationPaneController.addNotification("You need to load a repository before you can perform operations on it. Click on the plus sign in the upper left corner!");
+            logger.warn("تحذير: لم يحمل مستودع.");
+            notificationPaneController.addNotification("عليك تحميل مستودع قبل قيامك بهذه العملية عليه. انقر علي علامة زائد في اعلي اليمين!");
         });
     }
 
     private void showInvalidRepoNotification() {
         Platform.runLater(() -> {
-            logger.warn("Invalid repo warning.");
-            this.notificationPaneController.addNotification("Make sure the directory you selected contains an existing (non-bare) Git repository.");
+            logger.warn("تحذير: مستودع غير صالح.");
+            this.notificationPaneController.addNotification("تأكد ان الحاوية التي اخترتها تحوي حاوية المستودع الحالي.");
         });
     }
 
     private void showMissingRepoNotification(NotificationController nc){
         Platform.runLater(()-> {
-            logger.warn("Missing repo warning");
-            nc.addNotification("That repository no longer exists.");
+            logger.warn("تحذير: مستودع مفقود");
+            nc.addNotification("لم يعد هذا المستودع موجودا.");
         });
     }
 
     private void showMissingRepoNotification(){
         Platform.runLater(()-> {
-            logger.warn("Missing repo warning");
-            notificationPaneController.addNotification("That repository no longer exists.");
+            logger.warn("تحذير: مستودع مفقود");
+            notificationPaneController.addNotification("لم يعد المستودع موجودا.");
         });
     }
 
     private void showNoRemoteNotification(NotificationController nc){
         Platform.runLater(()-> {
-            logger.warn("No remote repo warning");
-            String name = this.theModel.getCurrentRepoHelper() != null ? this.theModel.getCurrentRepoHelper().toString() : "the current repository";
+            logger.warn("تحذير: لايوجد مستودع بعيد");
+            String name = this.theModel.getCurrentRepoHelper() != null ? this.theModel.getCurrentRepoHelper().toString() : "المستودع الحالي";
 
-            nc.addNotification("There is no remote repository associated with " + name);
+            nc.addNotification("لايوجد مستودع بعيد مرتبط مع " + name);
         });
     }
 
     private void showNoRemoteNotification(){
         Platform.runLater(()-> {
-            logger.warn("No remote repo warning");
-            String name = this.theModel.getCurrentRepoHelper() != null ? this.theModel.getCurrentRepoHelper().toString() : "the current repository";
+            logger.warn("تحذير: لايوجد مستودع بعيد");
+            String name = this.theModel.getCurrentRepoHelper() != null ? this.theModel.getCurrentRepoHelper().toString() : "المستودع الحالي";
 
-            notificationPaneController.addNotification("There is no remote repository associated with " + name);
+            notificationPaneController.addNotification("لايوجد مستودع بعيد مرتبط مع " + name);
         });
     }
 
     private void showFailedToOpenLocalNotification(){
         Platform.runLater(()-> {
-            logger.warn("Failed to load local repo warning");
+            logger.warn("تحذير: فشل تحميل المستودع المحلي");
             String path = this.theModel.getCurrentRepoHelper() != null ? this.theModel.getCurrentRepoHelper().getLocalPath().toString() : "the location of the local repository";
 
-            this.notificationPaneController.addNotification("Could not open directory at " + path);
+            this.notificationPaneController.addNotification("لايمكن فتح الحاوية في  " + path);
         });
     }
 
     private void showNonEmptyFolderNotification(Runnable callback) {
         Platform.runLater(()-> {
-            logger.warn("Folder alread exists warning");
-            this.notificationPaneController.addNotification("Make sure a folder with that name doesn't already exist in that location");
+            logger.warn("تحذير: الحاوية موجودة بالفعل");
+            this.notificationPaneController.addNotification("تأكد من عدم وجود حاوية بهذا الاسم في هذا المكان");
         });
     }
 
     private void showInvalidRemoteNotification(Runnable callback) {
         Platform.runLater(() -> {
-            logger.warn("Invalid remote warning");
-            this.notificationPaneController.addNotification("Make sure you entered the correct remote URL.");
+            logger.warn("تحذير: مستودع بعيد غير صالح");
+            this.notificationPaneController.addNotification("تأكد من ادخال الرابط الصحيح للمستودع.");
         });
     }
 
     private void showInvalidTagNameNotification(String tagName) {
         Platform.runLater(() -> {
-            logger.warn("Invalid tag name exception");
-            this.notificationPaneController.addNotification("The tag name '"+tagName+"' is invalid.\nRemove any of .~^:?*[]{}@ and try again.");
+            logger.warn("استثناء اسم تنزيل غير صالح");
+            this.notificationPaneController.addNotification("اسم التزييل '"+tagName+"' غير صالح.\n احذف اي محرف .~^:?*[]{}@  ثم حاول مجدد.");
         });
     }
 
@@ -2587,20 +2587,20 @@ public class SessionController {
         Platform.runLater(() -> {
 
             if (e.getMessage().endsWith("git-receive-pack not permitted")) {
-                logger.warn("Invalid authorization for repo warning");
-                notificationPaneController.addNotification("Your login is correct, but you do not" +
-                                                           " have permission to do this " +
-                                                           "operation to this repository.");
+                logger.warn("تحذي: تفويض غير صالح للمستودع");
+                notificationPaneController.addNotification("ولوجك صحيح، لكن ليس لديك" +
+                                                           " صلاحية للقيام بهذه " +
+                                                           "العملية علي هذا المستودع.");
             } else if (e.getMessage().endsWith("git-receive-pack not found")) {
-                logger.warn("Remote repo couldn't be found warning");
-                this.notificationPaneController.addNotification("The push failed because the remote repository couldn't be found.");
+                logger.warn("تحذير: لايمكن ايجاد المستودع البعيد");
+                this.notificationPaneController.addNotification("فشل الدفع لتعزر ايجاد المستودع البعيد.");
             } else if (e.getMessage().endsWith("not authorized")) {
-                logger.warn("Invalid authorization warning");
-                nc.addNotification("The username/password combination you have provided is incorrect. " +
-                                   "Try reentering your password.");
+                logger.warn("تحذير: تفويض فاسد ");
+                nc.addNotification("توليفة اسم المستخدم/كلمة المرور التي ادخلتها غير صحيحة. " +
+                                   "جرب اعادة ادخال كلمة المرور.");
             } else {
-                logger.warn("Transport exception");
-                nc.addNotification("Error in connecting: " + e.getMessage());
+                logger.warn("استثناء نقل");
+                nc.addNotification("خطأ في الاتصال: " + e.getMessage());
             }
 
         });
@@ -2608,218 +2608,218 @@ public class SessionController {
 
     private void showRepoWasNotLoadedNotification() {
         Platform.runLater(() -> {
-            logger.warn("Repo not loaded warning");
-            this.notificationPaneController.addNotification("Something went wrong, so no repository was loaded.");
+            logger.warn("تحذير: المستودع لم يحمل");
+            this.notificationPaneController.addNotification("شيء ما خطأ, لذا لم يحمل اي مستودع.");
         });
     }
 
     private void showPushToAheadRemoteNotification(boolean allRefsRejected){
         Platform.runLater(() -> {
-            logger.warn("Remote ahead of local warning");
-            if(allRefsRejected) this.notificationPaneController.addNotification("The remote repository is ahead of the local. You need to fetch and then merge (pull) before pushing.");
-            else this.notificationPaneController.addNotification("You need to fetch/merge in order to push all of your changes.");
+            logger.warn("تحذير: المستودع البعيد متقدم علي المحلي");
+            if(allRefsRejected) this.notificationPaneController.addNotification("المستودع البعيد متقدم علي المحلي. عليك جلب ثم دمج (سحب pull) قبل الدفع.");
+            else this.notificationPaneController.addNotification("عليك جلب/دمج لتستطيع دفع كل تعديلاتك.");
         });
     }
 
     private void showLostRemoteNotification() {
         Platform.runLater(() -> {
-            logger.warn("Remote repo couldn't be found warning");
-            this.notificationPaneController.addNotification("The push failed because the remote repository couldn't be found.");
+            logger.warn("تحذير تعذر ايجاد المستودع البعيد");
+            this.notificationPaneController.addNotification("فشل الدفع لتعزر ايجاد المستودع البعيد.");
         });
     }
 
     private void showSameRepoLoadedNotification() {
         Platform.runLater(() -> {
-            logger.warn("Same repo loaded");
-            this.notificationPaneController.addNotification("That repository is already open");
+            logger.warn("حمل نفس المستودع");
+            this.notificationPaneController.addNotification("المستودع مفتوح بالفعل");
         });
     }
 
     private void showNoFilesStagedForCommitNotification(){
         Platform.runLater(() -> {
-            logger.warn("No files staged for commit warning");
-            this.notificationPaneController.addNotification("You need to add files before commiting");
+            logger.warn("تحذير: لاتوجد ملفات مدرجة للايداع");
+            this.notificationPaneController.addNotification("عليك اضافة ملفات قبل الايداع");
         });
     }
 
 
     private void showNoFilesSelectedForAddNotification(){
         Platform.runLater(() -> {
-            logger.warn("No files selected for add warning");
-            this.notificationPaneController.addNotification("You need to select files to add");
+            logger.warn("تحذير: لم تحدد ملفات للاضافة");
+            this.notificationPaneController.addNotification("عليك تحديد ملفات حتي تضيفها");
         });
     }
 
     private void showStagedFilesSelectedNotification(){
         Platform.runLater(() -> {
-            logger.warn("Staged files selected for commit warning");
-            this.notificationPaneController.addNotification("You can't add staged files!");
+            logger.warn("تحذير: ملفات مدرجة حددت للايداع");
+            this.notificationPaneController.addNotification("لايمكنك اضافة ملفات مدرجة!");
         });
     }
 
 
     private void showNoFilesSelectedForRemoveNotification(){
         Platform.runLater(() -> {
-            logger.warn("No files staged for remove warning");
-            this.notificationPaneController.addNotification("You need select files to remove");
+            logger.warn("تحذير: لم تدرج ملفات للحذف");
+            this.notificationPaneController.addNotification("عليك تحديد ملفات للحذف");
         });
     }
 
 
     private void showCannotAddFileNotification(String filename) {
         Platform.runLater(() -> {
-            logger.warn("Cannot add file notification");
-            this.notificationPaneController.addNotification("Cannot add "+filename+". It might already be added (staged).");
+            logger.warn("تنبيه: تعذر اضافة ملف");
+            this.notificationPaneController.addNotification("لايمكن اضافة "+filename+". قد يكون مدرجا بالفعل.");
         });
     }
 
     private void showCannotRemoveFileNotification(String filename) {
         Platform.runLater(() -> {
-            logger.warn("Cannot remove file notification");
-            this.notificationPaneController.addNotification("Cannot remove "+filename+" because it hasn't been staged yet.");
+            logger.warn("تنبيه: تعزر حذف ملف");
+            this.notificationPaneController.addNotification("لايمكن حذف "+filename+" لانه ادرج مسبقا.");
         });
     }
 
     private void showNoTagNameNotification(){
         Platform.runLater(() -> {
-            logger.warn("No tag name warning");
-            this.notificationPaneController.addNotification("You need to write a tag name in order to tag the commit");
+            logger.warn("تحذير: لايوجد اسم تزييل");
+            this.notificationPaneController.addNotification("عليك كتابة اسم تزييل لتزيل الايداع");
         });
     }
 
     private void showNoCommitsToPushNotification(){
         Platform.runLater(() -> {
-            logger.warn("No local commits to push warning");
-            this.notificationPaneController.addNotification("There aren't any local commits to push");
+            logger.warn("تحذير: عدم وجود ايداعات محلية لدفعها");
+            this.notificationPaneController.addNotification("لاتوجد اي ايداعات محلية لتدفع");
         });
     }
 
     private void showTagsUpToDateNotification(){
         Platform.runLater(() -> {
-            logger.warn("Tags up to date notification");
-            this.notificationPaneController.addNotification("Tags are up to date with the remote");
+            logger.warn("تنبيه: التزييلات محدثة");
+            this.notificationPaneController.addNotification("التزييلات محدثة مع المستودع البعيد");
         });
     }
 
     private void showTagsUpdatedNotification(){
         Platform.runLater(() -> {
-            logger.warn("Tags updated notification");
-            this.notificationPaneController.addNotification("Tags were updated");
+            logger.warn("تنبيه تزييلات محدثة");
+            this.notificationPaneController.addNotification("حدثت التعديلات مسبقا");
         });
     }
 
     private void showNoCommitsFetchedNotification(){
         Platform.runLater(() -> {
-            logger.warn("No commits fetched warning");
-            this.notificationPaneController.addNotification("No new commits were fetched");
+            logger.warn("تحذير: لم تجلب ايداعات");
+            this.notificationPaneController.addNotification("لم تجلب ايداعات جديدة");
         });
     }
 
     private void showTagExistsNotification() {
         Platform.runLater(()-> {
-            logger.warn("Tag already exists warning.");
-            this.notificationPaneController.addNotification("Sorry that tag already exists in this repository.");
+            logger.warn("تحذير: التزييلات موجودة مسبقا.");
+            this.notificationPaneController.addNotification("نأسف، هذا التزييل موجود في المستودع.");
         });
     }
 
     private void showCantRevertMultipleParentsNotification() {
         Platform.runLater(() -> {
-            logger.warn("Tried to revert commit with multiple parents.");
-            this.notificationPaneController.addNotification("You cannot revert that commit because it has more than one parent.");
+            logger.warn("حاول عكس ايداع باباء متعددين.");
+            this.notificationPaneController.addNotification("لايمكنك عكس هذا الايداع لان لديه اكثر من اب.");
         });
     }
 
     private void showCantRevertZeroParentsNotification() {
         Platform.runLater(() -> {
-            logger.warn("Tried to revert commit with zero parents.");
-            this.notificationPaneController.addNotification("You cannot revert that commit because it has zero parents.");
+            logger.warn("حاول عكس ايداع بلا أب.");
+            this.notificationPaneController.addNotification("لايمكنك عكس هذا الايداع لانه بلا أب.");
         });
     }
 
     private void showCommandCancelledNotification() {
         Platform.runLater(() -> {
-            logger.warn("Command cancelled.");
-            this.notificationPaneController.addNotification("Command cancelled.");
+            logger.warn("الغي الأمر.");
+            this.notificationPaneController.addNotification("الغي الأمر.");
         });
     }
 
     private void showCannotDeleteBranchNotification(BranchHelper branch) {
         Platform.runLater(() -> {
-            logger.warn("Cannot delete current branch notification");
-            notificationPaneController.addNotification(String.format("Sorry, %s can't be deleted right now. " +
-                    "Try checking out a different branch first.", branch.getRefName()));
+            logger.warn("تنبيه: لايمكن حذف التفريعة الحالية");
+            notificationPaneController.addNotification(String.format("نأسف لايمكن حذف %s الان.  " +
+                    "حاول الانتقال لتفريعة أخري أولا", branch.getRefName()));
         });
     }
 
     private void showNotMergedNotification(BranchHelper nonmergedBranch) {
-        logger.warn("Not merged notification");
-        notificationPaneController.addNotification("That branch has to be merged before you can do that.");
+        logger.warn("تنبيه: لم يدرج");
+        notificationPaneController.addNotification("يجب دمج هذه التفريعة قبل القيام بذلك.");
     }
 
     private void showStashConflictsNotification() {
         Platform.runLater(() -> {
-            logger.warn("Stash apply conflicts warning");
+            logger.warn("تحذير: تضارب تطبيق اخفاء");
 
             EventHandler handler = event -> quickStashSave();
-            this.notificationPaneController.addNotification("You can't apply that stash because there would be conflicts. " +
-                    "Stash your changes or resolve conflicts first.", "stash", handler);
+            this.notificationPaneController.addNotification("لايمكنك تطبيق ه    ذا الاخفاء لانه سيحدث تضارب. " +
+                    "اخف تعديلاتك. او حل التضاربات أولا.", "stash", handler);
         });
     }
 
     private void showCheckoutConflictsNotification(List<String> conflictingPaths) {
         Platform.runLater(() -> {
-            logger.warn("Checkout conflicts warning");
+            logger.warn("تحذير: تضارب تفحص");
 
             EventHandler handler = event -> quickStashSave();
-            this.notificationPaneController.addNotification("You can't switch to that branch because there would be a merge conflict. " +
-                    "Stash your changes or resolve conflicts first.", "stash", handler);
+            this.notificationPaneController.addNotification("لايمكنك الانتقال لتلك التفريعة لانه سيوجد تضارب دمج. " +
+                    "اخف تعديلاتك. او حل التضاربات أولا.", "stash", handler);
         });
     }
 
     private void showRefAlreadyExistsNotification() {
-        logger.info("Branch already exists notification");
-        notificationPaneController.addNotification("Looks like that branch already exists locally!");
+        logger.info("تنبيه: التفريعة موجودة بالفعل");
+        notificationPaneController.addNotification("يبدو ان هذه التفريعة موجودة محليا");
     }
 
     private void showUnsuccessfulMergeNotification(NotificationController nc){
         Platform.runLater(() -> {
-            logger.warn("Failed merged warning");
-            nc.addNotification("Merging failed");
+            logger.warn("تحذير: فشل دمج");
+            nc.addNotification("فشل الدمج");
         });
     }
 
     private void showMergingWithChangedFilesNotification(NotificationController nc){
         Platform.runLater(() -> {
-            logger.warn("Can't merge with modified files warning");
-            nc.addNotification("Can't merge with modified files present, please add/commit before merging.");
+            logger.warn("تحذير: لايمكن دمج ملفات معدلة");
+            nc.addNotification("لايمكن الدمج مع الملفات المعدلة حاليا. رجاء أودع/أضف قبل الدمج.");
         });
     }
 
     private void showMergeConflictsNotification(NotificationController nc){
         Platform.runLater(() -> {
-            logger.warn("Merge conflict warning");
-            nc.addNotification("Can't complete merge due to conflicts. Resolve the conflicts and commit all files to complete merging");
+            logger.warn("تحذير: تضارب دمج");
+            nc.addNotification("لا يمكن اكمال الدمج بسبب التضارب. حل التضارب أولا ثم أودع كل التعديلات لاكمال الدمج");
         });
     }
 
     private void showNoRemoteTrackingNotification(NotificationController nc) {
         Platform.runLater(() -> {
-            logger.warn("No remote tracking for current branch notification.");
-            nc.addNotification("There is no remote tracking information for the current branch.");
+            logger.warn("تنبيه: لايوجد تتبع بعيد للتفريعة الحالية.");
+            nc.addNotification("لايوجد تتبع بعيد للتفريعة الحالية.");
         });
     }
 
     private void showNoCommitsToMergeNotification(NotificationController nc){
         Platform.runLater(() -> {
-            logger.warn("No commits to merge warning");
-            nc.addNotification("There aren't any commits to merge. Try fetching first");
+            logger.warn("تحذير: لايوجد ايداعات لتدمج");
+            nc.addNotification("لاتوجد اي ايداعات لادماجها قم بالجلب أولا");
         });
     }
 
     private void showNoFilesToStashNotification() {
         Platform.runLater(() -> {
-            logger.warn("No files to stash warning");
-            notificationPaneController.addNotification("There are no files to stash.");
+            logger.warn("تحذير: لاتوجد ملفات لاخفائها");
+            notificationPaneController.addNotification("لاتوجد ملفات لاخفائها.");
         });
     }
 
@@ -2853,7 +2853,7 @@ public class SessionController {
             }
             changeLogging(storedLevel);
             menuController.loggingToggle.setSelected(storedLevel.equals(org.apache.logging.log4j.Level.INFO));
-            logger.info("Starting up.");
+            logger.info("يبدأ.");
         });
     }
 
