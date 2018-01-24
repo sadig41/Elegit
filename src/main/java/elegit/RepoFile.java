@@ -60,7 +60,7 @@ public class RepoFile implements Comparable<RepoFile> {
 
         showPopover = false;
 
-        this.diffButton = new Button("UNCHANGED");
+        this.diffButton = new Button("غير معدل");
         this.diffButton.getStyleClass().add("diffButton");
 
         this.diffPopover = new PopOver();
@@ -69,11 +69,11 @@ public class RepoFile implements Comparable<RepoFile> {
             try {
                 this.showDiffPopover(this.diffButton);
             } catch (IOException e1) {
-                logger.error("IOException in creating repo file");
+                logger.error("استثناء دخل/خرج اثناء انشاء ملف");
                 logger.debug(e1.getStackTrace());
                 e1.printStackTrace();
             } catch (GitAPIException e1) {
-                logger.error("GitAPIException in creating repo file");
+                logger.error("استثناء GitAPIException اثناء انشاء ملف مستودع");
                 logger.debug(e1.getStackTrace());
                 e1.printStackTrace();
             }
@@ -81,10 +81,10 @@ public class RepoFile implements Comparable<RepoFile> {
 
         this.contextMenu = new ContextMenu();
 
-        MenuItem addToIgnoreItem = new MenuItem("Add to .gitignore...");
+        MenuItem addToIgnoreItem = new MenuItem("اضافة للمتجاهلات .gitignore...");
         addToIgnoreItem.setOnAction(event -> GitIgnoreEditor.show(this.repo, this.filePath));
 
-        MenuItem checkoutItem = new MenuItem("Checkout...");
+        MenuItem checkoutItem = new MenuItem("تفحص...");
         SessionController controller = CommitTreeController.sessionController;
         checkoutItem.setOnAction(event -> {
             controller.handleCheckoutButton(filePath);
@@ -151,7 +151,7 @@ public class RepoFile implements Comparable<RepoFile> {
 
     public void addChild(RepoFile repoFile) {
         // Files with no children can't have children added to them!
-        System.err.println("Can't add children to this type of RepoFile.");
+        System.err.println("لايمكن اضافة ابناء لهذا النوع من ملفات المستودع RepoFile.");
     }
 
     public void showDiffPopover(Node owner) throws IOException, GitAPIException {
@@ -160,7 +160,7 @@ public class RepoFile implements Comparable<RepoFile> {
 
             DiffHelper diffHelper = new DiffHelper(this.filePath, this.repo);
             this.diffPopover.setContentNode(diffHelper.getDiffScrollPane());
-            this.diffPopover.setTitle("File Diffs");
+            this.diffPopover.setTitle("اختلافات ملف File Diffs");
             this.diffPopover.show(owner);
         }
     }

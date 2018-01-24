@@ -223,7 +223,7 @@ public class SessionController {
 
         VBox.setVgrow(filesTabPane, Priority.ALWAYS);
 
-        // if there are conflicting files on startup, watches them for changes
+        // if there are ملفات متضاربة on startup, watches them for changes
         try {
             ConflictingFileWatcher.watchConflictingFiles(theModel.getCurrentRepoHelper());
         } catch (GitAPIException | IOException e) {
@@ -2533,7 +2533,7 @@ public class SessionController {
             logger.warn("No remote repo warning");
             String name = this.theModel.getCurrentRepoHelper() != null ? this.theModel.getCurrentRepoHelper().toString() : "the current repository";
 
-            nc.addNotification("There is no remote repository associated with " + name);
+            nc.addNotification("There is لايوجد مستودع بعيد associated with " + name);
         });
     }
 
@@ -2542,7 +2542,7 @@ public class SessionController {
             logger.warn("No remote repo warning");
             String name = this.theModel.getCurrentRepoHelper() != null ? this.theModel.getCurrentRepoHelper().toString() : "the current repository";
 
-            notificationPaneController.addNotification("There is no remote repository associated with " + name);
+            notificationPaneController.addNotification("There is لايوجد مستودع بعيد associated with " + name);
         });
     }
 
@@ -2798,7 +2798,7 @@ public class SessionController {
     private void showMergeConflictsNotification(NotificationController nc){
         Platform.runLater(() -> {
             logger.warn("Merge conflict warning");
-            nc.addNotification("Can't complete merge due to conflicts. Resolve the conflicts and commit all files to complete merging");
+            nc.addNotification("لا يمكن اكمال الدمج due to conflicts. Resolve the conflicts and commit all files to complete merging");
         });
     }
 

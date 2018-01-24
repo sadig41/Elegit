@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Exception thrown when merging results in conflicting files
+ * Exception thrown when merging results in ملفات متضاربة
  */
 public class ConflictingFilesException extends Exception{
 

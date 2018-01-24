@@ -259,7 +259,7 @@ public class SessionModel {
     }
 
     /**
-     * Calls `git status` and returns the set of conflicting files that Git reports.
+     * Calls `git status` and returns the set of ملفات متضاربة that Git reports.
      *
      * @return a set of conflicting filenames in the working directory.
      * @throws GitAPIException

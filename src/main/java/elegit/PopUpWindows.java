@@ -140,10 +140,10 @@ public class PopUpWindows {
             img.setFitHeight(60);
             img.setFitWidth(60);
             alert.setGraphic(img);
-            alert.setContentText("Move the current branch tip backward to the selected commit, " +
-                                 "reset the staging area to match, " +
-                                 "but leave the working directory alone. " +
-                                 "All changes made since the selected commit will reside in the working directory.");
+            alert.setContentText("حرك ملاحظة التفريعة الحالية للخلف لاختيار ايداع, " +
+                                 "اعد ضبط منطقة الادراج للمطابقة, " +
+                                 "لكن اترك مسار العمل كما هو. " +
+                                 "سيتم اعادة كل التعديلات منذ الايداع المحدد في مسار العمل.");
             alert.showAndWait();
         });
     }
@@ -155,16 +155,16 @@ public class PopUpWindows {
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.getDialogPane().setPrefWidth(500);
-            alert.setTitle("Revert Help");
-            alert.setHeaderText("What is revert?");
+            alert.setTitle("مساعدة العكس");
+            alert.setHeaderText("ماهو العكس revert؟");
             ImageView img = new ImageView(new Image("/elegit/images/undo.png"));
             img.setFitHeight(60);
             img.setFitWidth(60);
             alert.setGraphic(img);
-            alert.setContentText("Basically, git revert takes your current files, " +
-                    "and deletes any changes from the commit(s) you give it, making a new commit. " +
-                    "See\n\nhttp://dmusican.github.io/Elegit/jekyll/update/2016/08/04/what-is-revert.html\n\n" +
-                    "for more information");
+            alert.setContentText("اساسا يقوم git revert باخذ ملفاتك الحالية، " +
+                    "ثم يحذف اي تعديلات من الايداع(ات) الذي اخترته، وينشيء ايداعا جديدا. " +
+                    "راجع \n\nhttp://dmusican.github.io/Elegit/jekyll/update/2016/08/04/what-is-revert.html\n\n" +
+                    "للمزيد من المعلومات");
             alert.showAndWait();
         });
     }
@@ -180,9 +180,9 @@ public class PopUpWindows {
         ButtonType cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().setAll(checkout, cancel);
 
-        alert.setTitle("Checkout Warning");
-        alert.setContentText("Are you sure you want to checkout the selected files?\n" +
-                "This will discard all changes that have not been added (staged).");
+        alert.setTitle("تحذير تفحص");
+        alert.setContentText("هل تريد فعلا تفحص الملفات المحددة؟\n" +
+                "سيلغي هذا اي تعديلات لم تتم اضافتها (ادراجها).");
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == checkout;
     }
@@ -205,18 +205,18 @@ public class PopUpWindows {
         alert.setResizable(true);
         alert.getDialogPane().setPrefSize(300, 200);
 
-        alert.setTitle("Adding previously conflicting file");
-        alert.setHeaderText("You are adding a conflicting file that was recently modified to the commit");
-        alert.setContentText("If the file is what you want it to be, you should commit. Otherwise, modify the file accordingly.");
+        alert.setTitle("اضافة ملف متعارض سابقا");
+        alert.setHeaderText("لقد اضفت ملفا متعارضا تم تعديله سابقا للادراج");
+        alert.setContentText("اذا كان هذا ما تريده في الملف، عليك ايداعه. والا فقم بتعديل الملف كما تريد.");
 
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.orElse(null) == commitButton) {
-            logger.info("Chose to add");
+            logger.info("اختيار الاضافة");
             resultType = "add";
         } else {
             // User cancelled the dialog
-            logger.info("Cancelled dialog");
+            logger.info("الغي صندوق الحوار");
             resultType = "cancel";
         }
 
@@ -235,28 +235,28 @@ public class PopUpWindows {
                 for (String s : trackedIgnoredFiles) {
                     fileStrings += "\n" + s;
                 }
-                Alert alert = new Alert(Alert.AlertType.WARNING, "The following files are being tracked by Git, " +
-                                                                 "but also match an ignore pattern. If you want to ignore these files, remove them from Git.\n" + fileStrings);
+                Alert alert = new Alert(Alert.AlertType.WARNING, "تم تتبع الملفات التالية بواسطة جيت, " +
+                                                                 "لكنها تطابق نمط التجاهل ايضا. اذا اردت تجاهل هذه الملفات، ازلها من جيت.\n" + fileStrings);
                 alert.showAndWait();
             }
         });
     }
 
     /**
-     * Informs the user that there are conflicting files so they can't checkout a different branch
+     * Informs the user that there are ملفات متضاربة so they can't checkout a different branch
      *
-     * @param conflictingPaths conflicting files
+     * @param conflictingPaths ملفات متضاربة
      */
     public static void showCheckoutConflictsAlert(List<String> conflictingPaths) {
-        logger.warn("Checkout conflicts warning");
+        logger.warn("تحذير تضاربات تفحص");
         String conflictList = "";
         for (String pathName : conflictingPaths) {
             conflictList += "\n" + pathName;
         }
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Conflicting files");
-        alert.setHeaderText("Can't checkout that branch");
-        alert.setContentText("You can't switch to that branch because of the following conflicting files between that branch and your current branch: "
+        alert.setTitle("ملفات متضاربة");
+        alert.setHeaderText("لايمكن تفحص هذه التفريعة");
+        alert.setContentText("لايمكنك الانتقال لهذه التفريعة لتضارب الملفات التالية بين تلك التفريعة وتفريعتك الحالية: "
                              + conflictList);
 
         alert.showAndWait();
@@ -265,18 +265,18 @@ public class PopUpWindows {
     /**
      * Informs the user that there were conflicts
      *
-     * @param conflictingPaths conflicting files
+     * @param conflictingPaths ملفات متضاربة
      */
     public static void showMergeConflictsAlert(List<String> conflictingPaths) {
-        logger.warn("Merge conflicts warning");
+        logger.warn("تحذير تعارضات دمج");
         String conflictList = "";
         for (String pathName : conflictingPaths) {
             conflictList += "\n" + pathName;
         }
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Conflicting files");
-        alert.setHeaderText("Can't complete merge");
-        alert.setContentText("There were conflicts in the following files: "
+        alert.setTitle("ملفات متضاربة");
+        alert.setHeaderText("لا يمكن اكمال الدمج");
+        alert.setContentText("توجد تضاربات بالملفات التالية: "
                              + conflictList);
 
         alert.showAndWait();
@@ -285,13 +285,13 @@ public class PopUpWindows {
     public static RemoteBranchHelper showTrackDifRemoteBranchDialog(ObservableList<RemoteBranchHelper> remoteBranches) {
         Dialog dialog = new Dialog();
         dialog.getDialogPane().setPrefSize(320, 100);
-        dialog.setTitle("Track a remote branch locally");
+        dialog.setTitle("تتبع التفريعة البعيدة محليا");
 
-        Text trackText = new Text("Track ");
-        Text localText = new Text(" locally.");
+        Text trackText = new Text("تتبع ");
+        Text localText = new Text(" محلي.");
 
         ComboBox<RemoteBranchHelper> dropdown = new ComboBox<>(remoteBranches);
-        dropdown.setPromptText("select a remote branch...");
+        dropdown.setPromptText("حدد التفريعة البعيدة...");
 
         HBox hBox = new HBox(trackText, dropdown, localText);
         hBox.setSpacing(10);
@@ -316,11 +316,11 @@ public class PopUpWindows {
 
     public static boolean showForceDeleteBranchAlert() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Deleting unmerged branch");
-        alert.setHeaderText("The branch you are trying to delete is unmerged");
-        alert.setContentText("The work done on this branch is not represented in any other local branch. " +
-                             "If you delete it, you will lose any local work done on this branch. " +
-                             "What would you like to do?");
+        alert.setTitle("حذف تفريعة غير مدموجة");
+        alert.setHeaderText("التفريعة التي تود حذفها غير مدموجة");
+        alert.setContentText("العمل الذي تم بهذه التفريعة غير ممثل حاليا في تفريعتك المحلية. " +
+                             "اذا حذفته، ستفقد اي عمل قمت به محليا علي هذه التفريعة. " +
+                             "ما الذي تود فعله؟");
 
         ButtonType deleteButton = new ButtonType("Force delete branch");
         ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -344,11 +344,11 @@ public class PopUpWindows {
                 lock.lock();
 
                 Alert alert = new Alert(Alert.AlertType.NONE);
-                alert.setTitle("Multiple remotes found");
-                alert.setHeaderText("There are multiple remote repositories associated with this repository.\nPick one to push to.");
+                alert.setTitle("وجود اكثر من مستودع بعيد");
+                alert.setHeaderText("يوجد أكثر من مستودع بعيد مرتبط بهذا المستودع.\nاختر واحد للدفع اليه.");
 
                 ComboBox<String> remoteRepos = new ComboBox<>();
-                remoteRepos.setPromptText("Choose a remote...");
+                remoteRepos.setPromptText("اختيار مستودع بعيد...");
                 remoteRepos.setItems(FXCollections.observableArrayList(remotes));
 
                 ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
@@ -391,11 +391,11 @@ public class PopUpWindows {
 
     public static String getCommitMessage() {
         Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("Commit message");
+        alert.setTitle("رسالة ايداع");
         alert.setResizable(true);
 
         TextArea textArea = new TextArea();
-        textArea.setPromptText("Commit Message...");
+        textArea.setPromptText("رسالة ايداع...");
         textArea.setWrapText(true);
         textArea.setPrefSize(250, 150);
         textArea.setMinSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
@@ -424,9 +424,9 @@ public class PopUpWindows {
         final ArrayList<LocalBranchHelper> result = new ArrayList<>(branches.size());
 
         Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("Untracked local branches");
-        alert.setHeaderText("The branches below are not tracked remotely.\n" +
-                            "Select the branches you want to create an upstream remote branch for.");
+        alert.setTitle("تفريعات محلية غير متابعة");
+        alert.setHeaderText("التفريعات ادناه غير متابعا بمستودع بعيد.\n" +
+                            "اختر التفريعات التي تريد انشا تدفق لمستودع بعيد لها.");
 
         CheckListView<LocalBranchHelper> untrackedBranches = new CheckListView<>(FXCollections.observableArrayList(branches));
 
@@ -468,8 +468,8 @@ public class PopUpWindows {
                              "    -fx-font-weight: bold;\n" +
                              "    -fx-text-align: center;");
 
-        Text txt1 = new Text(" is not currently tracked remotely.");
-        Text txt2 = new Text("Would you like to create an upstream remote branch?");
+        Text txt1 = new Text(" غير متابع بعيد حاليا.");
+        Text txt2 = new Text("هل تريد انشاء تدفق بمستودع بعيد له?");
         txt1.setFont(new Font(14));
         txt2.setFont(new Font(14));
 

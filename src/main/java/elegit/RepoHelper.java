@@ -263,7 +263,7 @@ public class RepoHelper {
      * @return true if the corresponding repository still exists in the expected location
      */
     public boolean exists() {
-        logger.debug("Checked if repo still exists");
+        logger.debug("افحص هل مازال المستودع موجودا");
         return localPath.toFile().exists() && localPath.toFile().list((dir, name) -> name.equals(".git")).length > 0;
     }
 
@@ -484,7 +484,7 @@ public class RepoHelper {
      * @throws GitAPIException if the `git commit` call fails.
      */
     public void commit(String commitMessage) throws GitAPIException, MissingRepoException {
-        logger.info("Attempting commit");
+        logger.info("محاولة ايداع");
         if (!exists()) throw new MissingRepoException();
 
         Git git = new Git(this.repo);
@@ -522,14 +522,14 @@ public class RepoHelper {
     public PushCommand prepareToPushCurrentBranch(boolean isTest) throws MissingRepoException, GitAPIException,
             PushToAheadRemoteError, IOException, NoCommitsToPushException {
         BranchHelper branchToPush = this.getBranchModel().getCurrentBranch();
-        logger.info("attempting to push current branch");
+        logger.info("محاولة دفع التفريعة الحالية");
         if (!exists()) throw new MissingRepoException();
-        if (!hasRemote()) throw new InvalidRemoteException("No remote repository");
+        if (!hasRemote()) throw new InvalidRemoteException("لايوجد مستودع بعيد");
 
 
         String remote = getRemote();
         if (remote.equals("cancel"))
-            throw new InvalidRemoteException("No remote selected.");
+            throw new InvalidRemoteException("لم يحدد مستودع بعيد.");
 
         Git git = new Git(this.repo);
         PushCommand push = git.push().setRemote(remote).add(branchToPush.getRefPathString());
@@ -601,14 +601,14 @@ public class RepoHelper {
      */
     public PushCommand prepareToPushAll() throws GitAPIException, MissingRepoException, PushToAheadRemoteError,
             IOException, NoCommitsToPushException {
-        logger.info("Attempting push");
+        logger.info("محاولة دفع");
         if (!exists()) throw new MissingRepoException();
-        if (!hasRemote()) throw new InvalidRemoteException("No remote repository");
+        if (!hasRemote()) throw new InvalidRemoteException("لايوجد مستودع بعيد");
 
         // Gets the remote
         String remote = getRemote();
         if (remote.equals("cancel"))
-            throw new InvalidRemoteException("No remote selected.");
+            throw new InvalidRemoteException("لم يحدد مستودع بعيد.");
 
 
         Git git = new Git(this.repo);
@@ -679,9 +679,9 @@ public class RepoHelper {
      * @throws GitAPIException if the `git push --tags` call fails.
      */
     public Iterable<PushResult> pushTags() throws GitAPIException, MissingRepoException, PushToAheadRemoteError, IOException {
-        logger.info("Attempting push tags");
+        logger.info("محاولة دفع تزييل");
         if (!exists()) throw new MissingRepoException();
-        if (!hasRemote()) throw new InvalidRemoteException("No remote repository");
+        if (!hasRemote()) throw new InvalidRemoteException("لايوجد مستودع بعيد");
         Git git = new Git(this.repo);
         PushCommand push = git.push();
         myWrapAuthentication(push);
@@ -722,7 +722,7 @@ public class RepoHelper {
      */
     public boolean fetch(boolean prune) throws
             GitAPIException, MissingRepoException, IOException {
-        logger.info("Attempting fetch");
+        logger.info("محاولة جلب");
         if (!exists()) throw new MissingRepoException();
         Git git = new Git(this.repo);
         StoredConfig config = this.repo.getConfig();
@@ -775,9 +775,9 @@ public class RepoHelper {
      */
     public MergeResult.MergeStatus mergeFromFetch() throws IOException, GitAPIException, MissingRepoException,
             ConflictingFilesException, NoTrackingException {
-        logger.info("Attempting merge from fetch");
+        logger.info("محاولة دمج من مجلوب");
         if (!exists()) throw new MissingRepoException();
-        if (!hasRemote()) throw new InvalidRemoteException("No remote repository");
+        if (!hasRemote()) throw new InvalidRemoteException("لايوجد مستودع بعيد");
 
         // Get the remote branch the current branch is tracking
         // and merge the current branch with the just fetched remote branch
@@ -826,7 +826,7 @@ public class RepoHelper {
      * @throws GitAPIException
      */
     void revert(List<AnyObjectId> commits) throws MissingRepoException, GitAPIException {
-        logger.info("Attempting reverts");
+        logger.info("محاولة عكس Attempting reverts");
         if (!exists()) throw new MissingRepoException();
         Git git = new Git(this.repo);
         RevertCommand revertCommand = git.revert();
@@ -852,7 +852,7 @@ public class RepoHelper {
      * @throws GitAPIException
      */
     public void revert(CommitHelper helper) throws MissingRepoException, GitAPIException {
-        logger.info("Attempting revert");
+        logger.info("محاولة عكس");
         if (!exists()) throw new MissingRepoException();
         Git git = new Git(this.repo);
         // git revert:
@@ -881,7 +881,7 @@ public class RepoHelper {
      * @throws GitAPIException
      */
     void reset(Path path) throws MissingRepoException, GitAPIException {
-        logger.info("Attempting reset file");
+        logger.info("محاولة اعادة ضبط ملف");
         if (!exists()) throw new MissingRepoException();
         Git git = new Git(this.repo);
         git.reset().addPath(this.localPath.relativize(path).toString()).call();
@@ -896,7 +896,7 @@ public class RepoHelper {
      * @throws GitAPIException
      */
     void reset(List<Path> paths) throws MissingRepoException, GitAPIException {
-        logger.info("Attempting reset files");
+        logger.info("محاولة اعادة ضبط ملفات");
         if (!exists()) throw new MissingRepoException();
         Git git = new Git(this.repo);
         ResetCommand resetCommand = git.reset();
@@ -925,7 +925,7 @@ public class RepoHelper {
      * @throws GitAPIException
      */
     public void reset(String ref, ResetCommand.ResetType mode) throws MissingRepoException, GitAPIException {
-        logger.info("Attempting reset");
+        logger.info("محاولة اعادة ضبط");
         if (!exists()) throw new MissingRepoException();
         Git git = new Git(this.repo);
         git.reset().setRef(ref).setMode(mode).call();
@@ -943,7 +943,7 @@ public class RepoHelper {
      * @param includeUntracked: whether or not to include untracked files
      */
     public void stashSave(boolean includeUntracked) throws GitAPIException, NoFilesToStashException {
-        logger.info("Attempting stash save");
+        logger.info("محاولة حفظ اخفاء");
         Git git = new Git(this.repo);
         RevCommit stash = git.stashCreate().setIncludeUntracked(includeUntracked).call();
         if (stash == null) throw new NoFilesToStashException();
@@ -958,7 +958,7 @@ public class RepoHelper {
      * @param indexMessage: the messaged used when committing the index changes
      */
     public void stashSave(boolean includeUntracked, String wdMessage, String indexMessage) throws GitAPIException, NoFilesToStashException {
-        logger.info("Attempting stash save with message");
+        logger.info("محاولة حفظ اخفاء مع رسالة");
         Git git = new Git(this.repo);
         RevCommit stash = git.stashCreate().setIncludeUntracked(includeUntracked).setWorkingDirectoryMessage(wdMessage)
                 .setIndexMessage(indexMessage).call();
@@ -971,7 +971,7 @@ public class RepoHelper {
      * @return a list of commit helpers that make up the stash
      */
     public List<CommitHelper> stashList() throws GitAPIException, IOException {
-        logger.info("Attempting stash list");
+        logger.info("محاولة عرض اخفاءات");
         Git git = new Git(this.repo);
         List<CommitHelper> stashCommitList = new ArrayList<>();
 
@@ -989,7 +989,7 @@ public class RepoHelper {
      * @param force whether or not to force apply
      */
     public void stashApply(String stashRef, boolean force) throws GitAPIException {
-        logger.info("Attempting stash apply");
+        logger.info("محاولة تطبيق اخفاء");
         Git git = new Git(this.repo);
         git.stashApply().setStashRef(stashRef).ignoreRepositoryState(force).call();
     }
@@ -1004,7 +1004,7 @@ public class RepoHelper {
      * @param applyUntracked true if the command should restore the untracked files
      */
     void stashApply(String stashRef, boolean force, boolean applyIndex, boolean applyUntracked) throws GitAPIException {
-        logger.info("Attempting stash apply with params");
+        logger.info("محاولة تطبيق اخفاء ببارمتر");
         Git git = new Git(this.repo);
         StashApplyCommand stashApply = git.stashApply().setStashRef(stashRef).ignoreRepositoryState(force);
         stashApply.setApplyIndex(applyIndex);
@@ -1030,7 +1030,7 @@ public class RepoHelper {
      * @return the value of the value of the stashed reference
      */
     public ObjectId stashDrop(int stashRef) throws GitAPIException{
-        logger.info("Attempting stash drop");
+        logger.info("محاولة اخفاء قطرة");
         Git git = new Git(this.repo);
         return git.stashDrop().setStashRef(stashRef).call();
     }
@@ -1106,10 +1106,10 @@ public class RepoHelper {
      * @return the label for the commit
      */
     public String getCommitDescriptorString(CommitHelper commitHelper, boolean fullCommitMessage){
-        return "Commit ID: " + commitHelper.getId().substring(0, 8) + "\n\n"
-                + "Author: " +  commitHelper.getAuthorName() + "\n\n"
-                + "Time: " + commitHelper.getFormattedWhen() + "\n\n"
-                + "Message: " + commitHelper.getMessage(fullCommitMessage);
+        return "معرف الايداع: " + commitHelper.getId().substring(0, 8) + "\n\n"
+                + "المؤلف: " +  commitHelper.getAuthorName() + "\n\n"
+                + "الوقت: " + commitHelper.getFormattedWhen() + "\n\n"
+                + "الرسالة: " + commitHelper.getMessage(fullCommitMessage);
     }
 
     /**
@@ -1147,7 +1147,7 @@ public class RepoHelper {
             try {
                 return getCommit(repo.resolve(idOrRefString));
             } catch (IOException e) {
-                logger.error("IOException during getCommit");
+                logger.error("استثناء خرج دخل اثناء معرفة ايداع getCommit");
                 logger.debug(e.getStackTrace());
                 return null;
             }
