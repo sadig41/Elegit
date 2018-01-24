@@ -104,17 +104,17 @@ public abstract class RepoHelperBuilder {
      */
     public static AuthDialogResponse getAuthCredentialFromDialog() throws
             CancelledAuthorizationException {
-        logger.info("Creating authorization dialog");
+        logger.info("انشاء صندوق حوار تحقق");
         // Create the custom dialog.
         Dialog<AuthDialogResponse> dialog = new Dialog<>();
-        dialog.setTitle("Authorize");
-        dialog.setHeaderText("Please enter your remote repository authentication.");
+        dialog.setTitle("تحقق");
+        dialog.setHeaderText("رجاء ادخل اعتماديات مستودعك البعيد.");
 
         // Set the button types.
         ButtonType loginButtonType = new ButtonType("Authorize", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
 
-        dialog.setOnCloseRequest(event -> logger.info("Closing authorization dialog"));
+        dialog.setOnCloseRequest(event -> logger.info("اغلاق صندوق حوار التحقق"));
 
         // Create the username and password labels and fields.
         GridPane grid = new GridPane();
@@ -122,7 +122,7 @@ public abstract class RepoHelperBuilder {
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 
-        grid.add(new Label("Protocol:"),0,0);
+        grid.add(new Label("البرتكول:"),0,0);
 
         ObservableList<String> protocols =
                 FXCollections.observableArrayList(
@@ -132,7 +132,7 @@ public abstract class RepoHelperBuilder {
         protocol.setValue("HTTPS");
         grid.add(protocol,1,0);
 
-        grid.add(new Label("Username:"), 0, 1);
+        grid.add(new Label("اسم المستخدم:"), 0, 1);
 
         String hashedUsername = null;
         String hashedPassword = null;
@@ -143,17 +143,17 @@ public abstract class RepoHelperBuilder {
         // Conditionally ask for the username if it hasn't yet been set.
         TextField username = new TextField();
 //        if (hashedUsername == null) {
-            username.setPromptText("Username");
+            username.setPromptText("اسم المستخدم");
 //        } else {
 //            username.setText(hashedUsername);
 //            username.setEditable(false);
 //        }
         grid.add(username, 1, 1);
 
-        grid.add(new Label("Password:"), 0, 2);
+        grid.add(new Label("كلمة المرور:"), 0, 2);
 
         PasswordField password = new PasswordField();
-        CheckBox remember = new CheckBox("Remember Password");
+        CheckBox remember = new CheckBox("تذكر كلمة المرور");
         password.setSkin(new PasswordSkin(password));
 
         //TODO: remember the password somehow
@@ -162,12 +162,12 @@ public abstract class RepoHelperBuilder {
             password.setText(hashedPassword);
             remember.setSelected(true);
         }*/
-        password.setPromptText("Password");
+        password.setPromptText("كلمة المورو");
         grid.add(password, 1, 2);
 
         //Edit username button
         Button editUsername = new Button();
-        editUsername.setText("Edit");
+        editUsername.setText("تحرير");
         editUsername.setOnAction(event -> {
             username.setEditable(true);
             password.setText("");
@@ -224,15 +224,15 @@ public abstract class RepoHelperBuilder {
             usernamePassword.username = result.get().username;
             //Only store password if remember password was selected
             if (result.get().isSelected) {
-                logger.info("Selected remember password");
+                logger.info("اختير تذكر كلمة المرور");
                 usernamePassword.password = result.get().password;
             }
             //repoToAuth.put(remoteURL,usernamePassword);
         } else {
-            logger.info("Cancelled authorization dialog");
+            logger.info("الغي صندوق حوار التحقق");
             throw new CancelledAuthorizationException();
         }
-        logger.info("Entered authorization credentials");
+        logger.info("ادخلت اعتماديات التحقق");
         return result.get();
     }
 }
