@@ -49,9 +49,9 @@ public class PopUpWindows {
         alert.setResizable(true);
         alert.getDialogPane().setPrefSize(450, 200);
 
-        alert.setTitle("Warning: conflicting file");
-        alert.setHeaderText("You're adding a conflicting file");
-        alert.setContentText("You can open an editor to resolve the conflicts, or add the changes anyways. What do you want to do?");
+        alert.setTitle("تحذير: ملف متضارب");
+        alert.setHeaderText("لقد اضفت ملفا نتضاربا");
+        alert.setContentText("يمكنك فتح المحرر لحل هذا التعارض، أو  اضف التعديلات علي كل حال. ماذا ستفعل؟");
 
         ImageView img = new ImageView(new javafx.scene.image.Image("/elegit/images/conflict.png"));
         img.setFitHeight(40);
@@ -62,17 +62,17 @@ public class PopUpWindows {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.orElse(null) == resolveButton) {
-            logger.info("Chose to resolve conflicts");
+            logger.info("اختر حل التضاربات");
             resultType = "resolve";
         } else if (result.orElse(null) == addButton) {
-            logger.info("Chose to add file");
+            logger.info("اختر اضافة ملف");
             resultType = "add";
         } else if (result.orElse(null) == helpButton) {
-            logger.info("Chose to get help");
+            logger.info("اختر الحصول علي مساعدة");
             resultType = "help";
         } else {
             // User cancelled the dialog
-            logger.info("Cancelled dialog");
+            logger.info("الغي صندوق الحوار");
             resultType = "cancel";
         }
 
@@ -92,11 +92,11 @@ public class PopUpWindows {
         window.getButtonTypes().setAll(okButton, buttonTypeCancel);
         window.setResizable(true);
         window.getDialogPane().setPrefSize(300, 200);
-        window.setTitle("Usage Data");
-        window.setHeaderText("Share anonymous usage data");
-        window.setContentText("Click Share if you want to share anonymous usage data with us, " +
-                "which helps us improve this tool. This can be changed at any time with the " +
-                "preferences menu.");
+        window.setTitle("استخدام البيانات");
+        window.setHeaderText("مشاركة مجهولة لاستخدام البيانات");
+        window.setContentText("انقر مشاركة اذا اردت مشاركة استخدام البيانات بشكل مجهول معنا, " +
+                "وهذا سيساعدنا علي تحسين هذا البرنامج. يمكنك تغيير هذا في اي لحظة من " +
+                "قائمة تفضيلات.");
         Optional<ButtonType> result = window.showAndWait();
 
         return result.orElse(null) == okButton;
@@ -110,19 +110,19 @@ public class PopUpWindows {
             Alert window = new Alert(Alert.AlertType.INFORMATION);
             window.setResizable(true);
             window.getDialogPane().setPrefSize(550, 350);
-            window.setTitle("How to fix conflicting files");
-            window.setHeaderText("How to fix conflicting files");
-            window.setContentText("1. First, open up the file that is marked as conflicting.\n" +
-                                  "2. In the file, you should see something like this:\n\n" +
+            window.setTitle("كيف تحل الملفات المتضاربة");
+            window.setHeaderText("كيف تحل الملفات المتضاربة");
+            window.setContentText("1. افتح اولا الملف المعلم كمتضارب.\n" +
+                                  "2. في الملف ستري شيء مثل هذا:\n\n" +
                                   "\t<<<<<< <branch_name>\n" +
-                                  "\tChanges being made on the branch that is being merged into.\n" +
-                                  "\tIn most cases, this is the branch that you currently have checked out (i.e. HEAD).\n" +
+                                  "\tالتعديلات التي تمت علي التفريعة التي تدمج اليها.\n" +
+                                  "\t في معظم الحالات ستكون هذه هي التفريعة التي خرجت منها للتو (i.e. HEAD).\n" +
                                   "\t=======\n" +
-                                  "\tChanges made on the branch that is being merged in.\n" +
+                                  "\tالتعديلات التي تمت بالتفريعة التي تدمج لها.\n" +
                                   "\t>>>>>>> <branch name>\n\n" +
-                                  "3. Delete the contents you don't want to keep after the merge\n" +
-                                  "4. Remove the markers (<<<<<<<, =======, >>>>>>>) git put in the file\n" +
-                                  "5. Done! You can now safely add and commit the file");
+                                  "3. احذف المحتوي الذي لاتريده بعد الدمج\n" +
+                                  "4. ازل العلامات  التي وضعها جيت في الملف (<<<<<<<, =======, >>>>>>>) \n" +
+                                  "5. الان يمكنك الاضافة والايداع بامان في هذا الملف");
             window.showAndWait();
         });
     }
@@ -134,8 +134,8 @@ public class PopUpWindows {
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.getDialogPane().setPrefSize(300, 300);
-            alert.setTitle("Reset Help");
-            alert.setHeaderText("What is reset?");
+            alert.setTitle("مساعدة اعادة الضبط");
+            alert.setHeaderText("ماهو اعادة الضبط?");
             ImageView img = new ImageView(new Image("/elegit/images/undo.png"));
             img.setFitHeight(60);
             img.setFitWidth(60);

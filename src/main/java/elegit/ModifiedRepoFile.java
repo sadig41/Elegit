@@ -10,9 +10,9 @@ public class ModifiedRepoFile extends RepoFile {
 
     ModifiedRepoFile(Path filePath, RepoHelper repo) {
         super(filePath, repo);
-        diffButton.setText("MODIFIED");
+        diffButton.setText("معدل");
         diffButton.setId("modifiedDiffButton");
-        diffButton.setTooltip(getToolTip("This file was modified after your most recent commit."));
+        diffButton.setTooltip(getToolTip("عدل هذا الملف بعد احدث ايداع قمت به."));
         showPopover = true;
     }
 

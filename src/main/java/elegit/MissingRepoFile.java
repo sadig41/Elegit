@@ -10,9 +10,9 @@ public class MissingRepoFile extends RepoFile {
 
     MissingRepoFile(Path filePath, RepoHelper repo) {
         super(filePath, repo);
-        diffButton.setText("MISSING");
+        diffButton.setText("مفقود");
         diffButton.setId("missingDiffButton");
-        diffButton.setTooltip(getToolTip("This file is missing."));
+        diffButton.setTooltip(getToolTip("هذا الملف مفقود."));
     }
 
     MissingRepoFile(String filePathString, RepoHelper repo) {

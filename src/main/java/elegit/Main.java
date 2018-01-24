@@ -53,7 +53,7 @@ public class Main extends Application {
         } else if (args[0].equals("clearprefs")) {
             clearPreferences();
         } else {
-            System.out.println("Invalid option.");
+            System.out.println("خيار غير صحيح.");
         }
     }
 
@@ -97,11 +97,11 @@ public class Main extends Application {
         // setup and show the stage
         primaryStage.setOnCloseRequest(event -> {
             // On close, upload the logs and delete the log.
-            logger.info("Closed");
+            logger.info("أغلق");
             // used to stop the service that moves cells in TreeLayout
             isAppClosed = true;
         });
-        primaryStage.setTitle("Elegit");
+        primaryStage.setTitle("مصادري");
         primaryStage.setScene(scene);
         sessionController.setStage(primaryStage);
         startLatch.countDown();
@@ -116,15 +116,15 @@ public class Main extends Application {
     private static void clearPreferences() {
         Preferences prefs = Preferences.userNodeForPackage(Main.class);
         try {
-            System.out.print("Are you sure you want to clear all prefs (yes/no)?");
+            System.out.print("هل تريد فعلا الغاء كل التفضيلات(نعم/لا)؟");
             Scanner inp = new Scanner(System.in);
             String response = inp.next();
             if (response.equals("yes")) {
                 prefs.removeNode();
-                System.out.println("Preferences cleared.");
+                System.out.println("الغيت التفضيلات.");
             }
         } catch (BackingStoreException e) {
-            System.out.println("Error: can't access preferences.");
+            System.out.println("خطأ: لايمكن الوصول للتفضيلات.");
         }
     }
 }

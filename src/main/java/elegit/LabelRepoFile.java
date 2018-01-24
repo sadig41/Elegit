@@ -11,7 +11,7 @@ public class LabelRepoFile extends RepoFile {
     public LabelRepoFile(Path filePath, RepoHelper repo) {
         super(filePath, repo);
         diffButton.setText("LABEL");
-        diffButton.setTooltip(getToolTip("This is the root directory for the below files."));
+        diffButton.setTooltip(getToolTip("هذه هي الحاوية الاساسية للملفات ادناه."));
     }
 
     public LabelRepoFile(String filePathString, RepoHelper repo) {
