@@ -20,11 +20,11 @@ public class UserAuthPubKey{
             JSch jsch=new JSch();
 
             JFileChooser chooser = new JFileChooser();
-            chooser.setDialogTitle("Choose your privatekey(ex. ~/.ssh/id_dsa)");
+            chooser.setDialogTitle("اختر مفتاحك الخاص (ex. ~/.ssh/id_dsa)");
             chooser.setFileHidingEnabled(false);
             int returnVal = chooser.showOpenDialog(null);
             if(returnVal == JFileChooser.APPROVE_OPTION) {
-                System.out.println("You chose "+
+                System.out.println("لقد اخترت "+
                         chooser.getSelectedFile().getAbsolutePath()+".");
                 jsch.addIdentity(chooser.getSelectedFile().getAbsolutePath()
 //			 , "passphrase"
@@ -36,7 +36,7 @@ public class UserAuthPubKey{
                 host=arg[0];
             }
             else{
-                host=JOptionPane.showInputDialog("Enter username@hostname",
+                host=JOptionPane.showInputDialog("ادخل username@hostname",
                         System.getProperty("user.name")+
                                 "@localhost");
             }
@@ -69,7 +69,7 @@ public class UserAuthPubKey{
             Object[] options={ "yes", "no" };
             int foo=JOptionPane.showOptionDialog(null,
                     str,
-                    "Warning",
+                    "تحذير",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.WARNING_MESSAGE,
                     null, options, options[0]);

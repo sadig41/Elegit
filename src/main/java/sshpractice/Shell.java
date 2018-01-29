@@ -27,7 +27,7 @@ public class Shell{
                 host=arg[0];
             }
             else{
-                host=JOptionPane.showInputDialog("Enter username@hostname",
+                host=JOptionPane.showInputDialog("ادخل username@hostname",
                         System.getProperty("user.name")+
                                 "@localhost");
             }
@@ -36,7 +36,7 @@ public class Shell{
 
             Session session=jsch.getSession(user, host, 22);
 
-            String passwd = JOptionPane.showInputDialog("Enter password");
+            String passwd = JOptionPane.showInputDialog("ادخل كلمة المرور");
             session.setPassword(passwd);
 
             UserInfo ui = new MyUserInfo(){
@@ -44,7 +44,7 @@ public class Shell{
                     JOptionPane.showMessageDialog(null, message);
                 }
                 public boolean promptYesNo(String message){
-                    Object[] options={ "yes", "no" };
+                    Object[] options={ "نعم", "لا" };
                     int foo=JOptionPane.showOptionDialog(null,
                             message,
                             "Warning",
