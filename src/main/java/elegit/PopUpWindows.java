@@ -49,9 +49,9 @@ public class PopUpWindows {
         alert.setResizable(true);
         alert.getDialogPane().setPrefSize(450, 200);
 
-        alert.setTitle("Warning: conflicting file");
-        alert.setHeaderText("You're adding a conflicting file");
-        alert.setContentText("You can open an editor to resolve the conflicts, or add the changes anyways. What do you want to do?");
+        alert.setTitle("تحذير: ملف متضارب");
+        alert.setHeaderText("لقد اضفت ملفا متضاربا");
+        alert.setContentText("يمكنك فتح المحرر لمعالجة هذا التضارب، او يمكنك اضافة التعديلات علي كل حال. فما الذي تريده?");
 
         ImageView img = new ImageView(new javafx.scene.image.Image("/elegit/images/conflict.png"));
         img.setFitHeight(40);
@@ -235,8 +235,8 @@ public class PopUpWindows {
                 for (String s : trackedIgnoredFiles) {
                     fileStrings += "\n" + s;
                 }
-                Alert alert = new Alert(Alert.AlertType.WARNING, "The following files are being tracked by Git, " +
-                                                                 "but also match an ignore pattern. If you want to ignore these files, remove them from Git.\n" + fileStrings);
+                Alert alert = new Alert(Alert.AlertType.WARNING, "الملفات التالية متتبعة من جيت, " +
+                                                                 "لكنها تطابق ايضا نمط التجاهل. اذا اردت تجاهلها فقم بحذفها من جيت.\n" + fileStrings);
                 alert.showAndWait();
             }
         });

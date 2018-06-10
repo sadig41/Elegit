@@ -8,6 +8,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -62,6 +63,7 @@ public class ClonedRepoHelperBuilder extends RepoHelperBuilder {
     public RepoHelper getRepoHelperFromDialogs() throws GitAPIException, IOException, NoRepoSelectedException, CancelledAuthorizationException{
 
         Dialog<Pair<String, String>> dialog = createCloneDialog();
+        dialog.getDialogPane().setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         setUpDialogButtons(dialog);
         arrangeDialogFields(dialog);
         configureCloneButton(dialog);
@@ -86,6 +88,7 @@ public class ClonedRepoHelperBuilder extends RepoHelperBuilder {
     private Dialog<Pair<String, String>> createCloneDialog() {
         logger.info("بدء صندوق حوار تحميل مستودع بعيد");
         Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog.getDialogPane().setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         dialog.setTitle("استنساخ");
         dialog.setHeaderText("استنساخ مستودع بعيد");
 

@@ -31,7 +31,8 @@ public class Main extends Application {
     static {
         // Initialize logging. This must be done as early as possible, since other static loggers in other classes
         // depend on this system property being set; hence done in this static initializer block.
-        Path logPath = Paths.get("logs");
+        Path logPath;
+        logPath = Paths.get("logs");
         String s = logPath.toAbsolutePath().toString();
         System.setProperty("logFolder", s);
         logger = LogManager.getLogger();
@@ -53,7 +54,7 @@ public class Main extends Application {
         } else if (args[0].equals("clearprefs")) {
             clearPreferences();
         } else {
-            System.out.println("Invalid option.");
+            System.out.println("خيار خاطيء.");
         }
     }
 
@@ -75,13 +76,13 @@ public class Main extends Application {
         sessionController.loadLogging();
 
         // sets the icon
-        Image img = new Image(getClass().getResourceAsStream("/elegit/images/elegit_icon.png"));
+        Image img = new Image(getClass().getResourceAsStream("/elegit/images/masadiry.png"));
         primaryStage.getIcons().add(img);
         // handles mac os dock icon
         if (SystemUtils.IS_OS_MAC) {
             java.awt.image.BufferedImage dock_img = ImageIO.read(
                     getClass().getResourceAsStream(
-                            "/elegit/images/elegit_icon.png"
+                            "/elegit/images/masadiry.png"
                 )
             );
             com.apple.eawt.Application.getApplication()
@@ -101,7 +102,7 @@ public class Main extends Application {
             // used to stop the service that moves cells in TreeLayout
             isAppClosed = true;
         });
-        primaryStage.setTitle("Elegit");
+        primaryStage.setTitle("مصادري");
         primaryStage.setScene(scene);
         sessionController.setStage(primaryStage);
         startLatch.countDown();
@@ -116,12 +117,12 @@ public class Main extends Application {
     private static void clearPreferences() {
         Preferences prefs = Preferences.userNodeForPackage(Main.class);
         try {
-            System.out.print("Are you sure you want to clear all prefs (yes/no)?");
+            System.out.print("هل انت واثق من رغبتك في تنظيف كل المراجع (نعم/لا)؟");
             Scanner inp = new Scanner(System.in);
             String response = inp.next();
             if (response.equals("yes")) {
                 prefs.removeNode();
-                System.out.println("Preferences cleared.");
+                System.out.println("فرغت المراجع.");
             }
         } catch (BackingStoreException e) {
             System.out.println("Error: can't access preferences.");

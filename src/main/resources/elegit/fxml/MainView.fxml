@@ -121,7 +121,7 @@
                 <!-- File tree panel view -->
                 <TabPane GridPane.rowIndex="4"
                          fx:id="filesTabPane">
-                    <Tab text="ملفات متغيرة"
+                    <Tab text="ملفات معدلة"
                          closable="false"
                          fx:id="workingTreePanelTab">
                         <WorkingTreePanelView fx:id="workingTreePanelView"/>
@@ -239,7 +239,7 @@
                 <HBox   alignment="CENTER"
                         GridPane.rowIndex="3"
                         GridPane.columnIndex="4">
-                    <Text   text="Status: "/>
+                    <Text   text="الحالة: "/>
                     <StackPane  fx:id="statusTextPane">
                         <Text   fx:id="branchStatusText"/>
                     </StackPane>

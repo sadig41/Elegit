@@ -640,7 +640,7 @@ public class SessionController {
 
             RepositoryMonitor.pause();
             BusyWindow.show();
-            BusyWindow.setLoadingText("Loading the repository...");
+            BusyWindow.setLoadingText("تحميل المستودع...");
             Thread th = new Thread(new Task<Void>(){
                 @Override
                 protected Void call() {
@@ -2031,7 +2031,7 @@ public class SessionController {
             aboutController.setVersion(getVersion());
 
             Stage stage = new Stage();
-            javafx.scene.image.Image img = new javafx.scene.image.Image(getClass().getResourceAsStream("/elegit/images/elegit_icon.png"));
+            javafx.scene.image.Image img = new javafx.scene.image.Image(getClass().getResourceAsStream("/elegit/images/masadiry.png"));
             stage.getIcons().add(img);
             stage.setTitle("حول");
             stage.setScene(new Scene(fxmlRoot));
@@ -2414,15 +2414,15 @@ public class SessionController {
      */
     public void showLegend() {
         try{
-            logger.info("نقر Legend");
+            logger.info("نقر مفتاح");
             // Create and display the Stage:
             GridPane fxmlRoot = FXMLLoader.load(getClass().getResource("/elegit/fxml/Legend.fxml"));
 
             Stage stage = new Stage();
-            stage.setTitle("Legend");
+            stage.setTitle("مفتاح");
             stage.setScene(new Scene(fxmlRoot));
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setOnCloseRequest(event -> logger.info("Closed legend"));
+            stage.setOnCloseRequest(event -> logger.info("Closed Legend"));
             stage.show();
         }catch(IOException e) {
             this.showGenericErrorNotification();

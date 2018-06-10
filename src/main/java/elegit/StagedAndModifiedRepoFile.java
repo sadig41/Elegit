@@ -12,7 +12,7 @@ public class StagedAndModifiedRepoFile extends RepoFile {
         super(filePath, repo);
         diffButton.setText("STAGED\nMODIFIED");
         diffButton.setId("stagedModifiedDiffButton");
-        diffButton.setTooltip(getToolTip("This file has a version stored in your git index\nand other changes in the working directory."));
+        diffButton.setTooltip(getToolTip("لهذا الملف نسخة مخزنة في فهرس جيت\n وتعديلات اخري في دليل العمل"));
     }
 
     StagedAndModifiedRepoFile(String filePathString, RepoHelper repo) {

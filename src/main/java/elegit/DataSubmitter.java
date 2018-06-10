@@ -31,7 +31,7 @@ public class DataSubmitter {
     }
 
     public String submitData(String uuid) {
-        logger.info("استدعي مريل البيانات");
+        logger.info("Submit data called");
         String logPath = Paths.get("logs").toString();
 
         File logDirectory = new File(logPath);
@@ -40,7 +40,7 @@ public class DataSubmitter {
         String lastUUID="";
         if (uuid==null || uuid.equals("")) {
             uuid=UUID.randomUUID().toString();
-            logger.info("انشاء uuid جديد.");
+            logger.info("Making a new uuid.");
         }
 
         if (logsToUpload==null)
@@ -48,7 +48,7 @@ public class DataSubmitter {
         for (File logFile: logsToUpload) {
             if (!logFile.isFile() || logFile.getName().equals(LOG_FILE_NAME)) {
                 if (logsToUpload.length == 1) {
-                    logger.info("لايوجد سجل جديد لتحميله اليوم");
+                    logger.info("No new logs to upload today");
                     break;
                 }
             }
@@ -60,7 +60,7 @@ public class DataSubmitter {
                 e.printStackTrace();
             }
 
-            logger.info("محاولة تحميل سجل: {}",logFile.getName());
+            logger.info("Attempting to upload log: {}",logFile.getName());
             CloseableHttpClient httpclient = HttpClients.createDefault();
             try {
                 HttpPost httppost = new HttpPost(submitUrl);
@@ -77,7 +77,7 @@ public class DataSubmitter {
                 logger.info(httppost.getRequestLine());
                 CloseableHttpResponse response = httpclient.execute(httppost);
                 try {
-                    logger.info("يتطلب التنفيذ: " + response.getStatusLine());
+                    logger.info("Executing request: " + response.getStatusLine());
                     logger.info(EntityUtils.toString(response.getEntity()));
                     lastUUID=uuid;
                 } catch (Exception e) {

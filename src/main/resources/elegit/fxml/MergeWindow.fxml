@@ -120,7 +120,7 @@
                             text="locally track another branch..."/>-->
         <HBox   spacing="30"
                 alignment="TOP_CENTER">
-            <Button text="Merge"
+            <Button text="دمج"
                     onAction="#handleMergeButton"
                     fx:id="mergeButton"
                     GridPane.columnIndex="0"

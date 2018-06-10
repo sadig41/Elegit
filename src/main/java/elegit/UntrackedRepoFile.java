@@ -12,7 +12,7 @@ public class UntrackedRepoFile extends RepoFile {
         super(filePath, repo);
         diffButton.setText("UNTRACKED");
         diffButton.setId("untrackedDiffButton");
-        diffButton.setTooltip(getToolTip("This file has not been added to git. Commit to add it."));
+        diffButton.setTooltip(getToolTip("لم يضاف هذا الملف الي جيت. اودعه اولا لتتم اضافته."));
     }
 
     UntrackedRepoFile(String filePathString, RepoHelper repo) {

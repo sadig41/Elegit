@@ -23,7 +23,7 @@
                     <items>
                         <MenuItem fx:id="cloneOption"
                                   onAction="#handleCloneNewRepoOption"
-                                  text="Clone repository"/>
+                                  text="استنساخ مستودع"/>
                         <MenuItem fx:id="existingOption"
                                   onAction="#handleLoadExistingRepoOption"
                                   text="تحميل المستودع الموجود"/>

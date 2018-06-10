@@ -34,7 +34,7 @@
                 fx:id="repoMenu">
             <items>
                 <Menu   text="تفريع">
-                    <MenuItem   text="انشاء مستودع"
+                    <MenuItem   text="انشاء تفريعة"
                                 fx:id="createBranchMenuItem"
                                 onAction="#handleNewBranchButton"/>
                     <MenuItem   text="حذف تفريعة محلية"

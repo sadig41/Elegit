@@ -70,16 +70,16 @@ public class WorkingTreePanelView extends FileStructurePanelView{
     }
 
     private void initCheckBox() {
-        Text txt = new Text("select all");
+        Text txt = new Text("تحديد الكل");
         txt.setFont(new Font(10));
         checkBox = new CheckBoxTreeItem<>(null, txt);
         checkBox.selectedProperty().addListener(((observable, oldValue, newValue) -> {
             if(newValue) {
                 setAllFilesSelected(true);
-                txt.setText("deselect all");
+                txt.setText("الغاء تحديد الكل");
             } else {
                 setAllFilesSelected(false);
-                txt.setText("select all");
+                txt.setText("تحديد الكل");
             }
         }));
     }

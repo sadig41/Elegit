@@ -60,7 +60,7 @@ public class RepoFile implements Comparable<RepoFile> {
 
         showPopover = false;
 
-        this.diffButton = new Button("UNCHANGED");
+        this.diffButton = new Button("غير معدل");
         this.diffButton.getStyleClass().add("diffButton");
 
         this.diffPopover = new PopOver();
@@ -81,10 +81,10 @@ public class RepoFile implements Comparable<RepoFile> {
 
         this.contextMenu = new ContextMenu();
 
-        MenuItem addToIgnoreItem = new MenuItem("Add to .gitignore...");
+        MenuItem addToIgnoreItem = new MenuItem("اضافة الي .gitignore...");
         addToIgnoreItem.setOnAction(event -> GitIgnoreEditor.show(this.repo, this.filePath));
 
-        MenuItem checkoutItem = new MenuItem("Checkout...");
+        MenuItem checkoutItem = new MenuItem("تفحص...");
         SessionController controller = CommitTreeController.sessionController;
         checkoutItem.setOnAction(event -> {
             controller.handleCheckoutButton(filePath);

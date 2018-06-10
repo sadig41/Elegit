@@ -51,7 +51,7 @@ public class ElegitCredentialsProvider extends CredentialsProvider {
                 } else {
                     System.out.println(item);
                     System.out.println(item.getPromptText());
-                    throw new UnsupportedCredentialItem(urIish, "Case not covered in ElegitCredentialsProvider");
+                    throw new UnsupportedCredentialItem(urIish, "هذه الحالة لم يضمن دعمها بعد في مصادري");
                 }
             }
         }

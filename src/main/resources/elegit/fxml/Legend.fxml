@@ -21,7 +21,7 @@
           GridPane.columnIndex="0"
           alignment="CENTER"
           spacing="10">
-        <Text   text="Fill Legend"
+        <Text   text="مفتاح مليء"
                 style="-fx-font-weight: bold; -fx-font-size: 16"/>
     </HBox>
 
@@ -38,7 +38,7 @@
                     points="0,0,30,0,15,30"/>
         <Circle radius="15.0"
                 id="helpButton"/>
-        <Text text="A commit tracked locally but not remotely"/>
+        <Text text="ايداع متتبع محليا وليس بعيدا"/>
     </HBox>
 
     <!-- Hollow Fill -->
@@ -54,7 +54,7 @@
                     points="0,0,30,0,15,30"/>
         <Circle radius="15.0"
                 id="helpButton-remote"/>
-        <Text text="A commit tracked remotely but not locally"/>
+        <Text text="ايداع متتبع بعيدا وليس محليا"/>
     </HBox>
 
     <!-- Combo Fill -->
@@ -112,7 +112,7 @@
           GridPane.columnIndex="2"
           alignment="CENTER"
           spacing="10">
-        <Text   text="Shape Legend"
+        <Text   text="اشكال المفتاح"
                 style="-fx-font-weight: bold; -fx-font-size: 16"/>
     </HBox>
 
@@ -125,7 +125,7 @@
         <Rectangle  height="30"
                     width="30"
                     style="-fx-fill: lightslategrey"/>
-        <Text text="A commit that is not a branch head"/>
+        <Text text="ايداع بدون ترويسة تفريعة"/>
     </HBox>
 
     <!-- Triangle -->

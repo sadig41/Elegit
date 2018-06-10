@@ -28,7 +28,7 @@ public enum AuthMethod {
             if (authMethod.enumValue == value)
                 return authMethod;
         }
-        throw new RuntimeException("Invalid value used to create AuthMethod.");
+        throw new RuntimeException("استخدمت قيمة فاسدة لانشاء منهج التحقق AuthMethod.");
     }
 
     public static ArrayList<String> getStrings() {
@@ -44,7 +44,7 @@ public enum AuthMethod {
             if (authMethod.enumString.equals(string))
                 return authMethod;
         }
-        throw new RuntimeException("Invalid string used to create AuthMethod.");
+        throw new RuntimeException("استخدمت قيمة فاسدة لانشاء منهج التحقق AuthMethod.");
     }
 
 

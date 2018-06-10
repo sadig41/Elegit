@@ -66,9 +66,9 @@ public class GitIgnoreEditor {
         TextArea textArea = new TextArea();
         textArea.setStyle("-fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
 
-        Button okButton = new Button("Save");
+        Button okButton = new Button("حفظ");
         okButton.setOnAction(event -> handleConfirmation(textArea.getText(), true));
-        Button cancelButton = new Button("Cancel");
+        Button cancelButton = new Button("الغاء");
         cancelButton.setOnAction(event -> handleConfirmation(textArea.getText(), false));
 
         HBox buttonArea = new HBox(cancelButton, okButton);

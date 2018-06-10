@@ -22,10 +22,10 @@
 
         <Text GridPane.columnIndex="0"
               GridPane.rowIndex="0"
-              text="Remote branches:" />
+              text="تفريعات بعيدة:" />
         <Text GridPane.columnIndex="1"
               GridPane.rowIndex="0"
-              text="Local branches:" />
+              text="تفريعات محلية:" />
 
         <VBox GridPane.columnIndex="0"
               GridPane.rowIndex="1"

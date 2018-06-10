@@ -71,7 +71,7 @@ public class MergeWindowController {
 
         //init branch dropdown selector
         branchDropdownSelector.setItems(FXCollections.observableArrayList(branchModel.getLocalBranchesTyped()));
-        branchDropdownSelector.setPromptText("...");
+        branchDropdownSelector.setPromptText("المستودعات");
 
         branchDropdownSelector.setCellFactory(new Callback<ListView<LocalBranchHelper>, ListCell<LocalBranchHelper>>() {
             @Override
