@@ -169,6 +169,7 @@
                     <systemProperties>
                         <property>
                             <name>skipDisplay</name>
+                            <!--suppress MavenModelInspection -->
                             <value>${skipDisplay}</value>
                         </property>
                     </systemProperties>
